@@ -9,8 +9,8 @@ const cards = [
     to: "/services",
     label: "PDI Services",
     copy: "A full independent inspection of your new car — at the dealership or your doorstep — before the keys change hands.",
-    image: images.pdi,
-    alt: "Inspector examining the bodywork of a new car",
+    image: "/heroimage.jpg",
+    alt: "Drive Shine inspector with customer at car delivery",
   },
   {
     to: "/products",

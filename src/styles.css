@@ -5,8 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Drive Shine design system — dark automotive luxury.
- * Carbon surfaces, chrome type, single red accent.
+ * Drive Shine design system — white & red.
+ * Clean white surfaces, dark text, red accent.
  */
 
 @theme inline {
@@ -16,9 +16,9 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
 
-  --font-display: "Archivo", ui-sans-serif, system-ui, sans-serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Barlow", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -50,6 +50,12 @@
   --color-chrome-500: var(--chrome-500);
   --color-bone: var(--bone);
   --color-hairline: var(--hairline);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-ink-soft: var(--ink-soft);
+  --color-ink-2: var(--ink-2);
+  --color-red-tint: var(--red-tint);
+  --color-red-bright: var(--red-bright);
 
   --ease-shine: cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -57,39 +63,54 @@
 :root {
   --radius: 1rem;
 
-  --carbon: #0a0a0b;
-  --carbon-800: #121214;
-  --carbon-700: #1b1b1f;
-  --red: #e01b22;
-  --red-deep: #a50f16;
-  --chrome-100: #f2f3f5;
-  --chrome-300: #c9ccd1;
-  --chrome-500: #8b9096;
-  --bone: #f5f6f7;
-  --hairline: rgba(255, 255, 255, 0.07);
+  /* Surface palette — matches reference HTML exactly */
+  --carbon:     #FFFFFF;   /* page background */
+  --carbon-800: #F5F6F8;   /* cards / raised surfaces */
+  --carbon-700: #E4E4E8;   /* borders */
+
+  /* Accent */
+  --red:      #D91E2C;
+  --red-deep: #A8121D;
+  --red-bright: #FF4D57;
+  --red-tint:   #FDEBEC;
+
+  /* Text */
+  --ink:       #101114;   /* primary headings */
+  --ink-2:     #17181C;   /* dark section bg */
+  --ink-soft:  #3A3D44;   /* body copy */
+  --ink-muted: #6A6F79;   /* muted / slate */
+  --bone:      #101114;   /* kept for compat */
+
+  /* Chrome scale */
+  --chrome-100: #17181C;
+  --chrome-300: #3A3D44;
+  --chrome-500: #6A6F79;
+
+  --hairline:      #E4E4E8;
+  --hairline-dark: #2A2C31;
 
   --background: var(--carbon);
-  --foreground: var(--bone);
+  --foreground: var(--ink);
   --card: var(--carbon-800);
-  --card-foreground: var(--bone);
-  --popover: var(--carbon-800);
-  --popover-foreground: var(--bone);
+  --card-foreground: var(--ink);
+  --popover: #ffffff;
+  --popover-foreground: var(--ink);
   --primary: var(--red);
   --primary-foreground: #ffffff;
   --secondary: var(--carbon-700);
-  --secondary-foreground: var(--bone);
+  --secondary-foreground: var(--ink);
   --muted: var(--carbon-800);
-  --muted-foreground: #9ca1a8;
+  --muted-foreground: var(--ink-muted);
   --accent: var(--carbon-700);
-  --accent-foreground: var(--bone);
+  --accent-foreground: var(--ink);
   --destructive: var(--red);
   --destructive-foreground: #ffffff;
   --border: var(--hairline);
   --input: var(--hairline);
   --ring: var(--red);
 
-  --gradient-chrome: linear-gradient(180deg, #ffffff 0%, #e4e6e9 38%, #8b9096 55%, #ffffff 100%);
-  --glow-red: 0 0 40px -8px rgba(224, 27, 34, 0.55);
+  --gradient-chrome: linear-gradient(135deg, #D91E2C 0%, #A8121D 100%);
+  --glow-red: 0 0 40px -8px rgba(217, 30, 44, 0.35);
 }
 
 @layer base {
@@ -104,10 +125,10 @@
 
   body {
     background-color: var(--carbon);
-    color: var(--muted-foreground);
+    color: var(--ink-soft);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.7;
+    line-height: 1.5;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
@@ -117,10 +138,11 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    color: var(--bone);
-    letter-spacing: -0.02em;
-    line-height: 1.02;
+    color: var(--ink);
+    letter-spacing: -0.01em;
+    line-height: 1.1;
     font-weight: 800;
+    text-transform: none;
   }
 
   :focus-visible {
@@ -142,18 +164,15 @@
 
 
 @utility chrome-text {
-  background-image: var(--gradient-chrome);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: var(--ink);
+  -webkit-text-fill-color: var(--ink);
 }
 
 @utility mono-label {
   font-family: var(--font-mono);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.75rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
@@ -182,24 +201,23 @@
 }
 
 @utility hairline-t {
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid var(--hairline);
 }
 
 @utility card-surface {
-  background-color: var(--carbon-800);
-  border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 14px;
-  @media (min-width: 768px) {
-    border-radius: 16px;
-  }
+  background-color: #ffffff;
+  border: 1px solid var(--hairline);
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
   transition:
-    transform 400ms var(--ease-shine),
-    border-color 400ms var(--ease-shine),
-    box-shadow 400ms var(--ease-shine);
+    transform 250ms ease,
+    border-color 200ms ease,
+    box-shadow 250ms ease;
 
   &:hover {
-    transform: translateY(-6px);
-    border-color: rgba(224, 27, 34, 0.35);
+    transform: translateY(-4px);
+    border-color: var(--red);
+    box-shadow: 0 16px 30px -18px rgba(20,22,26,0.25);
   }
 }
 
@@ -214,10 +232,10 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.03;
+    opacity: 0.04;
     background-image:
-      repeating-linear-gradient(45deg, #fff 0 1px, transparent 1px 22px),
-      repeating-linear-gradient(-45deg, #fff 0 1px, transparent 1px 22px);
+      repeating-linear-gradient(45deg, #000 0 1px, transparent 1px 22px),
+      repeating-linear-gradient(-45deg, #000 0 1px, transparent 1px 22px);
   }
 }
 
@@ -239,30 +257,19 @@
 }
 
 @utility reveal {
-  opacity: 0;
+  /* opacity set by GSAP at runtime; fallback ensures visibility */
   will-change: transform, opacity;
 }
 
 @keyframes ds-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(224, 27, 34, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 14px rgba(224, 27, 34, 0);
-  }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(217, 30, 44, 0.5); }
+  70%       { box-shadow: 0 0 0 14px rgba(217, 30, 44, 0); }
 }
 
 @keyframes wa-pulse {
-  0% {
-    box-shadow: 0 0 0 0 rgba(224, 27, 34, 0.5);
-  }
-  70% {
-    box-shadow: 0 0 0 12px rgba(224, 27, 34, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(224, 27, 34, 0);
-  }
+  0%   { box-shadow: 0 4px 20px rgba(31,168,85,0.45), 0 0 0 0 rgba(31,168,85,0.4); }
+  70%  { box-shadow: 0 4px 20px rgba(31,168,85,0.45), 0 0 0 10px rgba(31,168,85,0); }
+  100% { box-shadow: 0 4px 20px rgba(31,168,85,0.45), 0 0 0 0 rgba(31,168,85,0); }
 }
 
 @keyframes ds-spin {

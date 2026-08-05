@@ -5,7 +5,7 @@ import { DsButtonLink } from "@/components/ui/ds-button";
 import { registerGsap } from "@/hooks/useLenis";
 import { srcSet, heroSizes } from "@/lib/img";
 
-const headlineLines = ["Know before", "you drive it home."];
+const headlineLines = ["Know the car", "before it's yours."];
 
 export function Hero() {
   const root = useRef<HTMLElement | null>(null);
@@ -54,17 +54,14 @@ export function Hero() {
     <section ref={root} className="relative flex min-h-[88svh] items-end overflow-hidden md:min-h-[100svh]">
       {/* TODO: replace with client hero photography — dark studio car, wet reflective floor */}
       <picture className="hero-img absolute inset-0 size-full">
-        <source media="(max-width: 767px)" srcSet={images.heroMobile} />
-      <img
-        src={images.hero}
-        srcSet={srcSet(images.hero)}
-        sizes={heroSizes}
-        alt="Dark modern car photographed low and side-on in a studio with a reflective floor"
-        fetchPriority="high"
-        width={1920}
-        height={1080}
-        className="absolute inset-0 size-full object-cover [filter:saturate(0.8)_brightness(0.75)]"
-      />
+        <img
+          src="/heroimage.jpg"
+          alt="Drive Shine inspector examining a car at a dealership"
+          fetchPriority="high"
+          width={1920}
+          height={1080}
+          className="absolute inset-0 size-full object-cover [filter:saturate(0.8)_brightness(0.75)]"
+        />
       </picture>
       <div
         aria-hidden="true"
@@ -76,17 +73,18 @@ export function Hero() {
       />
 
       <div className="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40 lg:pb-24">
-        <p className="hero-fade mono-label">Independent PDI • {site.city}</p>
-        <h1 className="mt-5 text-[clamp(2.25rem,9vw,3.25rem)] md:mt-6 md:text-[clamp(3rem,7vw,6.5rem)]">
+        <p className="hero-fade mono-label text-white/60">Independent PDI • {site.city}</p>
+        <h1 className="mt-5 font-display text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold leading-[1.05] tracking-tight text-white md:mt-6">
           {headlineLines.map((line) => (
             <span key={line} className="hero-line block overflow-hidden pb-1">
-              <span className="chrome-text block">{line}</span>
+              <span className="block">{line}</span>
             </span>
           ))}
         </h1>
-        <p className="hero-fade mt-6 max-w-xl text-[15px] leading-[1.7] text-muted-foreground md:mt-7 md:text-lg">
+        <p className="hero-fade mt-6 max-w-xl text-[15px] leading-[1.7] text-white/70 md:mt-7 md:text-lg">
           Drive Shine inspects your brand new car before you accept delivery — independently,
-          on site, with a 150+ point protocol and a report you can hand straight to the dealer.
+          on site, with a 300+ point protocol. We walk you through every finding in person,
+          clearly explaining any problems along with the pros and cons, before you decide.
         </p>
         <div className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:mt-10">
           <DsButtonLink to="/contact" className="w-full justify-center sm:w-auto">
@@ -96,8 +94,8 @@ export function Hero() {
             View services
           </DsButtonLink>
         </div>
-        <p className="hero-fade mono-label mt-10 border-t border-white/8 pt-6 md:mt-14">
-          Hyderabad • 24/7 • Certified inspectors
+        <p className="hero-fade mono-label mt-10 border-t border-white/10 pt-6 text-white/50 md:mt-14">
+          Same-day slots available across Hyderabad
         </p>
       </div>
     </section>

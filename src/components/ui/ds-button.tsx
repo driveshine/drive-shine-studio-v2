@@ -5,11 +5,11 @@ import { cn } from "@/lib/utils";
 type Variant = "red" | "ghost" | "link";
 
 const base =
-  "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-mono text-xs font-medium uppercase tracking-[0.12em] transition-[color,box-shadow,border-color] duration-300";
+  "group relative inline-flex items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 font-sans text-[15px] font-bold tracking-wide transition-[color,box-shadow,border-color] duration-300";
 
 const variants: Record<Variant, string> = {
   red: "bg-red text-white hover:red-glow",
-  ghost: "border border-white/20 text-bone hover:border-white/45",
+  ghost: "border border-white/40 text-white hover:border-white/80",
   link: "px-0 py-0 text-chrome-300 hover:text-bone",
 };
 

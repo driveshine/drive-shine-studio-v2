@@ -23,9 +23,9 @@ export function SectionHeading({
 }) {
   return (
     <div className={cn("max-w-2xl", className)}>
-      {eyebrow && <Eyebrow className="reveal">{eyebrow}</Eyebrow>}
-      <h2 className="reveal mt-5 chrome-text text-[clamp(2rem,4vw,3.25rem)]">{title}</h2>
-      {copy && <p className="reveal mt-5 text-[1.0625rem] text-muted-foreground">{copy}</p>}
+      {eyebrow && <Eyebrow>{eyebrow}</Eyebrow>}
+      <h2 className="mt-5 chrome-text text-[clamp(2rem,4vw,3.25rem)]">{title}</h2>
+      {copy && <p className="mt-5 text-[1.0625rem] text-muted-foreground">{copy}</p>}
     </div>
   );
 }

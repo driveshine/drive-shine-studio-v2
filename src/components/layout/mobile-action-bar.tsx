@@ -22,12 +22,12 @@ export function MobileActionBar() {
           animate={{ y: 0 }}
           exit={{ y: 80 }}
           transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-          className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-white/8 bg-carbon/80 backdrop-blur-xl lg:hidden"
+          className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-2 border-t border-black/[0.08] bg-white/90 backdrop-blur-xl lg:hidden"
         >
           <a
             href={site.phoneHref}
             aria-label={`Call Drive Shine on ${site.phone}`}
-            className="mono-label flex h-14 items-center justify-center gap-2 border-r border-white/8 text-chrome-100"
+            className="mono-label flex h-14 items-center justify-center gap-2 border-r border-black/[0.08] text-gray-700"
           >
             <Phone className="size-4" aria-hidden="true" />
             Call

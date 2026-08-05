@@ -1,7 +1,7 @@
 export const site = {
   name: "Drive Shine",
   trademark: "Drive Shine™",
-  tagline: "Know before you drive it home.",
+  tagline: "Know the car before it's yours.",
   city: "Hyderabad, India",
   phone: "9494642244",
   phoneHref: "tel:+919494642244",
@@ -25,82 +25,44 @@ export const nav = [
 
 /* TODO: replace Unsplash placeholders with client photography */
 export const images = {
-  hero: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=1920&q=70",
-  /* Portrait-ish crop for phones — keeps the car centred instead of squashing it. */
-  heroMobile:
-    "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&crop=entropy&w=900&h=1200&q=60&fm=webp",
-  servicesHero:
-    "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1920&q=70",
+  hero: "/heroimage.jpg",
+  heroMobile: "/heroimage.jpg",
+  servicesHero: "/heroimage.jpg",
   productsHero:
     "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1920&q=70",
   aboutHero:
     "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1920&q=70",
-  pdi: "https://images.unsplash.com/photo-1487754180451-c456f719a1fc?auto=format&fit=crop&w=1200&q=70",
+  pdi: "/pic1.jpg",
   care: "https://images.unsplash.com/photo-1520340356584-f9917d1eea6f?auto=format&fit=crop&w=1200&q=70",
   why1: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=70",
-  why2: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=70",
-  why3: "https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?auto=format&fit=crop&w=1200&q=70",
+  why2: "/pic2.jpg",
+  why3: "/pic3.jpg",
+  tool1: "/pic1.jpg",
+  tool2: "/pic2.jpg",
+  tool3: "/pic3.jpg",
 } as const;
 
 export const stats = [
-  { value: 150, suffix: "+", label: "Point inspection" },
-  { value: 24, suffix: "/7", label: "Availability" },
-  { value: 8, suffix: "yrs", label: "Field experience" },
-  { value: 2, suffix: "hr", label: "Report turnaround" },
+  { value: 300, suffix: "+", label: "Checkpoints" },
+  { value: 6, suffix: "", label: "Systems covered" },
+  { value: 3, suffix: "", label: "Vehicle plans" },
 ] as const;
 
 export const steps = [
   {
     n: "01",
     title: "Book your slot",
-    copy: "Tell us the car, the dealership and the delivery date. We lock an inspector for that window.",
-    module: "Scheduling_Module",
-    status: "Slot locked",
-    caption: "Inspector allocation",
-    footnote: "Confirmed within 2 hours",
-    metrics: [
-      { label: "RESPONSE", value: "< 2 HRS" },
-      { label: "COVERAGE", value: "HYDERABAD" },
-    ],
+    copy: "Tell us the car, the dealership or seller, and the date. We lock an inspector for that window — same-day slots available.",
   },
   {
     n: "02",
     title: "We inspect on site",
-    copy: "Our inspector arrives at the dealership or your home with calibrated tools and a 150+ point protocol.",
-    module: "Inspection_Module",
-    status: "Scanning chassis",
-    caption: "Live diagnostics feed",
-    footnote: "Verifying panel alignment",
-    metrics: [
-      { label: "PAINT_DEPTH", value: "114 µM" },
-      { label: "OBD_STATUS", value: "CLEAR" },
-    ],
+    copy: "Our inspector arrives with calibrated tools — paint depth gauge, tyre tread depth gauge, AC temperature meter — and checks 300+ points.",
   },
   {
     n: "03",
-    title: "Detailed digital report",
-    copy: "Photographic evidence, paint readings, electrical checks and a clear verdict — delivered within hours.",
-    module: "Report_Module",
-    status: "Compiling findings",
-    caption: "Evidence package",
-    footnote: "Shareable PDF and web link",
-    metrics: [
-      { label: "CHECKPOINTS", value: "150+" },
-      { label: "PHOTOS", value: "60+" },
-    ],
-  },
-  {
-    n: "04",
-    title: "Accept with confidence",
-    copy: "Walk into delivery knowing exactly what you are signing for, with leverage to get issues fixed first.",
-    module: "Handover_Module",
-    status: "Verdict issued",
-    caption: "Delivery readiness",
-    footnote: "Leverage before you sign",
-    metrics: [
-      { label: "VERDICT", value: "ACTIONABLE" },
-      { label: "SEVERITY", value: "RATED" },
-    ],
+    title: "Walk through every finding",
+    copy: "We explain every issue in person, clearly, with the pros and cons — before you decide whether to accept delivery.",
   },
 ] as const;
 
@@ -116,14 +78,14 @@ export const whyRows = [
   {
     eyebrow: "Precision",
     title: "Instrument-backed, not eyeball-backed",
-    copy: "Paint depth gauges, OBD scans, panel-gap measurement and torque verification. Every claim in the report has a number behind it.",
+    copy: "Paint depth gauges, tyre tread depth measurement, AC temperature checks and panel-gap verification. Every finding has a number behind it.",
     image: images.why2,
     alt: "Close-up of a car body panel being measured during inspection",
   },
   {
     eyebrow: "Transparency",
-    title: "A report you can hand to the dealer",
-    copy: "Plain language, photographic proof and a severity rating on every finding, so the conversation at delivery is short and factual.",
+    title: "Clear findings you can act on",
+    copy: "Plain language, photographic proof and a severity rating on every finding — so the conversation at delivery is short and factual.",
     image: images.why3,
     alt: "Detailed close-up of clean car headlight and bodywork",
   },
@@ -138,7 +100,7 @@ export const testimonials = [
   },
   {
     quote:
-      "Worth every rupee. The report was more thorough than anything the showroom handed me, and it arrived within two hours.",
+      "Worth every rupee. The inspection was thorough and they found issues the showroom never mentioned. Completely independent.",
     name: "Sneha P.",
     meta: "Kondapur • Hatchback delivery",
   },
@@ -159,17 +121,30 @@ export const values = [
   {
     icon: "gauge",
     label: "Precision",
-    copy: "A repeatable 150+ point protocol with measured, documented outcomes.",
+    copy: "Paint depth gauge, tyre tread depth gauge, AC temperature check — calibrated tools on every inspection.",
   },
   {
     icon: "eye",
     label: "Transparency",
-    copy: "Every defect photographed, rated and explained in language you can act on.",
+    copy: "Every defect photographed and explained in language you can act on immediately.",
   },
+] as const;
+
+export const coverageAreas = [
+  "Gachibowli", "Kondapur", "Banjara Hills", "Jubilee Hills", "Madhapur",
+  "Hitech City", "Kukatpally", "Miyapur", "Manikonda", "Nanakramguda",
+  "Secunderabad", "Begumpet", "Ameerpet", "Dilsukhnagar", "LB Nagar",
+] as const;
+
+export const trustItems = [
+  { icon: "shield", text: "Independent — no dealership ties" },
+  { icon: "wrench", text: "Calibrated professional tools" },
+  { icon: "map-pin", text: "All of Hyderabad covered" },
+  { icon: "clock", text: "Same-day slots available" },
 ] as const;
 
 export const aboutCopy = [
   "Drive Shine™ is an independent pre-delivery inspection service based in Hyderabad. We exist for one moment: the hour before you accept the keys to a brand new car — when problems are still the dealer's responsibility, not yours.",
-  "A new vehicle passes through transport, storage and yard handling before it reaches you. Transit scratches, paint rework, missing accessories, software faults and electrical niggles are common, and they are far easier to resolve before delivery than after. Our inspectors arrive with the tools and the protocol to surface them.",
-  "Alongside inspections, we supply a curated range of premium car care products so the finish you sign for stays that way. We operate across Hyderabad, 24 hours a day, at the dealership or at your home.",
+  "A new vehicle passes through transport, storage and yard handling before it reaches you. Transit scratches, paint rework, missing accessories and electrical niggles are common — and far easier to resolve before delivery than after. Our inspectors arrive with calibrated tools: paint depth gauges, tyre tread depth gauges and AC temperature meters.",
+  "We also inspect pre-owned vehicles so you know exactly what you are buying. Alongside inspections, we supply a curated range of premium car care products. We operate across Hyderabad, 24 hours a day, at the dealership or at your home.",
 ] as const;

@@ -11,6 +11,7 @@ const schema = z.object({
   fullName: z.string().min(2, "Enter your full name"),
   email: z.string().email("Enter a valid email address"),
   phone: z.string().min(10, "Enter a valid 10-digit phone number"),
+  location: z.string().min(3, "Enter the inspection location"),
   make: z.string().min(2, "Enter the car make"),
   model: z.string().min(1, "Enter the model"),
   year: z.string().optional(),
@@ -43,7 +44,7 @@ function Field({
 }
 
 const inputClass =
-  "h-[52px] w-full border-0 border-b border-white/15 bg-transparent px-0 text-base text-bone placeholder:text-chrome-500/70 transition-colors focus:border-red focus:outline-none";
+  "h-[52px] w-full border-0 border-b border-black/15 bg-transparent px-0 text-base text-ink placeholder:text-ink-muted/60 transition-colors focus:border-red focus:outline-none";
 
 export function BookingForm() {
   const uid = useId();
@@ -61,6 +62,7 @@ export function BookingForm() {
       `Name: ${values.fullName}`,
       `Phone: ${values.phone}`,
       `Email: ${values.email}`,
+      `Location: ${values.location}`,
       ``,
       `*🚘 Vehicle Details*`,
       `Make: ${values.make}`,
@@ -109,7 +111,7 @@ export function BookingForm() {
               {...register("phone")}
             />
           </Field>
-          <Field label="Email Address *" error={errors.email?.message} className="sm:col-span-2">
+          <Field label="Email Address *" error={errors.email?.message}>
             <input
               id={`${uid}-email`}
               type="email"
@@ -117,6 +119,14 @@ export function BookingForm() {
               placeholder="you@example.com"
               autoComplete="email"
               {...register("email")}
+            />
+          </Field>
+          <Field label="Inspection Location *" error={errors.location?.message}>
+            <input
+              id={`${uid}-location`}
+              className={inputClass}
+              placeholder="Showroom name, address or area (e.g. Kondapur, Hyderabad)"
+              {...register("location")}
             />
           </Field>
         </div>

@@ -41,7 +41,7 @@ export function Testimonials() {
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Previous testimonial"
-              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50 active:border-red"
+              className="grid size-11 place-items-center rounded-full border border-black/15 text-ink transition-colors hover:border-red/50 active:border-red"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
             </button>
@@ -49,7 +49,7 @@ export function Testimonials() {
               type="button"
               onClick={() => scroll(1)}
               aria-label="Next testimonial"
-              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50 active:border-red"
+              className="grid size-11 place-items-center rounded-full border border-black/15 text-ink transition-colors hover:border-red/50 active:border-red"
             >
               <ArrowRight className="size-4" aria-hidden="true" />
             </button>
@@ -60,8 +60,8 @@ export function Testimonials() {
           <div className="flex">
             {testimonials.map((t) => (
               <figure key={t.name} className="min-w-0 flex-[0_0_100%] pr-6 lg:flex-[0_0_70%]">
-                <blockquote className="chrome-text font-display text-[clamp(1.5rem,3vw,2.5rem)] font-extrabold leading-tight">
-                  “{t.quote}”
+                <blockquote className="font-display text-[clamp(1.5rem,3vw,2.5rem)] font-extrabold leading-tight text-ink">
+                  "{t.quote}"
                 </blockquote>
                 <figcaption className="mono-label mt-6 md:mt-8">
                   {t.name} — {t.meta}
@@ -81,7 +81,7 @@ export function Testimonials() {
               className={`transition-all duration-300 rounded-full ${
                 i === selected
                   ? "bg-red w-6 h-2"
-                  : "bg-white/15 size-2 hover:bg-white/30"
+                  : "bg-black/15 size-2 hover:bg-black/30"
               }`}
             />
           ))}

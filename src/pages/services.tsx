@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Check } from "lucide-react";
-import { services, servicesIntro, report, servicesFaq, servicesCta } from "@/data/services";
+import { services, servicesIntro, report, servicesFaq, servicesCta, pricingTiers } from "@/data/services";
 import { images } from "@/data/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -43,30 +43,57 @@ export default function ServicesPage() {
               <p className="mt-6 text-lg text-muted-foreground">{servicesIntro.body}</p>
             </div>
 
-            <ul className="mt-16 divide-y divide-white/8 border-y border-white/8">
+            {/* Pricing tiers */}
+            <div className="mt-14 grid gap-6 sm:grid-cols-3">
+              {pricingTiers.map((tier) => (
+                <div
+                  key={tier.name}
+                  className={`rounded-2xl border p-8 text-center ${
+                    tier.featured
+                      ? "border-red bg-white shadow-[0_20px_44px_-22px_rgba(217,30,44,0.28)]"
+                      : "border-black/10 bg-white shadow-sm"
+                  }`}
+                >
+                  {tier.featured && (
+                    <p className="mono-label mb-4 inline-block rounded-full bg-red px-4 py-1.5 text-white">
+                      Most popular
+                    </p>
+                  )}
+                  <p className="font-display text-xl font-extrabold uppercase text-ink">{tier.name}</p>
+                  <p className="mt-3 font-display text-5xl font-black text-red">{tier.price}</p>
+                  <p className="mono-label mt-2 text-gray-400">{tier.desc}</p>
+                </div>
+              ))}
+            </div>
+
+            <ul className="mt-16 divide-y divide-black/[0.06] border-y border-black/[0.06]">
               {services.map((s) => (
                 <li
                   key={s.n}
-                  className="reveal group relative grid gap-6 border-l-2 border-transparent px-0 py-12 transition-[border-color,padding,background-color] duration-400 ease-shine hover:border-red hover:bg-white/[0.02] hover:pl-8 lg:grid-cols-12 lg:gap-10"
+                  className="reveal group relative grid gap-6 border-l-2 border-transparent px-0 py-12 transition-[border-color,padding,background-color] duration-400 ease-shine hover:border-red hover:bg-red/[0.02] hover:pl-8 lg:grid-cols-12 lg:gap-10"
                 >
                   <div className="lg:col-span-1">
-                    <span className="mono-label grid size-11 place-items-center rounded-full border border-white/10 text-chrome-500 transition-colors duration-400 group-hover:border-red/50 group-hover:text-red">
+                    <span className="mono-label grid size-11 place-items-center rounded-full border border-black/10 text-gray-400 transition-colors duration-400 group-hover:border-red/50 group-hover:text-red">
                       {s.n}
                     </span>
                   </div>
-                  <div className="lg:col-span-5">
-                    <h3 className="font-display text-2xl font-extrabold text-bone transition-colors duration-400 md:text-3xl">
+                  <div className="lg:col-span-4">
+                    <h3 className="font-display text-2xl font-extrabold text-gray-900 transition-colors duration-400 md:text-3xl">
                       {s.title}
                     </h3>
-                    <p className="mt-3 max-w-md text-muted-foreground">{s.summary}</p>
+                    <p className="mt-3 max-w-md text-gray-500">{s.summary}</p>
+                    <div className="mt-4 inline-flex items-baseline gap-1 rounded-xl border border-red/20 bg-red/5 px-4 py-2">
+                      <span className="font-display text-2xl font-extrabold text-red">{s.price}</span>
+                      {s.priceNote && <span className="mono-label text-gray-400">{s.priceNote}</span>}
+                    </div>
                   </div>
-                  <div className="lg:col-span-6">
-                    <p className="mono-label">Covered</p>
+                  <div className="lg:col-span-7">
+                    <p className="mono-label text-gray-400">Covered</p>
                     <ul className="mt-4 grid content-start gap-3 sm:grid-cols-2">
                       {s.checklist.map((c) => (
                         <li
                           key={c}
-                          className="flex items-start gap-2 rounded-lg border border-white/[0.05] bg-carbon-800/60 px-3 py-2.5 text-sm text-muted-foreground transition-colors duration-400 group-hover:border-white/10"
+                          className="flex items-start gap-2 rounded-lg border border-black/[0.05] bg-gray-50 px-3 py-2.5 text-sm text-gray-600"
                         >
                           <Check className="mt-0.5 size-4 shrink-0 text-red" aria-hidden="true" />
                           {c}
@@ -81,16 +108,27 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      <section ref={reportRef} className="noise-grid relative overflow-hidden bg-carbon-800">
-        <div className="shell section-y grid gap-14 lg:grid-cols-2 lg:items-center">
+      <section ref={reportRef} className="bg-gray-50">
+        <div className="shell section-y">
           <SectionHeading eyebrow={report.eyebrow} title={report.title} copy={report.body} />
-          <div className="reveal grid gap-4 sm:grid-cols-2">
-            {report.stats.map((stat) => (
-              <div key={stat} className="card-surface flex min-h-32 flex-col justify-between p-6">
-                <span className="grid size-8 place-items-center rounded-full border border-red/40">
-                  <Check className="size-4 text-red" aria-hidden="true" />
-                </span>
-                <p className="mono-label mt-6 text-bone">{stat}</p>
+          <div className="mt-12 grid gap-6 sm:grid-cols-3">
+            {report.tools.map((tool) => (
+              <div key={tool.label} className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-sm transition-shadow hover:shadow-md">
+                <div className="aspect-4/3 overflow-hidden">
+                  <img
+                    src={tool.image}
+                    alt={tool.label}
+                    loading="lazy"
+                    className="size-full object-cover transition-transform duration-500 hover:scale-105"
+                  />
+                </div>
+                <div className="p-6">
+                  <div className="flex items-center gap-2">
+                    <span className="size-2 rounded-full bg-red" />
+                    <p className="font-display text-lg font-bold text-gray-900">{tool.label}</p>
+                  </div>
+                  <p className="mt-2 text-sm text-gray-500">{tool.desc}</p>
+                </div>
               </div>
             ))}
           </div>
@@ -105,8 +143,8 @@ export default function ServicesPage() {
           <div className="reveal lg:col-span-8">
             <Accordion type="single" collapsible className="w-full">
               {servicesFaq.map((item, i) => (
-                <AccordionItem key={item.q} value={`faq-${i}`} className="border-white/8">
-                  <AccordionTrigger className="text-left font-display text-lg font-bold text-bone hover:no-underline">
+                <AccordionItem key={item.q} value={`faq-${i}`} className="border-black/[0.08]">
+                  <AccordionTrigger className="text-left font-display text-lg font-bold text-ink hover:no-underline">
                     {item.q}
                   </AccordionTrigger>
                   <AccordionContent className="text-base text-muted-foreground">

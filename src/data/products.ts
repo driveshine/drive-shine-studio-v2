@@ -3,84 +3,120 @@ export type ProductCategory = "Exterior" | "Interior" | "Protection" | "Accessor
 export type Product = {
   id: string;
   name: string;
+  eyebrow: string;
+  price: string;
+  mrp?: string;
   benefit: string;
+  bullets: string[];
+  specs?: { label: string; value: string }[];
+  howToUse?: string[];
   category: ProductCategory;
   image: string;
+  beforeAfterImage?: string;
   alt: string;
+  amazonUrl: string;
+  comingSoon?: boolean;
 };
 
-/* TODO: swap Unsplash placeholders for client product photography on dark tiles */
 export const products: Product[] = [
   {
     id: "car-wash-shampoo",
-    name: "Car Wash Shampoo",
-    benefit: "pH-neutral foam that lifts grit without stripping protection.",
+    name: "Car & Bike Shampoo",
+    eyebrow: "Premium Foam Wash",
+    price: "₹249",
+    mrp: "500ml",
+    benefit: "A pH-balanced foam shampoo that lifts dirt and road grime without stripping wax or sealant. Safe for daily washes on both cars and bikes.",
+    bullets: [
+      "Rich foam lifts dirt & grime effectively",
+      "pH-balanced — safe & gentle on all surfaces",
+      "Leaves a high-gloss shine after every wash",
+      "Won't strip existing wax or ceramic coating",
+    ],
+    specs: [
+      { label: "Volume", value: "500ml" },
+      { label: "Suitable for", value: "Cars & bikes" },
+      { label: "Dilution", value: "1:40 with water" },
+    ],
+    howToUse: [
+      "Rinse the vehicle to remove loose dirt.",
+      "Dilute in a foam gun or bucket and apply.",
+      "Agitate gently, then rinse off and dry with a microfiber towel.",
+    ],
     category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1607860108855-64acf2078ed9?auto=format&fit=crop&w=800&q=70",
-    alt: "Bottle of car wash shampoo on a dark surface",
-  },
-  {
-    id: "glass-cleaner",
-    name: "Glass Cleaner",
-    benefit: "Streak-free clarity on windscreens, mirrors and tint-safe glass.",
-    category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1563453392212-326f5e854473?auto=format&fit=crop&w=800&q=70",
-    alt: "Spray bottle of glass cleaner beside a clean car window",
+    image: "/WhatsApp Image 2026-08-05 at 2.59.35 PM.jpeg",
+    beforeAfterImage: "/WhatsApp Image 2026-08-05 at 2.59.36 PM.jpeg",
+    alt: "Drive Shine Car & Bike Shampoo",
+    amazonUrl: "https://www.amazon.in/dp/B0H9552CX3",
   },
   {
     id: "dashboard-polish",
     name: "Dashboard Polish",
-    benefit: "Satin, non-greasy finish that shields plastics from UV fade.",
+    eyebrow: "Premium Interior Care",
+    price: "₹199",
+    mrp: "250ml",
+    benefit: "A UV-protective interior polish that restores factory shine to dashboards, door panels, and trim — without the greasy residue most polishes leave behind.",
+    bullets: [
+      "UV protection guards against fading & cracking",
+      "Dries to a clean, non-greasy finish",
+      "Restores original finish with a rich shine",
+      "Repels dust build-up for longer",
+    ],
+    specs: [
+      { label: "Volume", value: "250ml" },
+      { label: "Suitable for", value: "Dash, door panels, trim" },
+      { label: "Finish", value: "Satin, non-greasy" },
+    ],
+    howToUse: [
+      "Wipe the surface clean and dry.",
+      "Spray a small amount onto a microfiber cloth.",
+      "Apply in even strokes and buff to a satin finish.",
+    ],
     category: "Interior",
-    image:
-      "https://images.unsplash.com/photo-1600661653561-629509216228?auto=format&fit=crop&w=800&q=70",
-    alt: "Car dashboard with a clean satin finish",
+    image: "/WhatsApp Image 2026-08-05 at 2.59.48 PM.jpeg",
+    beforeAfterImage: "/WhatsApp Image 2026-08-05 at 2.59.49 PM.jpeg",
+    alt: "Drive Shine Dashboard Polish",
+    amazonUrl: "https://www.amazon.in/dp/B0H9592CQ6",
   },
   {
-    id: "tyre-polish",
-    name: "Tyre Polish",
-    benefit: "Deep black sidewalls with a dry, sling-free finish.",
+    id: "glass-cleaner",
+    name: "Glass Cleaner",
+    eyebrow: "Streak-Free Formula",
+    price: "₹149",
+    mrp: "250ml",
+    benefit: "A fast-acting, ammonia-conscious glass cleaner that cuts through road film, fingerprints, and smudges for a clear, streak-free view — inside and out.",
+    bullets: [
+      "Crystal clear visibility, streak-free finish",
+      "Cuts through dirt, dust & smudges fast",
+      "Safe on tinted & treated glass",
+      "Quick-dry, no residue left behind",
+    ],
+    specs: [
+      { label: "Volume", value: "250ml" },
+      { label: "Suitable for", value: "Windshield, windows, mirrors" },
+      { label: "Formula", value: "Streak-free, quick-dry" },
+    ],
+    howToUse: [
+      "Spray directly onto the glass surface.",
+      "Wipe with a clean microfiber towel in straight lines.",
+      "Buff any residual streaks with a dry section of the towel.",
+    ],
     category: "Exterior",
-    image:
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=800&q=70",
-    alt: "Detailed close-up of a glossy black tyre sidewall",
+    image: "/WhatsApp Image 2026-08-05 at 2.59.58 PM.jpeg",
+    beforeAfterImage: "/WhatsApp Image 2026-08-05 at 2.59.58 PM (1).jpeg",
+    alt: "Drive Shine Glass Cleaner",
+    amazonUrl: "https://www.amazon.in/dp/B0H9548K31",
   },
-  {
-    id: "interior-cleaner",
-    name: "Interior Cleaner",
-    benefit: "Safe on fabric, leather and trim — lifts stains, leaves no film.",
-    category: "Interior",
-    image:
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=800&q=70",
-    alt: "Clean car interior seats and console",
-  },
-  {
-    id: "rat-repellent-spray",
-    name: "Rat Repellent Spray",
-    benefit: "Engine-bay safe deterrent that protects wiring looms from rodents.",
-    category: "Protection",
-    image:
-      "https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=800&q=70",
-    alt: "Engine bay of a modern car under workshop lighting",
-  },
-  {
-    id: "car-care-accessories",
-    name: "Premium Car Care Accessories",
-    benefit: "Microfibre, applicators and wash tools that won't mark new paint.",
-    category: "Accessories",
-    image:
-      "https://images.unsplash.com/photo-1600661653561-629509216228?auto=format&fit=crop&w=800&q=70",
-    alt: "Set of microfibre car care accessories",
-  },
+];
+
+export const comingSoonProducts: Pick<Product, "id" | "name" | "eyebrow" | "category">[] = [
+  { id: "windshield-washer", name: "Windshield Washer", eyebrow: "Glass Care", category: "Exterior" },
+  { id: "interior-cleaner", name: "Interior Cleaner", eyebrow: "Interior Care", category: "Interior" },
+  { id: "rat-repellent-spray", name: "Rat Repellent Spray", eyebrow: "Protection", category: "Protection" },
 ];
 
 export const productCategories: ProductCategory[] = [
   "Exterior",
   "Interior",
-  "Protection",
-  "Accessories",
 ];
 
 export const usageTips = [

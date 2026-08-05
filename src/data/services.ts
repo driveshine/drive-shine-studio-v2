@@ -3,18 +3,43 @@ export type Service = {
   title: string;
   summary: string;
   checklist: string[];
+  price: string;
+  priceNote?: string;
 };
+
+export const pricingTiers = [
+  {
+    name: "Hatchback",
+    price: "₹1,499",
+    desc: "Swift, Baleno, i20, Altroz & similar",
+    featured: false,
+  },
+  {
+    name: "Sedan",
+    price: "₹1,599",
+    desc: "City, Verna, Ciaz, Slavia & similar",
+    featured: true,
+  },
+  {
+    name: "SUV / MPV",
+    price: "₹1,999",
+    desc: "Creta, Seltos, Innova, XUV & similar",
+    featured: false,
+  },
+] as const;
 
 export const servicesIntro = {
   eyebrow: "What we inspect",
   title: "Every check that should happen before you take the keys.",
-  body: "A new car is not automatically a flawless car. Transit damage, storage marks, missing accessories and factory oversights are common — and once you sign the delivery acceptance, they become your problem. Drive Shine inspects independently, on your side, before the handover. You get a clear report, photographs of every issue, and the leverage to have it fixed before you drive home.",
+  body: "A new car is not automatically a flawless car. Transit damage, storage marks, missing accessories and factory oversights are common — and once you sign the delivery acceptance, they become your problem. Drive Shine inspects independently, on your side, before the handover. We use calibrated paint depth gauges, tyre tread depth gauges and AC temperature meters — not just a checklist.",
 };
 
 export const services: Service[] = [
   {
     n: "01",
     title: "New Car PDI",
+    price: "₹999",
+    priceNote: "New cars",
     summary:
       "A complete pre-delivery inspection of your brand-new vehicle, from paint to electronics, carried out before you accept delivery.",
     checklist: [
@@ -22,12 +47,29 @@ export const services: Service[] = [
       "Engine bay, fluids and undercarriage inspection",
       "All electricals, infotainment and safety systems tested",
       "Odometer, VIN and manufacturing date verification",
-      "Photographic evidence of every observation",
+      "Tyre tread depth and AC temperature check",
     ],
   },
   {
     n: "02",
+    title: "Pre-Owned Car Inspection",
+    price: "₹1,499",
+    priceNote: "Used cars",
+    summary:
+      "Comprehensive inspection for pre-owned vehicles — uncover hidden issues before you buy or accept a used car.",
+    checklist: [
+      "Paint depth scan to detect repaints and accident repairs",
+      "Engine, transmission and underbody condition",
+      "Electrical systems, AC and infotainment check",
+      "Tyre tread depth gauge measurement",
+      "Odometer and documentation verification",
+    ],
+  },
+  {
+    n: "03",
     title: "Dealership Inspection",
+    price: "₹999",
+    priceNote: "At showroom",
     summary:
       "We inspect the car at the showroom, before it leaves the dealer's premises, so any issue is theirs to correct.",
     checklist: [
@@ -39,21 +81,25 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "03",
+    n: "04",
     title: "Home Delivery Inspection",
+    price: "₹1,199",
+    priceNote: "At doorstep",
     summary:
       "Taking delivery at home? We inspect on arrival, before you sign the acceptance receipt.",
     checklist: [
       "Inspection at your doorstep, at delivery time",
       "Transit damage assessment — scratches, dents, transport marks",
       "Confirmation that all promised accessories arrived with the car",
-      "Immediate verbal verdict plus a written report",
+      "Immediate verbal verdict",
       "Guidance on what to refuse and what to accept",
     ],
   },
   {
-    n: "04",
+    n: "05",
     title: "Paint & Body Inspection",
+    price: "₹799",
+    priceNote: "Standalone",
     summary:
       "Paint thickness readings and panel-by-panel checks that reveal repainting, touch-ups and repairs the eye misses.",
     checklist: [
@@ -65,21 +111,25 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "05",
+    n: "06",
     title: "Mechanical & Electrical Inspection",
+    price: "₹999",
+    priceNote: "Standalone",
     summary:
-      "The systems you cannot see. Engine, transmission, brakes, battery and the full electrical harness, checked properly.",
+      "Engine, transmission, brakes, battery and full electrical harness — the systems you cannot see, checked properly.",
     checklist: [
       "Engine start behaviour, idle quality and unusual noise",
       "Fluid levels and leak inspection",
       "Battery health and charging system",
       "Brakes, suspension and steering response",
-      "OBD scan for stored fault codes",
+      "AC temperature performance check",
     ],
   },
   {
-    n: "06",
+    n: "07",
     title: "Interior & Exterior Quality Check",
+    price: "₹699",
+    priceNote: "Standalone",
     summary:
       "Fit, finish and function inside and out — the details that decide how the car feels for the next ten years.",
     checklist: [
@@ -87,42 +137,21 @@ export const services: Service[] = [
       "All switches, windows, locks, mirrors and seat adjusters",
       "Air conditioning performance and cabin filter",
       "Boot, spare wheel, jack and tool kit present and correct",
-      "Tyre manufacturing dates and matching set verification",
-    ],
-  },
-  {
-    n: "07",
-    title: "Accessories & Feature Verification",
-    summary:
-      "We confirm you actually received every accessory and feature you paid for — and that they work.",
-    checklist: [
-      "Line-by-line check against your invoice and booking sheet",
-      "Fitted accessories tested, not just counted",
-      "Infotainment, connectivity and camera systems verified",
-      "Both keys, manuals, warranty booklet and service book",
-      "Missing items flagged before payment is closed",
-    ],
-  },
-  {
-    n: "08",
-    title: "Expert Inspection Report",
-    summary:
-      "Everything we find, documented in a clear report you can hand straight to the dealer.",
-    checklist: [
-      "Point-by-point findings with severity marked",
-      "High-resolution photographs of every defect",
-      "Paint depth readings recorded panel by panel",
-      "A plain-language accept / fix-first recommendation",
-      "Delivered digitally, same day",
+      "Tyre tread depth gauge check",
     ],
   },
 ];
 
 export const report = {
-  eyebrow: "Deliverable",
-  title: "A report the dealer cannot argue with.",
-  body: "No verbal opinions and no vague summaries. You receive a structured document with photographs, measurements and a clear verdict on each point — the kind of evidence that gets things corrected quickly.",
-  stats: ["150+ checkpoints", "Same-day report", "Photo evidence", "24/7 scheduling"],
+  eyebrow: "Our tools",
+  title: "Calibrated instruments, not guesswork.",
+  body: "Every Drive Shine inspector arrives with professional tools — not just a phone camera and a checklist. Measurements are taken, not estimated.",
+  stats: ["Paint depth gauge", "Tyre tread depth gauge", "AC temperature check", "300+ checkpoints"],
+  tools: [
+    { image: "/pic1.jpg", label: "Paint Depth Gauge", desc: "Detects repaints and accident repairs on every panel." },
+    { image: "/pic2.jpg", label: "Tyre Tread Depth Gauge", desc: "Precise tread measurement — not a visual guess." },
+    { image: "/pic3.jpg", label: "AC Temperature Check", desc: "Verifies cooling performance before you accept delivery." },
+  ],
 };
 
 export const reportItems = report.stats;
@@ -130,7 +159,7 @@ export const reportItems = report.stats;
 export const servicesFaq = [
   {
     q: "How long does a PDI take?",
-    a: "Most inspections take 60 to 90 minutes depending on the vehicle and where it is parked.",
+    a: "Most inspections take 30 to 45 minutes depending on the vehicle and where it is parked.",
   },
   {
     q: "Can you inspect at the dealership before I pay the balance?",
@@ -142,7 +171,7 @@ export const servicesFaq = [
   },
   {
     q: "Do you inspect used cars too?",
-    a: "Our focus is new vehicle pre-delivery inspection. Contact us for anything outside that.",
+    a: "Yes — we inspect both new and pre-owned vehicles. Contact us to book a pre-owned car inspection.",
   },
   {
     q: "Which areas do you cover?",

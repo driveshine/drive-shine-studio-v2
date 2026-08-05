@@ -39,7 +39,7 @@ export function PageHero({
       />
       <div className="shell relative z-10 pb-12 pt-28 md:pb-16 md:pt-40">
         <p className="mono-label">{eyebrow}</p>
-        <h1 className="chrome-text mt-4 text-[clamp(2.1rem,9vw,3rem)] md:mt-5 md:text-[clamp(2.5rem,6vw,5rem)]">{title}</h1>
+        <h1 className="text-white mt-4 text-[clamp(2.1rem,9vw,3rem)] md:mt-5 md:text-[clamp(2.5rem,6vw,5rem)]">{title}</h1>
         {copy && <p className="mt-5 max-w-xl text-base leading-[1.7] text-muted-foreground md:mt-6 md:text-lg">{copy}</p>}
         {children}
       </div>

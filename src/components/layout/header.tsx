@@ -30,39 +30,42 @@ export function Header() {
 
   return (
     <>
-      {/* ── Top bar ─────────────────────────────────────────────────────── */}
       <motion.header
         initial={false}
         animate={{
-          backgroundColor: scrolled ? "rgba(10,10,11,0.92)" : "rgba(10,10,11,0.6)",
-          borderBottomColor: scrolled ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0.04)",
+          backgroundColor: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.92)",
+          borderBottomColor: scrolled ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.04)",
+          boxShadow: scrolled ? "0 2px 20px rgba(0,0,0,0.08)" : "none",
         }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl backdrop-saturate-150"
+        className="fixed inset-x-0 top-0 z-50 border-b backdrop-blur-xl"
       >
         <div
           className="shell flex items-center justify-between"
           style={{ height: scrolled ? 60 : 68, transition: "height 0.4s cubic-bezier(0.16,1,0.3,1)" }}
         >
           {/* Logo */}
-          <Link to="/" className="flex min-w-0 items-center gap-2.5" aria-label="Drive Shine home">
-            <img
-              src={logoUrl}
-              alt="Drive Shine logo"
-              width={38}
-              height={38}
-              className="shrink-0 rounded-full"
-              style={{ width: scrolled ? 32 : 38, height: scrolled ? 32 : 38, transition: "width 0.4s, height 0.4s" }}
-            />
-            <span className="chrome-text font-display text-[14px] font-extrabold uppercase tracking-[0.14em]">
-              Drive Shine
-            </span>
+          <Link to="/" className="flex min-w-0 items-center gap-3 group" aria-label="Drive Shine home">
+            <div className="relative shrink-0">
+              <img
+                src={logoUrl}
+                alt="Drive Shine logo"
+                className="rounded-full ring-2 ring-red/20 transition-all duration-300 group-hover:ring-red/60"
+                style={{ width: scrolled ? 32 : 40, height: scrolled ? 32 : 40, transition: "width 0.4s, height 0.4s" }}
+              />
+            </div>
+            <div className="flex flex-col leading-none">
+              <span className="font-display text-[15px] font-black uppercase tracking-[0.18em] text-ink">
+                Drive Shine
+              </span>
+              <span className="mono-label text-[9px] tracking-[0.2em] text-red/80">PDI · Hyderabad</span>
+            </div>
           </Link>
 
           {/* Desktop nav */}
           <nav
             aria-label="Primary"
-            className="hidden items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] p-1 backdrop-blur-xl lg:flex"
+            className="hidden items-center gap-1 rounded-full border border-black/[0.06] bg-black/[0.02] p-1 lg:flex"
           >
             {nav.map((item) => {
               const isActive = item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
@@ -72,14 +75,14 @@ export function Header() {
                   to={item.to}
                   className={cn(
                     "relative rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors duration-300",
-                    isActive ? "text-bone" : "text-chrome-500 hover:text-chrome-100",
+                    isActive ? "text-white" : "text-gray-500 hover:text-gray-900",
                   )}
                 >
                   {isActive && (
                     <motion.span
                       layoutId="nav-pill"
                       transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                      className="absolute inset-0 rounded-full border border-white/[0.08] bg-white/[0.07]"
+                      className="absolute inset-0 rounded-full bg-red"
                     />
                   )}
                   <span className="relative">{item.label}</span>
@@ -97,7 +100,7 @@ export function Header() {
               type="button"
               onClick={() => setOpen(true)}
               aria-label="Open menu"
-              className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.04] text-bone transition-colors hover:border-red/40 lg:hidden"
+              className="grid size-10 place-items-center rounded-full border border-black/10 text-gray-700 transition-colors hover:border-red/40 hover:text-red lg:hidden"
             >
               <Menu className="size-5" aria-hidden="true" />
             </button>
@@ -105,7 +108,7 @@ export function Header() {
         </div>
       </motion.header>
 
-      {/* ── Mobile full-screen menu — z-[200] so it covers everything ───── */}
+      {/* Mobile menu — white */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -114,42 +117,33 @@ export function Header() {
             exit={{ opacity: 0, x: "100%" }}
             transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
             className="fixed inset-0 lg:hidden"
-            style={{ zIndex: 200, background: "#0A0A0B" }}
+            style={{ zIndex: 200, background: "#ffffff" }}
           >
-            {/* Red glow accent */}
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute right-0 top-0 h-64 w-48 blur-3xl"
-              style={{ background: "radial-gradient(circle at top right, rgba(224,27,34,0.22) 0%, transparent 70%)" }}
-            />
-            <div
-              aria-hidden="true"
-              className="pointer-events-none absolute bottom-0 left-0 h-48 w-48 blur-3xl"
-              style={{ background: "radial-gradient(circle at bottom left, rgba(224,27,34,0.12) 0%, transparent 70%)" }}
-            />
+            {/* Red accent top */}
+            <div className="absolute inset-x-0 top-0 h-1 bg-red" />
 
-            {/* Header row inside menu */}
+            {/* Header row */}
             <div className="shell flex h-16 items-center justify-between">
-              <Link to="/" className="flex items-center gap-2.5" onClick={() => setOpen(false)}>
-                <img src={logoUrl} alt="Drive Shine" width={34} height={34} className="rounded-full" />
-                <span className="chrome-text font-display text-sm font-extrabold uppercase tracking-[0.14em]">
-                  Drive Shine
-                </span>
+              <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+                <img src={logoUrl} alt="Drive Shine" width={36} height={36} className="rounded-full ring-2 ring-red/30" />
+                <div className="flex flex-col leading-none">
+                  <span className="font-display text-[15px] font-black uppercase tracking-[0.18em] text-ink">Drive Shine</span>
+                  <span className="mono-label text-[9px] tracking-[0.2em] text-red/80">PDI · Hyderabad</span>
+                </div>
               </Link>
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="grid size-10 place-items-center rounded-full border border-white/15 text-bone"
+                className="grid size-10 place-items-center rounded-full border border-black/10 text-gray-700"
               >
                 <X className="size-5" aria-hidden="true" />
               </button>
             </div>
 
-            {/* Hairline */}
-            <div className="h-px w-full" style={{ background: "rgba(255,255,255,0.06)" }} />
+            <div className="h-px w-full bg-black/[0.06]" />
 
-            {/* Nav links */}
+            {/* Nav + contact */}
             <div className="shell flex h-[calc(100svh-65px)] flex-col justify-between overflow-y-auto py-8">
               <nav aria-label="Mobile" className="flex flex-col gap-1">
                 {nav.map((item, i) => {
@@ -165,26 +159,23 @@ export function Header() {
                         to={item.to}
                         className={cn(
                           "flex items-center justify-between rounded-xl px-4 py-4 font-display text-2xl font-extrabold uppercase leading-none transition-colors",
-                          isActive ? "text-red" : "text-bone hover:text-red",
+                          isActive ? "text-red" : "text-gray-900 hover:text-red",
                         )}
                       >
                         {item.label}
-                        {isActive && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-red" />
-                        )}
+                        {isActive && <span className="h-2 w-2 rounded-full bg-red" />}
                       </Link>
-                      <div className="h-px mx-4" style={{ background: "rgba(255,255,255,0.05)" }} />
+                      <div className="mx-4 h-px bg-black/[0.05]" />
                     </motion.div>
                   );
                 })}
               </nav>
 
-              {/* Bottom contact block */}
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.22, duration: 0.4 }}
-                className="flex flex-col gap-5"
+                className="flex flex-col gap-4"
               >
                 <DsButtonLink to="/contact" className="w-full justify-center">
                   Book Inspection
@@ -192,19 +183,19 @@ export function Header() {
 
                 <a
                   href={site.phoneHref}
-                  className="flex items-center gap-3 rounded-xl border border-white/[0.07] bg-white/[0.03] px-4 py-3"
+                  className="flex items-center gap-3 rounded-xl border border-black/[0.07] bg-gray-50 px-4 py-3"
                 >
                   <span className="grid size-9 shrink-0 place-items-center rounded-full bg-red/10">
                     <Phone className="size-4 text-red" aria-hidden="true" />
                   </span>
                   <div>
-                    <p className="mono-label text-[10px]">Call us</p>
-                    <p className="font-display text-lg font-bold text-bone">{site.phone}</p>
+                    <p className="mono-label text-[10px] text-gray-500">Call us</p>
+                    <p className="font-display text-lg font-bold text-gray-900">{site.phone}</p>
                   </div>
                 </a>
 
                 <div className="flex items-center justify-between">
-                  <p className="mono-label text-[10px]">{site.city} • {site.hours}</p>
+                  <p className="mono-label text-[10px] text-gray-400">{site.city} • {site.hours}</p>
                   <ul className="flex gap-2">
                     {site.socials.map((soc) => {
                       const Icon = socialIcons[soc.label as keyof typeof socialIcons];
@@ -215,7 +206,7 @@ export function Header() {
                             target="_blank"
                             rel="noreferrer"
                             aria-label={soc.label}
-                            className="grid size-9 place-items-center rounded-full border border-white/10 text-chrome-300 transition-colors hover:border-red/40 hover:text-red"
+                            className="grid size-9 place-items-center rounded-full border border-black/10 text-gray-500 transition-colors hover:border-red hover:text-red"
                           >
                             <Icon className="size-3.5" aria-hidden="true" />
                           </a>

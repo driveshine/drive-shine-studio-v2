@@ -43,7 +43,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
     <>
       {!done && <Preloader onDone={handleDone} />}
       <RouteProgressBar />
-      <div className="mobile-bar-pad min-h-screen bg-carbon">
+      <div className="mobile-bar-pad min-h-screen bg-white">
         <Header />
         <AnimatePresence mode="wait">
           <motion.main
