@@ -126,8 +126,8 @@ export function HowItWorks() {
   }, []);
 
   return (
-    <section ref={root} className="noise-grid relative overflow-hidden bg-carbon-800">
-      <div className="shell section-y">
+    <section className="noise-grid relative overflow-hidden bg-carbon-800">
+      <div ref={root} className="shell section-y">
         <SectionHeading eyebrow="Process" title="How our PDI works." />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
