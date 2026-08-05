@@ -1,0 +1,132 @@
+import { useState } from "react";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { products, productCategories, usageTips } from "@/data/products";
+import { images } from "@/data/site";
+import { PageHero } from "@/components/sections/page-hero";
+import { CtaBand } from "@/components/sections/cta-band";
+import { SectionHeading } from "@/components/ui/section-heading";
+import { useGsapReveal } from "@/hooks/useGsapReveal";
+import { cn } from "@/lib/utils";
+
+const title = "Car Care Products — Drive Shine Hyderabad";
+const description =
+  "Premium car care products: wash shampoo, glass cleaner, dashboard and tyre polish, interior cleaner, rat repellent spray and detailing accessories. Enquiry only.";
+
+export const Route = createFileRoute("/products")({
+  head: () => ({
+    meta: [
+      { title },
+      { name: "description", content: description },
+      { property: "og:title", content: title },
+      { property: "og:description", content: description },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
+  component: ProductsPage,
+});
+
+function ProductsPage() {
+  const [filter, setFilter] = useState<string>("All");
+  const tipsRef = useGsapReveal<HTMLElement>();
+  const visible = filter === "All" ? products : products.filter((p) => p.category === filter);
+
+  return (
+    <>
+      <PageHero
+        eyebrow="Products • Enquiry only"
+        title="Care that matches the finish."
+        copy="A short, deliberate range. No prices online — tell us what you drive and we'll advise."
+        image={images.productsHero}
+        alt="Car care bottles on a dark tabletop lit from one side"
+      />
+
+      <section className="bg-carbon">
+        <div className="shell section-y">
+          <div className="flex flex-wrap gap-3" role="group" aria-label="Filter products">
+            {["All", ...productCategories].map((c) => (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setFilter(c)}
+                aria-pressed={filter === c}
+                className={cn(
+                  "mono-label rounded-full border px-5 py-2.5 transition-colors duration-300",
+                  filter === c
+                    ? "border-red bg-red text-white"
+                    : "border-white/12 text-chrome-300 hover:border-white/35 hover:text-bone",
+                )}
+              >
+                {c}
+              </button>
+            ))}
+          </div>
+
+          <motion.ul layout className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {visible.map((p) => (
+                <motion.li
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                  className="card-surface overflow-hidden"
+                >
+                  <div className="relative aspect-4/3 overflow-hidden bg-carbon">
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-8 bottom-0 h-24 rounded-full bg-red/25 blur-3xl"
+                    />
+                    {/* TODO: replace with client product photography on dark tiles */}
+                    <img
+                      src={p.image}
+                      alt={p.alt}
+                      loading="lazy"
+                      width={800}
+                      height={600}
+                      className="relative size-full object-cover [filter:saturate(0.8)_brightness(0.8)]"
+                    />
+                  </div>
+                  <div className="p-7">
+                    <p className="mono-label text-red">{p.category}</p>
+                    <h2 className="mt-3 font-display text-xl font-bold text-bone">{p.name}</h2>
+                    <p className="mt-2 text-sm text-muted-foreground">{p.benefit}</p>
+                    <Link
+                      to="/contact"
+                      className="mono-label mt-6 inline-flex items-center gap-2 text-chrome-300 hover:text-red"
+                    >
+                      Enquire <ArrowUpRight className="size-4" aria-hidden="true" />
+                    </Link>
+                  </div>
+                </motion.li>
+              ))}
+            </AnimatePresence>
+          </motion.ul>
+        </div>
+      </section>
+
+      <section ref={tipsRef} className="noise-grid relative overflow-hidden bg-carbon-800">
+        <div className="shell section-y">
+          <SectionHeading eyebrow="Usage tips" title="Get more from every bottle." />
+          <ul className="mt-14 grid gap-6 lg:grid-cols-3">
+            {usageTips.map((t) => (
+              <li key={t.title} className="reveal card-surface p-8">
+                <h3 className="font-display text-lg font-bold text-bone">{t.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{t.copy}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <CtaBand
+        title="Not sure what your car needs?"
+        copy="Send us the make, model and paint colour. We'll recommend the shortest useful list."
+      />
+    </>
+  );
+}
