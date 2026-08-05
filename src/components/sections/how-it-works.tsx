@@ -68,7 +68,10 @@ function DiagnosticPanel({ index }: { index: number }) {
 }
 
 export function HowItWorks() {
-  const root = useRef<HTMLElement | null>(null);
+  // GSAP pinning wraps the pinned node in a pin-spacer. Pin an INNER div so
+  // React never has to remove a node whose parent GSAP replaced (otherwise
+  // route transitions throw NotFoundError: removeChild).
+  const root = useRef<HTMLDivElement | null>(null);
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -123,8 +126,8 @@ export function HowItWorks() {
   }, []);
 
   return (
-    <section ref={root} className="noise-grid relative overflow-hidden bg-carbon-800">
-      <div className="shell section-y">
+    <section className="noise-grid relative overflow-hidden bg-carbon-800">
+      <div ref={root} className="shell section-y">
         <SectionHeading eyebrow="Process" title="How our PDI works." />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
