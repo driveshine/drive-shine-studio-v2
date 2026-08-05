@@ -5,112 +5,152 @@ export type Service = {
   checklist: string[];
 };
 
+export const servicesIntro = {
+  eyebrow: "What we inspect",
+  title: "Every check that should happen before you take the keys.",
+  body: "A new car is not automatically a flawless car. Transit damage, storage marks, missing accessories and factory oversights are common — and once you sign the delivery acceptance, they become your problem. Drive Shine inspects independently, on your side, before the handover. You get a clear report, photographs of every issue, and the leverage to have it fixed before you drive home.",
+};
+
 export const services: Service[] = [
   {
     n: "01",
     title: "New Car PDI",
     summary:
-      "The complete pre-delivery inspection on a brand new vehicle, carried out before you sign anything.",
+      "A complete pre-delivery inspection of your brand-new vehicle, from paint to electronics, carried out before you accept delivery.",
     checklist: [
-      "150+ point protocol",
-      "VIN & manufacture date verification",
-      "Odometer and transit history",
-      "Photographic evidence of every finding",
+      "Full walkaround with paint depth and panel gap checks",
+      "Engine bay, fluids and undercarriage inspection",
+      "All electricals, infotainment and safety systems tested",
+      "Odometer, VIN and manufacturing date verification",
+      "Photographic evidence of every observation",
     ],
   },
   {
     n: "02",
     title: "Dealership Inspection",
     summary:
-      "We attend the showroom on your behalf and inspect the exact unit allocated to you, on their floor.",
+      "We inspect the car at the showroom, before it leaves the dealer's premises, so any issue is theirs to correct.",
     checklist: [
-      "On-site at the dealership",
-      "Unit-match against your booking",
-      "Yard damage and storage checks",
-      "Immediate verbal verdict",
+      "On-site inspection at the dealership, at your scheduled slot",
+      "Verification that the delivered car matches your booked variant and colour",
+      "Check for demo use, test-drive wear or long storage effects",
+      "Documentation and invoice cross-check",
+      "Issues raised with the dealer while you still hold the leverage",
     ],
   },
   {
     n: "03",
     title: "Home Delivery Inspection",
     summary:
-      "Taking delivery at home? We inspect at your doorstep before the paperwork is handed over.",
+      "Taking delivery at home? We inspect on arrival, before you sign the acceptance receipt.",
     checklist: [
-      "Anywhere in Hyderabad",
-      "Evening and weekend slots",
-      "Transport damage assessment",
-      "Handover checklist walkthrough",
+      "Inspection at your doorstep, at delivery time",
+      "Transit damage assessment — scratches, dents, transport marks",
+      "Confirmation that all promised accessories arrived with the car",
+      "Immediate verbal verdict plus a written report",
+      "Guidance on what to refuse and what to accept",
     ],
   },
   {
     n: "04",
     title: "Paint & Body Inspection",
     summary:
-      "Coating thickness readings across every panel to expose rework, respray and transit repair.",
+      "Paint thickness readings and panel-by-panel checks that reveal repainting, touch-ups and repairs the eye misses.",
     checklist: [
-      "Digital paint depth gauge readings",
-      "Panel gap measurement",
-      "Swirl, scratch and dent mapping",
-      "Underbody and wheel arch check",
+      "Digital paint depth measurement on every panel",
+      "Detection of repainted or repaired sections",
+      "Panel gap and alignment consistency",
+      "Scratches, dents, swirl marks and stone chips",
+      "Glass, headlamp and trim condition",
     ],
   },
   {
     n: "05",
     title: "Mechanical & Electrical Inspection",
     summary:
-      "Engine bay, drivetrain, fluids and full electronic diagnostics before the car ever sees a road.",
+      "The systems you cannot see. Engine, transmission, brakes, battery and the full electrical harness, checked properly.",
     checklist: [
-      "OBD-II fault code scan",
+      "Engine start behaviour, idle quality and unusual noise",
       "Fluid levels and leak inspection",
-      "Battery health and charging test",
-      "Cold start and idle behaviour",
+      "Battery health and charging system",
+      "Brakes, suspension and steering response",
+      "OBD scan for stored fault codes",
     ],
   },
   {
     n: "06",
     title: "Interior & Exterior Quality Check",
     summary:
-      "Trim, upholstery, glass, seals and finish inspected to showroom-delivery standard.",
+      "Fit, finish and function inside and out — the details that decide how the car feels for the next ten years.",
     checklist: [
-      "Upholstery and trim condition",
-      "Glass, seals and weatherstrip",
-      "Panel alignment and shut lines",
-      "Odour, damp and cleanliness",
+      "Upholstery, dashboard and trim for stains, tears or gaps",
+      "All switches, windows, locks, mirrors and seat adjusters",
+      "Air conditioning performance and cabin filter",
+      "Boot, spare wheel, jack and tool kit present and correct",
+      "Tyre manufacturing dates and matching set verification",
     ],
   },
   {
     n: "07",
     title: "Accessories & Feature Verification",
     summary:
-      "Everything you paid for, verified present and functional — nothing quietly missing at delivery.",
+      "We confirm you actually received every accessory and feature you paid for — and that they work.",
     checklist: [
-      "Invoice-to-fitment match",
-      "Infotainment and connectivity",
-      "Safety systems and cameras",
-      "Tool kit, spare and documents",
+      "Line-by-line check against your invoice and booking sheet",
+      "Fitted accessories tested, not just counted",
+      "Infotainment, connectivity and camera systems verified",
+      "Both keys, manuals, warranty booklet and service book",
+      "Missing items flagged before payment is closed",
     ],
   },
   {
     n: "08",
     title: "Expert Inspection Report",
     summary:
-      "A structured digital report with severity ratings you can put in front of the dealer immediately.",
+      "Everything we find, documented in a clear report you can hand straight to the dealer.",
     checklist: [
-      "Delivered within 2 hours",
-      "Photo evidence per finding",
-      "Severity rating and recommendation",
-      "Shareable PDF and web link",
+      "Point-by-point findings with severity marked",
+      "High-resolution photographs of every defect",
+      "Paint depth readings recorded panel by panel",
+      "A plain-language accept / fix-first recommendation",
+      "Delivered digitally, same day",
     ],
   },
 ];
 
-export const reportItems = [
-  "Vehicle identity and VIN verification",
-  "Paint thickness readings, panel by panel",
-  "Panel gap and alignment measurements",
-  "OBD-II diagnostic scan output",
-  "Electrical and infotainment function log",
-  "Interior condition and trim assessment",
-  "Accessory and feature verification list",
-  "Severity-rated summary with recommendation",
+export const report = {
+  eyebrow: "Deliverable",
+  title: "A report the dealer cannot argue with.",
+  body: "No verbal opinions and no vague summaries. You receive a structured document with photographs, measurements and a clear verdict on each point — the kind of evidence that gets things corrected quickly.",
+  stats: ["150+ checkpoints", "Same-day report", "Photo evidence", "24/7 scheduling"],
+};
+
+export const reportItems = report.stats;
+
+export const servicesFaq = [
+  {
+    q: "How long does a PDI take?",
+    a: "Most inspections take 60 to 90 minutes depending on the vehicle and where it is parked.",
+  },
+  {
+    q: "Can you inspect at the dealership before I pay the balance?",
+    a: "Yes — that is the ideal time. Book your slot and we will be there before the handover.",
+  },
+  {
+    q: "What if you find a problem?",
+    a: "You get documented evidence and a clear recommendation. Most issues get resolved by the dealer once they are shown in writing.",
+  },
+  {
+    q: "Do you inspect used cars too?",
+    a: "Our focus is new vehicle pre-delivery inspection. Contact us for anything outside that.",
+  },
+  {
+    q: "Which areas do you cover?",
+    a: "Hyderabad and surrounding areas, available 24 hours a day, all seven days.",
+  },
 ];
+
+export const servicesCta = {
+  title: "Book your inspection before delivery day.",
+  copy: "Slots fill fast around weekends and month-end deliveries.",
+};
