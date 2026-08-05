@@ -52,11 +52,7 @@ function ProductCard({ product: p }: { product: (typeof products)[number] }) {
         <p className="mono-label text-gray-400">{p.eyebrow}</p>
         <h2 className="mt-1 font-display text-lg font-bold text-gray-900">{p.name}</h2>
 
-        {/* Price */}
-        <div className="mt-1.5 flex items-baseline gap-2">
-          <span className="font-display text-xl font-black text-red">{p.price}</span>
-          {p.mrp && <span className="mono-label text-gray-400">{p.mrp}</span>}
-        </div>
+        {/* Price removed */}
 
         <p className="mt-2 text-xs leading-relaxed text-gray-500">{p.benefit}</p>
 

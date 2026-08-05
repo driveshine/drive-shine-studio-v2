@@ -27,7 +27,6 @@ export function ServicesPreview() {
               <span className="mono-label text-red">{s.n}</span>
               <h3 className="mt-4 font-display text-lg font-bold text-bone">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{s.summary}</p>
-              <p className="mt-4 font-display text-xl font-extrabold text-red">{s.price}</p>
             </li>
           ))}
         </ul>

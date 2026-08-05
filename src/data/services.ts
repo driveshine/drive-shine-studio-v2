@@ -38,10 +38,8 @@ export const services: Service[] = [
   {
     n: "01",
     title: "New Car PDI",
-    price: "₹999",
-    priceNote: "New cars",
-    summary:
-      "A complete pre-delivery inspection of your brand-new vehicle, from paint to electronics, carried out before you accept delivery.",
+    price: "",
+    summary: "A complete pre-delivery inspection of your brand-new vehicle, from paint to electronics, carried out before you accept delivery.",
     checklist: [
       "Full walkaround with paint depth and panel gap checks",
       "Engine bay, fluids and undercarriage inspection",
@@ -52,26 +50,9 @@ export const services: Service[] = [
   },
   {
     n: "02",
-    title: "Pre-Owned Car Inspection",
-    price: "₹1,499",
-    priceNote: "Used cars",
-    summary:
-      "Comprehensive inspection for pre-owned vehicles — uncover hidden issues before you buy or accept a used car.",
-    checklist: [
-      "Paint depth scan to detect repaints and accident repairs",
-      "Engine, transmission and underbody condition",
-      "Electrical systems, AC and infotainment check",
-      "Tyre tread depth gauge measurement",
-      "Odometer and documentation verification",
-    ],
-  },
-  {
-    n: "03",
     title: "Dealership Inspection",
-    price: "₹999",
-    priceNote: "At showroom",
-    summary:
-      "We inspect the car at the showroom, before it leaves the dealer's premises, so any issue is theirs to correct.",
+    price: "",
+    summary: "We inspect the car at the showroom, before it leaves the dealer's premises, so any issue is theirs to correct.",
     checklist: [
       "On-site inspection at the dealership, at your scheduled slot",
       "Verification that the delivered car matches your booked variant and colour",
@@ -81,12 +62,10 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "04",
+    n: "03",
     title: "Home Delivery Inspection",
-    price: "₹1,199",
-    priceNote: "At doorstep",
-    summary:
-      "Taking delivery at home? We inspect on arrival, before you sign the acceptance receipt.",
+    price: "",
+    summary: "Taking delivery at home? We inspect on arrival, before you sign the acceptance receipt.",
     checklist: [
       "Inspection at your doorstep, at delivery time",
       "Transit damage assessment — scratches, dents, transport marks",
@@ -96,12 +75,10 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "05",
+    n: "04",
     title: "Paint & Body Inspection",
-    price: "₹799",
-    priceNote: "Standalone",
-    summary:
-      "Paint thickness readings and panel-by-panel checks that reveal repainting, touch-ups and repairs the eye misses.",
+    price: "",
+    summary: "Paint thickness readings and panel-by-panel checks that reveal repainting, touch-ups and repairs the eye misses.",
     checklist: [
       "Digital paint depth measurement on every panel",
       "Detection of repainted or repaired sections",
@@ -111,12 +88,10 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "06",
+    n: "05",
     title: "Mechanical & Electrical Inspection",
-    price: "₹999",
-    priceNote: "Standalone",
-    summary:
-      "Engine, transmission, brakes, battery and full electrical harness — the systems you cannot see, checked properly.",
+    price: "",
+    summary: "Engine, transmission, brakes, battery and full electrical harness — the systems you cannot see, checked properly.",
     checklist: [
       "Engine start behaviour, idle quality and unusual noise",
       "Fluid levels and leak inspection",
@@ -126,18 +101,42 @@ export const services: Service[] = [
     ],
   },
   {
-    n: "07",
+    n: "06",
     title: "Interior & Exterior Quality Check",
-    price: "₹699",
-    priceNote: "Standalone",
-    summary:
-      "Fit, finish and function inside and out — the details that decide how the car feels for the next ten years.",
+    price: "",
+    summary: "Fit, finish and function inside and out — the details that decide how the car feels for the next ten years.",
     checklist: [
       "Upholstery, dashboard and trim for stains, tears or gaps",
       "All switches, windows, locks, mirrors and seat adjusters",
       "Air conditioning performance and cabin filter",
       "Boot, spare wheel, jack and tool kit present and correct",
       "Tyre tread depth gauge check",
+    ],
+  },
+  {
+    n: "07",
+    title: "Accessories & Feature Verification",
+    price: "",
+    summary: "Every accessory and feature you paid for, verified present and working before you accept the car.",
+    checklist: [
+      "All booked accessories physically present and fitted",
+      "Infotainment, connected car and ADAS features tested",
+      "Spare wheel, jack, tool kit and first-aid kit checked",
+      "Floor mats, seat covers and other add-ons verified",
+      "Cross-check against invoice and booking confirmation",
+    ],
+  },
+  {
+    n: "08",
+    title: "Expert Inspection Report",
+    price: "",
+    summary: "A clear, documented summary of every finding — photographic evidence you can act on at the dealership.",
+    checklist: [
+      "Photographic evidence of every defect found",
+      "Severity rating on each finding",
+      "Plain-language explanation of what each issue means",
+      "Recommended action for each finding",
+      "Shareable report to present to the dealer",
     ],
   },
 ];

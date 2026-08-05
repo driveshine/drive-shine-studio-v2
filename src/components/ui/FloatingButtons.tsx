@@ -17,6 +17,8 @@ function WhatsAppIcon() {
   );
 }
 
+const WA_MESSAGE = encodeURIComponent("Hello Drive Shine, I would like to know more about your car inspection services.");
+
 export function FloatingButtons() {
   return (
     <div className="fixed bottom-24 right-4 z-[90] flex flex-col items-end gap-3 lg:bottom-8 lg:right-6">
@@ -34,7 +36,7 @@ export function FloatingButtons() {
 
       {/* WhatsApp pill */}
       <a
-        href={site.whatsapp}
+        href={`${site.whatsapp}?text=${WA_MESSAGE}`}
         target="_blank"
         rel="noreferrer"
         aria-label="Chat on WhatsApp"

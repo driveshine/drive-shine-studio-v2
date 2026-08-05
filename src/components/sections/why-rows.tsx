@@ -53,7 +53,7 @@ export function WhyRows() {
     <section ref={root} className="bg-carbon">
       <div className="shell section-y">
         <SectionHeading eyebrow="Why Drive Shine" title="Independent. Measured. Documented." />
-        <div className="mt-12 space-y-14 md:mt-16 md:space-y-20 lg:space-y-28">
+        <div className="mt-10 space-y-10 md:mt-12 md:space-y-12">
           {whyRows.map((row, i) => (
             <div
               key={row.eyebrow}

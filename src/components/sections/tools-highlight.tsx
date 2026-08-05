@@ -1,74 +1,119 @@
+import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
+import { registerGsap } from "@/hooks/useLenis";
+import { cn } from "@/lib/utils";
 
 const tools = [
   {
     image: "/pic1.jpg",
-    label: "Paint Depth Gauge",
-    desc: "Detects repaints, touch-ups and accident repairs on every panel — invisible to the naked eye.",
+    alt: "Inspector using paint depth gauge on car panel",
+    eyebrow: "Paint Depth Gauge",
+    title: "Detects what the eye can't see.",
+    copy: "Every panel is measured with a digital paint depth gauge. Repaints, touch-ups and accident repairs show up as numbers — not guesses.",
   },
   {
     image: "/pic2.jpg",
-    label: "Tyre Tread Depth Gauge",
-    desc: "Precise digital measurement of tyre wear — not a visual estimate.",
+    alt: "Inspector measuring tyre tread depth",
+    eyebrow: "Tyre Tread Depth Gauge",
+    title: "Precise measurement, not a visual estimate.",
+    copy: "We measure tread depth digitally on every tyre. You get an exact reading — not a thumb-press and a shrug.",
   },
   {
     image: "/pic3.jpg",
-    label: "AC Temperature Check",
-    desc: "Verifies cooling performance meets spec before you accept delivery.",
+    alt: "Inspector checking AC temperature with meter",
+    eyebrow: "AC Temperature Check",
+    title: "Cooling performance verified before handover.",
+    copy: "A calibrated temperature meter confirms the AC is performing to spec. If it isn't, you know before you sign.",
   },
 ] as const;
 
 export function ToolsHighlight() {
+  const root = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    const el = root.current;
+    if (!el) return;
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const { gsap } = registerGsap();
+
+    const ctx = gsap.context(() => {
+      const rows = gsap.utils.toArray<HTMLElement>(".tool-row");
+      if (reduced) {
+        gsap.set(rows, { opacity: 1, y: 0 });
+        return;
+      }
+      rows.forEach((row) => {
+        gsap.fromTo(
+          row,
+          { opacity: 0, y: 40 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.9,
+            ease: "power3.out",
+            scrollTrigger: { trigger: row, start: "top 80%", once: true },
+          },
+        );
+        const img = row.querySelector(".tool-img");
+        if (img && window.matchMedia("(min-width: 768px)").matches) {
+          gsap.fromTo(
+            img,
+            { yPercent: -6 },
+            {
+              yPercent: 6,
+              ease: "none",
+              scrollTrigger: { trigger: row, start: "top bottom", end: "bottom top", scrub: true },
+            },
+          );
+        }
+      });
+    }, el);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="bg-white">
+    <section ref={root} className="bg-carbon">
       <div className="shell section-y">
-        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
-          <SectionHeading
-            eyebrow="Professional Tools"
-            title="We use instruments, not guesswork."
-            copy="Every inspection uses calibrated professional tools — for both new and pre-owned cars."
-          />
-          <Link
-            to="/services"
-            className="mono-label inline-flex shrink-0 items-center gap-2 text-red hover:underline"
-          >
-            View all services <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
-        </div>
-
-        <div className="mt-12 grid gap-6 sm:grid-cols-3 md:mt-16">
-          {tools.map((tool) => (
+        <SectionHeading eyebrow="Professional Tools" title="We use instruments, not guesswork." />
+        <div className="mt-10 space-y-10 md:mt-12 md:space-y-12">
+          {tools.map((tool, i) => (
             <div
-              key={tool.label}
-              className="group overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+              key={tool.eyebrow}
+              className="tool-row grid items-center gap-6 md:gap-10 lg:grid-cols-12"
             >
-              {/* Image */}
-              <div className="aspect-[4/3] overflow-hidden bg-gray-100">
-                <img
-                  src={tool.image}
-                  alt={tool.label}
-                  loading="lazy"
-                  className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-6">
-                <div className="flex items-center gap-2">
-                  <span className="size-2 shrink-0 rounded-full bg-red" />
-                  <h3 className="font-display text-lg font-bold text-gray-900">{tool.label}</h3>
+              <div
+                className={cn(
+                  "overflow-hidden rounded-2xl lg:col-span-7",
+                  i % 2 === 1 && "lg:order-2",
+                )}
+              >
+                <div className="aspect-16/10 overflow-hidden">
+                  <img
+                    src={tool.image}
+                    alt={tool.alt}
+                    loading="lazy"
+                    width={1200}
+                    height={750}
+                    className="tool-img size-full object-cover md:scale-110 [filter:saturate(0.8)_brightness(0.8)]"
+                  />
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-gray-500">{tool.desc}</p>
+              </div>
+              <div className="lg:col-span-5">
+                <p className="mono-label text-red">{tool.eyebrow}</p>
+                <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-bone">
+                  {tool.title}
+                </h3>
+                <p className="mt-4 text-base leading-[1.7] text-muted-foreground">{tool.copy}</p>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Bottom banner */}
-        <div className="mt-10 flex flex-col items-center justify-between gap-4 rounded-2xl border border-red/20 bg-red/5 px-8 py-6 sm:flex-row">
-          <p className="font-display text-lg font-bold text-gray-900">
+        <div className="mt-16 flex flex-col items-center justify-between gap-4 rounded-2xl border border-red/20 bg-red/5 px-8 py-6 sm:flex-row">
+          <p className="font-display text-lg font-bold text-bone">
             Used for <span className="text-red">both new &amp; pre-owned</span> car inspections.
           </p>
           <Link

@@ -191,12 +191,12 @@
 }
 
 @utility section-y {
-  padding-block: 4rem;
+  padding-block: 3rem;
   @media (min-width: 768px) {
-    padding-block: 6rem;
+    padding-block: 4rem;
   }
   @media (min-width: 1024px) {
-    padding-block: 9rem;
+    padding-block: 5rem;
   }
 }
 

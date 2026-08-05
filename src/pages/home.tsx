@@ -17,10 +17,8 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <TrustBar />
-      <SplitCards />
-      <HowItWorks />
       <ToolsHighlight />
+      <HowItWorks />
       <ServicesPreview />
       <WhyRows />
       <Testimonials />
