@@ -32,41 +32,69 @@ export function Header() {
     <motion.header
       initial={false}
       animate={{
-        backgroundColor: scrolled ? "rgba(10,10,11,0.8)" : "rgba(10,10,11,0)",
-        borderBottomColor: scrolled ? "rgba(255,255,255,0.08)" : "rgba(255,255,255,0)",
+        backgroundColor: scrolled ? "rgba(10,10,11,0.62)" : "rgba(10,10,11,0)",
+        borderBottomColor: scrolled ? "rgba(255,255,255,0.07)" : "rgba(255,255,255,0)",
       }}
-      transition={{ duration: 0.35 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 border-b",
-        scrolled && "backdrop-blur-xl",
+        scrolled && "backdrop-blur-2xl backdrop-saturate-150",
       )}
     >
-      <div className="shell flex h-20 items-center justify-between gap-6">
-        <Link to="/" className="flex min-w-0 items-center gap-3" aria-label="Drive Shine home">
-          <img
+      <motion.div
+        initial={false}
+        animate={{ height: scrolled ? 60 : 80 }}
+        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+        className="shell flex items-center justify-between gap-6"
+      >
+        <Link
+          to="/"
+          className="group flex min-w-0 items-center gap-3"
+          aria-label="Drive Shine home"
+        >
+          <motion.img
             src={logo.url}
             alt="Drive Shine logo"
             width={44}
             height={44}
-            className="size-11 shrink-0 rounded-full"
+            initial={false}
+            animate={{ width: scrolled ? 34 : 44, height: scrolled ? 34 : 44 }}
+            transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+            className="shrink-0 rounded-full"
           />
-          <span className="chrome-text hidden font-display text-lg font-extrabold uppercase tracking-tight sm:block">
+          <span className="chrome-text hidden font-display text-[15px] font-extrabold uppercase tracking-[0.14em] sm:block">
             Drive Shine
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-9 lg:flex">
-          {nav.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              activeOptions={{ exact: item.to === "/" }}
-              className="mono-label relative py-1 text-chrome-300 transition-colors hover:text-bone data-[status=active]:text-bone"
-            >
-              {item.label}
-              <span className="absolute -bottom-0.5 left-0 h-px w-0 bg-red transition-all duration-300 group-hover:w-full" />
-            </Link>
-          ))}
+        <nav
+          aria-label="Primary"
+          className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 rounded-full border border-white/[0.06] bg-white/[0.03] p-1 backdrop-blur-xl lg:flex"
+        >
+          {nav.map((item) => {
+            const isActive =
+              item.to === "/" ? pathname === "/" : pathname.startsWith(item.to);
+            return (
+              <Link
+                key={item.to}
+                to={item.to}
+                activeOptions={{ exact: item.to === "/" }}
+                className={cn(
+                  "relative rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors duration-300",
+                  isActive ? "text-bone" : "text-chrome-500 hover:text-chrome-100",
+                )}
+              >
+                {isActive && (
+                  <motion.span
+                    layoutId="nav-pill"
+                    transition={{ type: "spring", stiffness: 420, damping: 36 }}
+                    className="absolute inset-0 rounded-full border border-white/[0.08] bg-white/[0.07] shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]"
+                  />
+                )}
+                <span className="relative">{item.label}</span>
+              </Link>
+            );
+          })}
         </nav>
 
         <div className="flex items-center gap-3">
@@ -77,12 +105,13 @@ export function Header() {
             type="button"
             onClick={() => setOpen(true)}
             aria-label="Open menu"
-            className="grid size-11 place-items-center rounded-full border border-white/15 text-bone lg:hidden"
+            className="grid size-10 place-items-center rounded-full border border-white/10 bg-white/[0.03] text-bone backdrop-blur-xl transition-colors hover:border-red/40 lg:hidden"
           >
             <Menu className="size-5" aria-hidden="true" />
           </button>
         </div>
-      </div>
+      </motion.div>
+
 
       <AnimatePresence>
         {open && (
