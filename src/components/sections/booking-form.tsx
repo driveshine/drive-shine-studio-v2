@@ -27,10 +27,11 @@ function Field({
   className,
 }: {
   label: string;
-  error?: string;
+  error?: string | undefined;
   children: React.ReactNode;
-  className?: string;
+  className?: string | undefined;
 }) {
+
   return (
     <div className={cn("relative", className)}>
       <label className="mono-label mb-2 block">{label}</label>
