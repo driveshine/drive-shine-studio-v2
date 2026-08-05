@@ -149,8 +149,8 @@
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--chrome-500);
 }
+
 
 @utility shell {
   width: 100%;
