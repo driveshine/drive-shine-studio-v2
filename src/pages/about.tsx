@@ -1,36 +1,22 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Clock, Eye, Gauge, MapPin, Shield } from "lucide-react";
 import { aboutCopy, images, site, values } from "@/data/site";
-import logo from "@/assets/logo.asset.json";
+import logoUrl from "@/assets/logo.png";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 
-const title = "About Drive Shine — Independent Inspectors, Hyderabad";
-const description =
-  "Drive Shine is an independent pre-delivery inspection service in Hyderabad. No dealership commissions — measured, documented findings for new car buyers.";
-
-export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: AboutPage,
-});
-
 const icons = { shield: Shield, gauge: Gauge, eye: Eye } as const;
 
-function AboutPage() {
+export default function AboutPage() {
   const ref = useGsapReveal<HTMLElement>();
   const reduced = usePrefersReducedMotion();
+
+  useEffect(() => {
+    document.title = "About Drive Shine — Independent Inspectors, Hyderabad";
+  }, []);
 
   return (
     <>
@@ -100,7 +86,7 @@ function AboutPage() {
               style={reduced ? undefined : { animation: "ds-spin 12s linear infinite" }}
             />
             <img
-              src={logo.url}
+              src={logoUrl}
               alt="Drive Shine circular logo"
               loading="lazy"
               width={240}

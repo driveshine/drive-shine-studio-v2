@@ -8,8 +8,7 @@ export function Testimonials() {
   const [emblaRef, embla] = useEmblaCarousel({
     loop: true,
     align: "start",
-    dragFree: true,
-    breakpoints: { "(min-width: 768px)": { dragFree: false } },
+    dragFree: false,
   });
   const [selected, setSelected] = useState(0);
 
@@ -37,12 +36,12 @@ export function Testimonials() {
       <div className="shell section-y">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <Eyebrow>Owners</Eyebrow>
-          <div className="hidden gap-3 md:flex">
+          <div className="flex gap-3">
             <button
               type="button"
               onClick={() => scroll(-1)}
               aria-label="Previous testimonial"
-              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50"
+              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50 active:border-red"
             >
               <ArrowLeft className="size-4" aria-hidden="true" />
             </button>
@@ -50,7 +49,7 @@ export function Testimonials() {
               type="button"
               onClick={() => scroll(1)}
               aria-label="Next testimonial"
-              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50"
+              className="grid size-11 place-items-center rounded-full border border-white/15 text-bone transition-colors hover:border-red/50 active:border-red"
             >
               <ArrowRight className="size-4" aria-hidden="true" />
             </button>
@@ -60,7 +59,7 @@ export function Testimonials() {
         <div className="mt-8 overflow-hidden md:mt-12" ref={emblaRef}>
           <div className="flex">
             {testimonials.map((t) => (
-              <figure key={t.name} className="min-w-0 flex-[0_0_85%] pr-5 md:flex-[0_0_100%] md:pr-8 lg:flex-[0_0_70%]">
+              <figure key={t.name} className="min-w-0 flex-[0_0_100%] pr-6 lg:flex-[0_0_70%]">
                 <blockquote className="chrome-text font-display text-[clamp(1.5rem,3vw,2.5rem)] font-extrabold leading-tight">
                   “{t.quote}”
                 </blockquote>
@@ -72,12 +71,17 @@ export function Testimonials() {
           </div>
         </div>
 
-        <div className="mt-8 flex gap-2 md:mt-10" aria-hidden="true">
+        <div className="mt-8 flex items-center gap-3 md:mt-10">
           {testimonials.map((t, i) => (
-            <span
+            <button
               key={t.name}
-              className={`size-2 rounded-full transition-colors md:h-px md:w-10 md:rounded-none ${
-                i === selected ? "bg-red" : "bg-white/15"
+              type="button"
+              aria-label={`Go to testimonial ${i + 1}`}
+              onClick={() => embla?.scrollTo(i)}
+              className={`transition-all duration-300 rounded-full ${
+                i === selected
+                  ? "bg-red w-6 h-2"
+                  : "bg-white/15 size-2 hover:bg-white/30"
               }`}
             />
           ))}

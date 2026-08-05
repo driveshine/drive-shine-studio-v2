@@ -1,30 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Clock, Facebook, Instagram, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { site } from "@/data/site";
 import { BookingForm } from "@/components/sections/booking-form";
 import { Eyebrow } from "@/components/ui/section-heading";
 
-const title = "Contact & Book — Drive Shine Hyderabad";
-const description =
-  "Book an independent new car pre-delivery inspection in Hyderabad. Call 9494642244 or request a slot — we respond within 2 hours, 24/7.";
-
-export const Route = createFileRoute("/contact")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: ContactPage,
-});
-
 const socialIcons = { Facebook, Instagram, LinkedIn: Linkedin } as const;
 
-function ContactPage() {
+export default function ContactPage() {
+  useEffect(() => {
+    document.title = "Contact & Book — Drive Shine Hyderabad";
+  }, []);
+
   return (
     <section className="bg-carbon">
       <div className="shell grid gap-14 pb-24 pt-40 lg:grid-cols-12 lg:gap-20 lg:pb-36">

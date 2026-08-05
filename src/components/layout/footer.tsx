@@ -1,6 +1,6 @@
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { Facebook, Instagram, Linkedin, Mail, Phone } from "lucide-react";
-import logo from "@/assets/logo.asset.json";
+import logoUrl from "@/assets/logo.png";
 import { nav, site } from "@/data/site";
 import { services } from "@/data/services";
 
@@ -14,7 +14,6 @@ export function Footer() {
         className="h-px w-full bg-linear-to-r from-chrome-500/60 via-chrome-300/30 to-red"
       />
 
-      {/* Oversized brand watermark */}
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 flex select-none items-end justify-end overflow-hidden"
@@ -25,11 +24,10 @@ export function Footer() {
       </div>
 
       <div className="shell relative z-10 grid gap-12 py-16 md:py-24 lg:grid-cols-12 lg:gap-8">
-        {/* Brand */}
         <div className="flex flex-col gap-8 lg:col-span-4">
           <div className="flex items-center gap-4">
             <img
-              src={logo.url}
+              src={logoUrl}
               alt="Drive Shine logo"
               width={56}
               height={56}
@@ -61,7 +59,6 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Quick links */}
         <nav aria-label="Quick links" className="lg:col-span-2">
           <h2 className="mono-label mb-8 flex items-center gap-2 text-red">
             <span className="opacity-40">01</span> Quick links
@@ -80,7 +77,6 @@ export function Footer() {
           </ul>
         </nav>
 
-        {/* Services */}
         <div className="lg:col-span-3">
           <h2 className="mono-label mb-8 flex items-center gap-2 text-red">
             <span className="opacity-40">02</span> Services
@@ -99,7 +95,6 @@ export function Footer() {
           </ul>
         </div>
 
-        {/* Contact */}
         <div className="lg:col-span-3">
           <h2 className="mono-label mb-8 flex items-center gap-2 text-red">
             <span className="opacity-40">03</span> Contact

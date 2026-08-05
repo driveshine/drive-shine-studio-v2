@@ -11,9 +11,11 @@ export function registerGsap() {
   return { gsap, ScrollTrigger };
 }
 
-/** Smooth inertial scroll wired into the GSAP ticker. */
-export function useLenis() {
+/** Smooth inertial scroll wired into the GSAP ticker.
+ *  Pass `ready=false` to defer initialisation (e.g. until preloader exits). */
+export function useLenis(ready = true) {
   useEffect(() => {
+    if (!ready) return;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     let lenis: { raf: (t: number) => void; destroy: () => void } | null = null;
     let cancelled = false;
@@ -36,12 +38,11 @@ export function useLenis() {
       const raf = (time: number) => instance.raf(time * 1000);
       gsap.ticker.add(raf);
       gsap.ticker.lagSmoothing(0);
-      return () => gsap.ticker.remove(raf);
     })();
 
     return () => {
       cancelled = true;
       lenis?.destroy();
     };
-  }, []);
+  }, [ready]);
 }

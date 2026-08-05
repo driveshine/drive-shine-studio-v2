@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone } from "lucide-react";
 import { site } from "@/data/site";
 
-/** Mobile-only sticky action bar. Appears once the hero is scrolled past. */
 export function MobileActionBar() {
   const [show, setShow] = useState(false);
 

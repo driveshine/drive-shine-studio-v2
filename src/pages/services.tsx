@@ -1,12 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import { Check } from "lucide-react";
-import {
-  services,
-  servicesIntro,
-  report,
-  servicesFaq,
-  servicesCta,
-} from "@/data/services";
+import { services, servicesIntro, report, servicesFaq, servicesCta } from "@/data/services";
 import { images } from "@/data/site";
 import { PageHero } from "@/components/sections/page-hero";
 import { CtaBand } from "@/components/sections/cta-band";
@@ -19,28 +13,14 @@ import {
 } from "@/components/ui/accordion";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 
-const title = "PDI Services — Drive Shine Hyderabad";
-const description =
-  "Eight independent pre-delivery inspection services: new car PDI, dealership and home inspections, paint, mechanical, electrical and full expert reports.";
-
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: ServicesPage,
-});
-
-function ServicesPage() {
+export default function ServicesPage() {
   const listRef = useGsapReveal<HTMLDivElement>();
   const reportRef = useGsapReveal<HTMLElement>();
   const faqRef = useGsapReveal<HTMLElement>();
+
+  useEffect(() => {
+    document.title = "PDI Services — Drive Shine Hyderabad";
+  }, []);
 
   return (
     <>
@@ -106,10 +86,7 @@ function ServicesPage() {
           <SectionHeading eyebrow={report.eyebrow} title={report.title} copy={report.body} />
           <div className="reveal grid gap-4 sm:grid-cols-2">
             {report.stats.map((stat) => (
-              <div
-                key={stat}
-                className="card-surface flex min-h-32 flex-col justify-between p-6"
-              >
+              <div key={stat} className="card-surface flex min-h-32 flex-col justify-between p-6">
                 <span className="grid size-8 place-items-center rounded-full border border-red/40">
                   <Check className="size-4 text-red" aria-hidden="true" />
                 </span>
@@ -146,4 +123,3 @@ function ServicesPage() {
     </>
   );
 }
-

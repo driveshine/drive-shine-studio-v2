@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { products, productCategories, usageTips } from "@/data/products";
@@ -10,24 +10,6 @@ import { SectionHeading } from "@/components/ui/section-heading";
 import { useGsapReveal } from "@/hooks/useGsapReveal";
 import { cn } from "@/lib/utils";
 import { srcSet, cardSizes } from "@/lib/img";
-
-const title = "Car Care Products — Drive Shine Hyderabad";
-const description =
-  "Premium car care products: wash shampoo, glass cleaner, dashboard and tyre polish, interior cleaner, rat repellent spray and detailing accessories. Enquiry only.";
-
-export const Route = createFileRoute("/products")({
-  head: () => ({
-    meta: [
-      { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
-  component: ProductsPage,
-});
 
 function ProductCard({ product: p }: { product: (typeof products)[number] }) {
   return (
@@ -64,10 +46,14 @@ function ProductCard({ product: p }: { product: (typeof products)[number] }) {
   );
 }
 
-function ProductsPage() {
+export default function ProductsPage() {
   const [filter, setFilter] = useState<string>("All");
   const tipsRef = useGsapReveal<HTMLElement>();
   const visible = filter === "All" ? products : products.filter((p) => p.category === filter);
+
+  useEffect(() => {
+    document.title = "Car Care Products — Drive Shine Hyderabad";
+  }, []);
 
   return (
     <>
@@ -104,7 +90,7 @@ function ProductsPage() {
             ))}
           </div>
 
-          {/* Mobile: peeking snap slider. Desktop: grid. */}
+          {/* Mobile: peeking snap slider */}
           <div className="hide-scrollbar -mx-5 mt-10 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-2 md:hidden">
             {visible.map((p) => (
               <div key={p.id} className="w-[85%] shrink-0 snap-start">
