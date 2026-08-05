@@ -5,7 +5,12 @@ import { testimonials } from "@/data/site";
 import { Eyebrow } from "@/components/ui/section-heading";
 
 export function Testimonials() {
-  const [emblaRef, embla] = useEmblaCarousel({ loop: true, align: "start" });
+  const [emblaRef, embla] = useEmblaCarousel({
+    loop: true,
+    align: "start",
+    dragFree: true,
+    breakpoints: { "(min-width: 768px)": { dragFree: false } },
+  });
   const [selected, setSelected] = useState(0);
 
   useEffect(() => {
@@ -32,7 +37,7 @@ export function Testimonials() {
       <div className="shell section-y">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <Eyebrow>Owners</Eyebrow>
-          <div className="flex gap-3">
+          <div className="hidden gap-3 md:flex">
             <button
               type="button"
               onClick={() => scroll(-1)}
@@ -52,14 +57,14 @@ export function Testimonials() {
           </div>
         </div>
 
-        <div className="mt-12 overflow-hidden" ref={emblaRef}>
+        <div className="mt-8 overflow-hidden md:mt-12" ref={emblaRef}>
           <div className="flex">
             {testimonials.map((t) => (
-              <figure key={t.name} className="min-w-0 flex-[0_0_100%] pr-8 lg:flex-[0_0_70%]">
+              <figure key={t.name} className="min-w-0 flex-[0_0_85%] pr-5 md:flex-[0_0_100%] md:pr-8 lg:flex-[0_0_70%]">
                 <blockquote className="chrome-text font-display text-[clamp(1.5rem,3vw,2.5rem)] font-extrabold leading-tight">
                   “{t.quote}”
                 </blockquote>
-                <figcaption className="mono-label mt-8">
+                <figcaption className="mono-label mt-6 md:mt-8">
                   {t.name} — {t.meta}
                 </figcaption>
               </figure>
@@ -67,11 +72,13 @@ export function Testimonials() {
           </div>
         </div>
 
-        <div className="mt-10 flex gap-2" aria-hidden="true">
+        <div className="mt-8 flex gap-2 md:mt-10" aria-hidden="true">
           {testimonials.map((t, i) => (
             <span
               key={t.name}
-              className={`h-px w-10 transition-colors ${i === selected ? "bg-red" : "bg-white/15"}`}
+              className={`size-2 rounded-full transition-colors md:h-px md:w-10 md:rounded-none ${
+                i === selected ? "bg-red" : "bg-white/15"
+              }`}
             />
           ))}
         </div>

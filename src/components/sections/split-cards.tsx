@@ -31,7 +31,7 @@ export function SplitCards() {
           title="Two ways we protect your new car."
           copy="Inspection first, care after. Both built around the same standard."
         />
-        <div className="mt-16 grid gap-8 lg:grid-cols-2">
+        <div className="mt-12 grid gap-6 md:mt-16 md:gap-8 lg:grid-cols-2">
           {cards.map((c) => (
             <Link
               key={c.to}
@@ -48,9 +48,9 @@ export function SplitCards() {
                   className="size-full object-cover [filter:saturate(0.8)_brightness(0.8)] transition-transform duration-700 ease-shine group-hover:scale-105"
                 />
               </div>
-              <div className="p-8">
+              <div className="p-5 md:p-8">
                 <h3 className="font-display text-2xl font-extrabold text-bone">{c.label}</h3>
-                <p className="mt-3 text-muted-foreground">{c.copy}</p>
+                <p className="mt-3 text-base leading-[1.7] text-muted-foreground">{c.copy}</p>
                 <span className="mono-label mt-6 inline-flex items-center gap-2 text-red">
                   Explore <ArrowUpRight className="size-4" aria-hidden="true" />
                 </span>

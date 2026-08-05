@@ -130,12 +130,12 @@ export function HowItWorks() {
       <div ref={root} className="shell section-y">
         <SectionHeading eyebrow="Process" title="How our PDI works." />
 
-        <div className="mt-14 grid gap-12 lg:grid-cols-12 lg:gap-16">
-          <div className="flex gap-8 lg:col-span-5">
+        <div className="mt-10 grid gap-12 md:mt-14 lg:grid-cols-12 lg:gap-16">
+          <div className="flex gap-5 md:gap-8 lg:col-span-5">
             <div aria-hidden="true" className="relative w-0.5 shrink-0 bg-white/10">
               <div className="step-rail-fill absolute inset-x-0 top-0 h-full origin-top scale-y-0 bg-red shadow-[0_0_15px_rgba(224,27,34,0.45)]" />
             </div>
-            <ol className="flex-1 space-y-14">
+            <ol className="min-w-0 flex-1 space-y-10 md:space-y-14">
               {steps.map((s, i) => {
                 const isActive = i === active;
                 return (
@@ -161,7 +161,7 @@ export function HowItWorks() {
                     </div>
                     <h3
                       className={cn(
-                        "mt-3 font-display text-3xl font-extrabold tracking-tight md:text-4xl",
+                        "mt-3 font-display text-2xl font-extrabold tracking-tight md:text-4xl",
                         isActive ? "chrome-text" : "text-bone",
                       )}
                     >
@@ -169,7 +169,7 @@ export function HowItWorks() {
                     </h3>
                     <p
                       className={cn(
-                        "mt-3 text-lg leading-relaxed",
+                        "mt-3 text-base leading-[1.7] md:text-lg",
                         isActive ? "text-chrome-300" : "text-muted-foreground",
                       )}
                     >

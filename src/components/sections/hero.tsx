@@ -3,6 +3,7 @@ import { ArrowRight } from "lucide-react";
 import { images, site } from "@/data/site";
 import { DsButtonLink } from "@/components/ui/ds-button";
 import { registerGsap } from "@/hooks/useLenis";
+import { srcSet, heroSizes } from "@/lib/img";
 
 const headlineLines = ["Know before", "you drive it home."];
 
@@ -36,27 +37,35 @@ export function Hero() {
         { scale: 1, duration: 2, ease: "power2.out" },
       );
 
-      gsap.to(".hero-img", {
-        yPercent: 12,
-        ease: "none",
-        scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-      });
+      // No parallax below 768px — it costs frames and gains nothing on a phone.
+      if (window.matchMedia("(min-width: 768px)").matches) {
+        gsap.to(".hero-img", {
+          yPercent: 12,
+          ease: "none",
+          scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
+        });
+      }
     }, el);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative flex min-h-[100svh] items-end overflow-hidden">
+    <section ref={root} className="relative flex min-h-[88svh] items-end overflow-hidden md:min-h-[100svh]">
       {/* TODO: replace with client hero photography — dark studio car, wet reflective floor */}
+      <picture className="hero-img absolute inset-0 size-full">
+        <source media="(max-width: 767px)" srcSet={images.heroMobile} />
       <img
         src={images.hero}
+        srcSet={srcSet(images.hero)}
+        sizes={heroSizes}
         alt="Dark modern car photographed low and side-on in a studio with a reflective floor"
         fetchPriority="high"
         width={1920}
         height={1080}
-        className="hero-img absolute inset-0 size-full object-cover [filter:saturate(0.8)_brightness(0.75)]"
+        className="absolute inset-0 size-full object-cover [filter:saturate(0.8)_brightness(0.75)]"
       />
+      </picture>
       <div
         aria-hidden="true"
         className="absolute inset-0"
@@ -66,28 +75,28 @@ export function Hero() {
         }}
       />
 
-      <div className="shell relative z-10 pb-16 pt-40 lg:pb-24">
+      <div className="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40 lg:pb-24">
         <p className="hero-fade mono-label">Independent PDI • {site.city}</p>
-        <h1 className="mt-6 text-[clamp(3rem,7vw,6.5rem)]">
+        <h1 className="mt-5 text-[clamp(2.25rem,9vw,3.25rem)] md:mt-6 md:text-[clamp(3rem,7vw,6.5rem)]">
           {headlineLines.map((line) => (
             <span key={line} className="hero-line block overflow-hidden pb-1">
               <span className="chrome-text block">{line}</span>
             </span>
           ))}
         </h1>
-        <p className="hero-fade mt-7 max-w-xl text-lg text-muted-foreground">
+        <p className="hero-fade mt-6 max-w-xl text-[15px] leading-[1.7] text-muted-foreground md:mt-7 md:text-lg">
           Drive Shine inspects your brand new car before you accept delivery — independently,
           on site, with a 150+ point protocol and a report you can hand straight to the dealer.
         </p>
-        <div className="hero-fade mt-10 flex flex-wrap gap-4">
-          <DsButtonLink to="/contact">
+        <div className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:mt-10">
+          <DsButtonLink to="/contact" className="w-full justify-center sm:w-auto">
             Book an inspection <ArrowRight className="size-4" aria-hidden="true" />
           </DsButtonLink>
-          <DsButtonLink to="/services" variant="ghost">
+          <DsButtonLink to="/services" variant="ghost" className="w-full justify-center sm:w-auto">
             View services
           </DsButtonLink>
         </div>
-        <p className="hero-fade mono-label mt-14 border-t border-white/8 pt-6">
+        <p className="hero-fade mono-label mt-10 border-t border-white/8 pt-6 md:mt-14">
           Hyderabad • 24/7 • Certified inspectors
         </p>
       </div>

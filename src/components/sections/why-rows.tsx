@@ -32,7 +32,7 @@ export function WhyRows() {
           },
         );
         const img = row.querySelector(".why-img");
-        if (img) {
+        if (img && window.matchMedia("(min-width: 768px)").matches) {
           gsap.fromTo(
             img,
             { yPercent: -6 },
@@ -53,11 +53,11 @@ export function WhyRows() {
     <section ref={root} className="bg-carbon">
       <div className="shell section-y">
         <SectionHeading eyebrow="Why Drive Shine" title="Independent. Measured. Documented." />
-        <div className="mt-16 space-y-20 lg:space-y-28">
+        <div className="mt-12 space-y-14 md:mt-16 md:space-y-20 lg:space-y-28">
           {whyRows.map((row, i) => (
             <div
               key={row.eyebrow}
-              className="why-row grid items-center gap-10 lg:grid-cols-12"
+              className="why-row grid items-center gap-6 md:gap-10 lg:grid-cols-12"
             >
               <div
                 className={cn(
@@ -73,7 +73,7 @@ export function WhyRows() {
                     loading="lazy"
                     width={1200}
                     height={750}
-                    className="why-img size-full scale-110 object-cover [filter:saturate(0.8)_brightness(0.8)]"
+                    className="why-img size-full object-cover md:scale-110 [filter:saturate(0.8)_brightness(0.8)]"
                   />
                 </div>
               </div>
@@ -82,7 +82,7 @@ export function WhyRows() {
                 <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-bone">
                   {row.title}
                 </h3>
-                <p className="mt-4 text-muted-foreground">{row.copy}</p>
+                <p className="mt-4 text-base leading-[1.7] text-muted-foreground">{row.copy}</p>
               </div>
             </div>
           ))}

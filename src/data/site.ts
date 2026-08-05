@@ -26,6 +26,9 @@ export const nav = [
 /* TODO: replace Unsplash placeholders with client photography */
 export const images = {
   hero: "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=1920&q=70",
+  /* Portrait-ish crop for phones — keeps the car centred instead of squashing it. */
+  heroMobile:
+    "https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&crop=entropy&w=900&h=1200&q=60&fm=webp",
   servicesHero:
     "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1920&q=70",
   productsHero:

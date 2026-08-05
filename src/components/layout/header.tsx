@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link, useRouterState } from "@tanstack/react-router";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Menu, Phone, X } from "lucide-react";
 import logo from "@/assets/logo.asset.json";
 import { nav, site } from "@/data/site";
 import { DsButtonLink } from "@/components/ui/ds-button";
 import { cn } from "@/lib/utils";
+
+const socialIcons = { Facebook, Instagram, LinkedIn: Linkedin } as const;
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -44,6 +46,7 @@ export function Header() {
       <motion.div
         initial={false}
         animate={{ height: scrolled ? 60 : 80 }}
+        style={{ minHeight: 64 }}
         transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
         className="shell flex items-center justify-between gap-6"
       >
@@ -126,42 +129,75 @@ export function Header() {
               aria-hidden="true"
               className="pointer-events-none absolute -right-24 top-0 h-full w-72 rotate-12 bg-linear-to-b from-red/25 to-transparent blur-2xl"
             />
-            <div className="shell relative flex h-20 items-center justify-end">
+            <div className="shell relative flex h-16 items-center justify-end">
               <button
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label="Close menu"
-                className="grid size-11 place-items-center rounded-full border border-white/15 text-bone"
+                className="-mr-2 grid size-12 place-items-center rounded-full border border-white/15 text-bone"
               >
                 <X className="size-5" aria-hidden="true" />
               </button>
             </div>
-            <nav aria-label="Mobile" className="shell relative mt-8 flex flex-col gap-2">
-              {nav.map((item, i) => (
-                <motion.div
-                  key={item.to}
-                  initial={{ opacity: 0, y: 24 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 * i, duration: 0.4 }}
-                >
-                  <Link
-                    to={item.to}
-                    className="block border-b border-white/8 py-5 font-display text-3xl font-extrabold uppercase text-bone"
+
+            <div className="relative flex h-[calc(100svh-4rem)] flex-col justify-between overflow-y-auto pb-10">
+              <nav aria-label="Mobile" className="shell mt-6 flex flex-col gap-6">
+                {nav.map((item, i) => (
+                  <motion.div
+                    key={item.to}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.06 * i, duration: 0.4 }}
                   >
-                    {item.label}
-                  </Link>
-                </motion.div>
-              ))}
+                    <Link
+                      to={item.to}
+                      className="block font-display text-[28px] font-extrabold uppercase leading-none text-bone"
+                    >
+                      {item.label}
+                    </Link>
+                  </motion.div>
+                ))}
+              </nav>
+
               <motion.div
-                initial={{ opacity: 0, y: 24 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.34, duration: 0.4 }}
-                className="mt-8"
+                transition={{ delay: 0.06 * nav.length, duration: 0.4 }}
+                className="shell mt-12"
               >
-                <DsButtonLink to="/contact">Book Inspection</DsButtonLink>
-                <p className="mono-label mt-6">{site.city} • {site.hours}</p>
+                <DsButtonLink to="/contact" className="w-full justify-center">
+                  Book Inspection
+                </DsButtonLink>
+                <a
+                  href={site.phoneHref}
+                  className="mt-6 flex items-center gap-3 font-display text-xl font-extrabold text-bone"
+                >
+                  <Phone className="size-5 text-red" aria-hidden="true" />
+                  {site.phone}
+                </a>
+                <ul className="mt-6 flex gap-3">
+                  {site.socials.map((soc) => {
+                    const Icon = socialIcons[soc.label as keyof typeof socialIcons];
+                    return (
+                      <li key={soc.label}>
+                        <a
+                          href={soc.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={soc.label}
+                          className="grid size-12 place-items-center rounded-full border border-white/10 text-chrome-300"
+                        >
+                          <Icon className="size-4" aria-hidden="true" />
+                        </a>
+                      </li>
+                    );
+                  })}
+                </ul>
+                <p className="mono-label mt-6">
+                  {site.city} • {site.hours}
+                </p>
               </motion.div>
-            </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>

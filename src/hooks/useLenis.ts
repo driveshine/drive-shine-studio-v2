@@ -22,8 +22,12 @@ export function useLenis() {
       const { default: Lenis } = await import("lenis");
       if (cancelled) return;
       const { gsap, ScrollTrigger } = registerGsap();
+      // Native scroll on phones — Lenis smoothing is a liability on low-end Android.
+      if (window.matchMedia("(max-width: 767px)").matches) return;
       const instance = new Lenis({
         duration: 1.2,
+        syncTouch: true,
+        touchMultiplier: 1.5,
         easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
         wheelMultiplier: 1,
       });

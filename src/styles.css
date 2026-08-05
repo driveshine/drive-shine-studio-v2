@@ -99,6 +99,7 @@
 
   html {
     scroll-behavior: auto;
+    overflow-x: hidden;
   }
 
   body {
@@ -106,7 +107,8 @@
     color: var(--muted-foreground);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.65;
+    line-height: 1.7;
+    overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -154,14 +156,20 @@
   width: 100%;
   max-width: 1280px;
   margin-inline: auto;
-  padding-inline: 1.5rem;
+  padding-inline: 1.25rem;
+  @media (min-width: 768px) {
+    padding-inline: 1.5rem;
+  }
   @media (min-width: 1024px) {
     padding-inline: 3rem;
   }
 }
 
 @utility section-y {
-  padding-block: 6rem;
+  padding-block: 4rem;
+  @media (min-width: 768px) {
+    padding-block: 6rem;
+  }
   @media (min-width: 1024px) {
     padding-block: 9rem;
   }
@@ -174,7 +182,10 @@
 @utility card-surface {
   background-color: var(--carbon-800);
   border: 1px solid rgba(255, 255, 255, 0.07);
-  border-radius: 16px;
+  border-radius: 14px;
+  @media (min-width: 768px) {
+    border-radius: 16px;
+  }
   transition:
     transform 400ms var(--ease-shine),
     border-color 400ms var(--ease-shine),
@@ -252,5 +263,21 @@
   *::after {
     animation-duration: 0.001ms !important;
     transition-duration: 0.001ms !important;
+  }
+}
+
+@utility hide-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Mobile sticky action bar clearance — footer is never covered. */
+@utility mobile-bar-pad {
+  padding-bottom: 72px;
+  @media (min-width: 1024px) {
+    padding-bottom: 0;
   }
 }
