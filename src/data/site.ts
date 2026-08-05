@@ -51,23 +51,56 @@ export const steps = [
     n: "01",
     title: "Book your slot",
     copy: "Tell us the car, the dealership and the delivery date. We lock an inspector for that window.",
+    module: "Scheduling_Module",
+    status: "Slot locked",
+    caption: "Inspector allocation",
+    footnote: "Confirmed within 2 hours",
+    metrics: [
+      { label: "RESPONSE", value: "< 2 HRS" },
+      { label: "COVERAGE", value: "HYDERABAD" },
+    ],
   },
   {
     n: "02",
     title: "We inspect on site",
     copy: "Our inspector arrives at the dealership or your home with calibrated tools and a 150+ point protocol.",
+    module: "Inspection_Module",
+    status: "Scanning chassis",
+    caption: "Live diagnostics feed",
+    footnote: "Verifying panel alignment",
+    metrics: [
+      { label: "PAINT_DEPTH", value: "114 µM" },
+      { label: "OBD_STATUS", value: "CLEAR" },
+    ],
   },
   {
     n: "03",
     title: "Detailed digital report",
     copy: "Photographic evidence, paint readings, electrical checks and a clear verdict — delivered within hours.",
+    module: "Report_Module",
+    status: "Compiling findings",
+    caption: "Evidence package",
+    footnote: "Shareable PDF and web link",
+    metrics: [
+      { label: "CHECKPOINTS", value: "150+" },
+      { label: "PHOTOS", value: "60+" },
+    ],
   },
   {
     n: "04",
     title: "Accept with confidence",
     copy: "Walk into delivery knowing exactly what you are signing for, with leverage to get issues fixed first.",
+    module: "Handover_Module",
+    status: "Verdict issued",
+    caption: "Delivery readiness",
+    footnote: "Leverage before you sign",
+    metrics: [
+      { label: "VERDICT", value: "ACTIONABLE" },
+      { label: "SEVERITY", value: "RATED" },
+    ],
   },
 ] as const;
+
 
 export const whyRows = [
   {
