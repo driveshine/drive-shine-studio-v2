@@ -53,16 +53,25 @@ function ServicesPage() {
               {services.map((s) => (
                 <li
                   key={s.n}
-                  className="reveal group grid gap-6 border-l-2 border-transparent py-10 transition-[border-color,padding] duration-400 ease-shine hover:border-red hover:pl-6 lg:grid-cols-12"
+                  className="reveal group relative grid gap-6 border-l-2 border-transparent px-0 py-12 transition-[border-color,padding,background-color] duration-400 ease-shine hover:border-red hover:bg-white/[0.02] hover:pl-8 lg:grid-cols-12 lg:gap-10"
                 >
-                  <p className="mono-label lg:col-span-1">{s.n}</p>
-                  <div className="lg:col-span-5">
-                    <h2 className="font-display text-2xl font-extrabold text-bone">{s.title}</h2>
-                    <p className="mt-3 text-muted-foreground">{s.summary}</p>
+                  <div className="lg:col-span-1">
+                    <span className="mono-label grid size-11 place-items-center rounded-full border border-white/10 text-chrome-500 transition-colors duration-400 group-hover:border-red/50 group-hover:text-red">
+                      {s.n}
+                    </span>
                   </div>
-                  <ul className="grid gap-2 sm:grid-cols-2 lg:col-span-6">
+                  <div className="lg:col-span-5">
+                    <h2 className="font-display text-2xl font-extrabold text-bone transition-colors duration-400 md:text-3xl">
+                      {s.title}
+                    </h2>
+                    <p className="mt-3 max-w-md text-muted-foreground">{s.summary}</p>
+                  </div>
+                  <ul className="grid content-start gap-3 sm:grid-cols-2 lg:col-span-6">
                     {s.checklist.map((c) => (
-                      <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
+                      <li
+                        key={c}
+                        className="flex items-start gap-2 rounded-lg border border-white/[0.05] bg-carbon-800/60 px-3 py-2.5 text-sm text-muted-foreground transition-colors duration-400 group-hover:border-white/10"
+                      >
                         <Check className="mt-0.5 size-4 shrink-0 text-red" aria-hidden="true" />
                         {c}
                       </li>
