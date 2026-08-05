@@ -133,7 +133,13 @@
     background: var(--red);
     color: #fff;
   }
+
+  /* Default color for mono labels; zero specificity so any text-* class wins */
+  :where(.mono-label) {
+    color: var(--muted-foreground);
+  }
 }
+
 
 @utility chrome-text {
   background-image: var(--gradient-chrome);
