@@ -42,7 +42,7 @@ function Field({
 }
 
 const inputClass =
-  "w-full border-0 border-b border-white/15 bg-transparent px-0 py-3 text-bone placeholder:text-chrome-500/70 transition-colors focus:border-red focus:outline-none";
+  "h-[52px] w-full border-0 border-b border-white/15 bg-transparent px-0 text-base text-bone placeholder:text-chrome-500/70 transition-colors focus:border-red focus:outline-none";
 
 export function BookingForm() {
   const [done, setDone] = useState(false);
@@ -62,7 +62,7 @@ export function BookingForm() {
 
   if (done) {
     return (
-      <div className="card-surface p-10 text-center">
+      <div className="card-surface p-6 text-center md:p-10">
         <svg viewBox="0 0 52 52" className="mx-auto size-16" aria-hidden="true">
           <circle
             cx="26"
@@ -110,12 +110,12 @@ export function BookingForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="card-surface p-8 lg:p-10" noValidate>
+    <form onSubmit={handleSubmit(onSubmit)} className="card-surface p-5 md:p-8 lg:p-10" noValidate>
       <h2 className="font-display text-2xl font-extrabold text-bone">Book Your Inspection</h2>
 
-      <fieldset className="mt-10">
+      <fieldset className="mt-10 w-full justify-center sm:w-auto">
         <legend className="mono-label text-red">Your Information</legend>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div className="mt-6 grid gap-5 sm:gap-6">
           <Field label="Full Name *" error={errors.fullName?.message}>
             <input
               id={`${uid}-name`}
@@ -129,6 +129,7 @@ export function BookingForm() {
             <input
               id={`${uid}-phone`}
               type="tel"
+              inputMode="tel"
               className={inputClass}
               placeholder="9XXXXXXXXX"
               autoComplete="tel"
@@ -150,7 +151,7 @@ export function BookingForm() {
 
       <fieldset className="mt-12">
         <legend className="mono-label text-red">Vehicle Details</legend>
-        <div className="mt-6 grid gap-6 sm:grid-cols-3">
+        <div className="mt-6 grid gap-5 min-[480px]:grid-cols-2 sm:gap-6 lg:grid-cols-3">
           <Field label="Car Make *" error={errors.make?.message}>
             <input
               id={`${uid}-make`}
@@ -181,7 +182,7 @@ export function BookingForm() {
 
       <fieldset className="mt-12">
         <legend className="mono-label text-red">Preferred Schedule</legend>
-        <div className="mt-6 grid gap-6 sm:grid-cols-2">
+        <div className="mt-6 grid gap-5 sm:grid-cols-2 sm:gap-6">
           <Field label="Preferred Date">
             <input
               id={`${uid}-date`}
@@ -213,7 +214,7 @@ export function BookingForm() {
         </Field>
       </div>
 
-      <DsButton type="submit" disabled={isSubmitting} className="mt-10">
+      <DsButton type="submit" disabled={isSubmitting} className="mt-10 w-full justify-center sm:w-auto">
         {isSubmitting && <Loader2 className="size-4 animate-spin" aria-hidden="true" />}
         {isSubmitting ? "Sending" : "Request booking"}
         {!isSubmitting && <Check className="size-4" aria-hidden="true" />}
