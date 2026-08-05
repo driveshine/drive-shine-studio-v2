@@ -13,7 +13,7 @@ export function Footer() {
         aria-hidden="true"
         className="h-px w-full bg-linear-to-r from-chrome-500/60 via-chrome-300/30 to-red"
       />
-      <div className="shell grid gap-12 py-20 md:grid-cols-2 lg:grid-cols-4">
+      <div className="shell grid gap-8 py-14 md:grid-cols-2 md:gap-12 md:py-20 lg:grid-cols-4">
         <div>
           <div className="flex items-center gap-3">
             <img
