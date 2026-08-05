@@ -113,7 +113,7 @@ export function BookingForm() {
     <form onSubmit={handleSubmit(onSubmit)} className="card-surface p-5 md:p-8 lg:p-10" noValidate>
       <h2 className="font-display text-2xl font-extrabold text-bone">Book Your Inspection</h2>
 
-      <fieldset className="mt-10 w-full justify-center sm:w-auto">
+      <fieldset className="mt-10">
         <legend className="mono-label text-red">Your Information</legend>
         <div className="mt-6 grid gap-5 sm:gap-6">
           <Field label="Full Name *" error={errors.fullName?.message}>
@@ -207,7 +207,7 @@ export function BookingForm() {
           <textarea
             id={`${uid}-notes`}
             rows={4}
-            className={cn(inputClass, "resize-none")}
+            className={cn(inputClass, "h-auto resize-none py-3")}
             placeholder="Dealership name, delivery date, anything else we should know"
             {...register("notes")}
           />
