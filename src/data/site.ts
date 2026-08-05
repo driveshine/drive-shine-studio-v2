@@ -9,9 +9,9 @@ export const site = {
   email: "customercare@drive-shine.com",
   hours: "24 Hours • 7 Days a Week",
   socials: [
-    { label: "Facebook", href: "https://facebook.com/driveshine" },
-    { label: "Instagram", href: "https://instagram.com/driveshine" },
-    { label: "LinkedIn", href: "https://linkedin.com/company/driveshine" },
+    { label: "Facebook", href: "https://www.facebook.com/share/192phim3q1/?mibextid=wwXIfr" },
+    { label: "Instagram", href: "https://www.instagram.com/driveshine.co?igsh=cWNkNHRrZHBlNTc0&utm_source=qr" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/drive-shine-automotive/?viewAsMember=true" },
   ],
 } as const;
 

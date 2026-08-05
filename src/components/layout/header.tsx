@@ -74,8 +74,8 @@ export function Header() {
                   key={item.to}
                   to={item.to}
                   className={cn(
-                    "relative rounded-full px-4 py-2 text-[11px] font-medium uppercase tracking-[0.14em] transition-colors duration-300",
-                    isActive ? "text-white" : "text-gray-500 hover:text-gray-900",
+                    "relative rounded-full px-4 py-2 text-[12px] font-bold uppercase tracking-[0.12em] transition-colors duration-300",
+                    isActive ? "text-white" : "text-ink hover:text-red",
                   )}
                 >
                   {isActive && (

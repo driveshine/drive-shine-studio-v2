@@ -7,7 +7,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 export function ServicesPreview() {
   const ref = useGsapReveal<HTMLElement>();
   return (
-    <section ref={ref} className="bg-carbon">
+    <section ref={ref} className="bg-white">
       <div className="shell section-y">
         <div className="flex flex-wrap items-end justify-between gap-8">
           <SectionHeading
@@ -25,7 +25,7 @@ export function ServicesPreview() {
           {services.map((s) => (
             <li key={s.n} className="reveal card-surface p-6">
               <span className="mono-label text-red">{s.n}</span>
-              <h3 className="mt-4 font-display text-lg font-bold text-bone">{s.title}</h3>
+              <h3 className="mt-4 font-display text-lg font-bold text-ink">{s.title}</h3>
               <p className="mt-2 text-sm text-muted-foreground">{s.summary}</p>
             </li>
           ))}

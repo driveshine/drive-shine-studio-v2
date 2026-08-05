@@ -50,7 +50,7 @@ export function WhyRows() {
   }, []);
 
   return (
-    <section ref={root} className="bg-carbon">
+    <section ref={root} className="bg-white">
       <div className="shell section-y">
         <SectionHeading eyebrow="Why Drive Shine" title="Independent. Measured. Documented." />
         <div className="mt-10 space-y-10 md:mt-12 md:space-y-12">
@@ -79,7 +79,7 @@ export function WhyRows() {
               </div>
               <div className="lg:col-span-5">
                 <p className="mono-label text-red">{row.eyebrow}</p>
-                <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-bone">
+        <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-ink">
                   {row.title}
                 </h3>
                 <p className="mt-4 text-base leading-[1.7] text-muted-foreground">{row.copy}</p>

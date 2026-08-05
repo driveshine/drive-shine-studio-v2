@@ -1,11 +1,20 @@
 import { useEffect, useRef } from "react";
-import { ArrowRight } from "lucide-react";
-import { images, site } from "@/data/site";
-import { DsButtonLink } from "@/components/ui/ds-button";
+import { Shield, ClipboardList, Camera, UserCheck, MapPin, Search, Building2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import { registerGsap } from "@/hooks/useLenis";
-import { srcSet, heroSizes } from "@/lib/img";
 
-const headlineLines = ["Know the car", "before it's yours."];
+const stats = [
+  { icon: Shield, label: "Independent", sub: "100% unbiased inspection" },
+  { icon: ClipboardList, label: "150+ Points", sub: "Covers every important detail" },
+  { icon: Camera, label: "Detailed Report", sub: "With images & explanation" },
+  { icon: UserCheck, label: "Expert Support", sub: "Get guidance before you take delivery" },
+];
+
+const trustItems = [
+  { icon: Shield, text: "Unbiased Inspection" },
+  { icon: Search, text: "No Compromise" },
+  { icon: UserCheck, text: "Your Confidence Our Priority" },
+];
 
 export function Hero() {
   const root = useRef<HTMLElement | null>(null);
@@ -15,88 +24,128 @@ export function Hero() {
     if (!el) return;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const { gsap } = registerGsap();
-
     const ctx = gsap.context(() => {
-      if (reduced) {
-        gsap.set(".hero-line span, .hero-fade", { y: 0, opacity: 1 });
-        return;
-      }
-      gsap
-        .timeline({ delay: 0.35 })
-        .from(".hero-line span", {
-          yPercent: 110,
-          duration: 1.1,
-          ease: "power4.out",
-          stagger: 0.08,
-        })
-        .from(".hero-fade", { y: 24, opacity: 0, duration: 0.8, stagger: 0.08 }, "-=0.6");
-
-      gsap.fromTo(
-        ".hero-img",
-        { scale: 1.08 },
-        { scale: 1, duration: 2, ease: "power2.out" },
-      );
-
-      // No parallax below 768px — it costs frames and gains nothing on a phone.
-      if (window.matchMedia("(min-width: 768px)").matches) {
-        gsap.to(".hero-img", {
-          yPercent: 12,
-          ease: "none",
-          scrollTrigger: { trigger: el, start: "top top", end: "bottom top", scrub: true },
-        });
-      }
+      if (reduced) { gsap.set(".hero-fade", { opacity: 1, y: 0 }); return; }
+      gsap.from(".hero-fade", { y: 28, opacity: 0, duration: 0.8, stagger: 0.1, delay: 0.2, ease: "power3.out" });
     }, el);
-
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={root} className="relative flex min-h-[88svh] items-end overflow-hidden md:min-h-[100svh]">
-      {/* TODO: replace with client hero photography — dark studio car, wet reflective floor */}
-      <picture className="hero-img absolute inset-0 size-full">
-        <img
-          src="/heroimage.jpg"
-          alt="Drive Shine inspector examining a car at a dealership"
-          fetchPriority="high"
-          width={1920}
-          height={1080}
-          className="absolute inset-0 size-full object-cover [filter:saturate(0.8)_brightness(0.75)]"
-        />
-      </picture>
-      <div
-        aria-hidden="true"
-        className="absolute inset-0"
-        style={{
-          background:
-            "linear-gradient(180deg, rgba(10,10,11,.35) 0%, rgba(10,10,11,.85) 60%, #0A0A0B 100%)",
-        }}
-      />
+    <section ref={root} className="bg-white pt-20 overflow-hidden relative">
+      <div className="shell">
+        <div className="grid min-h-[88svh] items-center gap-8 lg:grid-cols-2 py-10 lg:py-0">
 
-      <div className="shell relative z-10 pb-14 pt-32 md:pb-16 md:pt-40 lg:pb-24">
-        <p className="hero-fade mono-label text-white/60">Independent PDI • {site.city}</p>
-        <h1 className="mt-5 font-display text-[clamp(2.8rem,8vw,5.5rem)] font-extrabold leading-[1.05] tracking-tight text-white md:mt-6">
-          {headlineLines.map((line) => (
-            <span key={line} className="hero-line block overflow-hidden pb-1">
-              <span className="block">{line}</span>
-            </span>
-          ))}
-        </h1>
-        <p className="hero-fade mt-6 max-w-xl text-[15px] leading-[1.7] text-white/70 md:mt-7 md:text-lg">
-          Drive Shine inspects your brand new car before you accept delivery — independently,
-          on site, with a 300+ point protocol. We walk you through every finding in person,
-          clearly explaining any problems along with the pros and cons, before you decide.
-        </p>
-        <div className="hero-fade mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-4 md:mt-10">
-          <DsButtonLink to="/contact" className="w-full justify-center sm:w-auto">
-            Book an inspection <ArrowRight className="size-4" aria-hidden="true" />
-          </DsButtonLink>
-          <DsButtonLink to="/services" variant="ghost" className="w-full justify-center sm:w-auto">
-            View services
-          </DsButtonLink>
+          {/* Left — text */}
+          <div className="flex flex-col justify-center">
+            {/* Badge */}
+            <div className="hero-fade inline-flex w-fit items-center gap-2 rounded-full bg-red px-4 py-2 mb-5">
+              <Shield className="size-4 text-white" aria-hidden="true" />
+              <span className="font-sans text-sm font-bold uppercase tracking-wider text-white">150+ Point Inspection</span>
+            </div>
+
+            {/* Eyebrow */}
+            <p className="hero-fade mono-label text-ink-muted mb-3">Independent PDI</p>
+
+            {/* Heading */}
+            <h1 className="hero-fade font-display font-black leading-[1.05] tracking-tight text-[clamp(2rem,4.5vw,3.8rem)]">
+              <span className="text-ink">Car</span><br />
+              <span className="text-red">Pre-Delivery</span><br />
+              <span className="text-ink">Inspection</span>
+            </h1>
+
+            {/* Body */}
+            <p className="hero-fade mt-4 max-w-lg text-sm leading-[1.75] text-ink-soft">
+              Drive Shine independently inspects your new car at the dealership before delivery using a comprehensive{" "}
+              <span className="font-bold text-red">150+ point inspection.</span>{" "}
+              We explain every finding clearly, so you can drive home with complete confidence.
+            </p>
+
+            <div className="hero-fade mt-4 h-0.5 w-10 rounded-full bg-red" />
+
+            {/* Stats row */}
+            <div className="hero-fade mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
+              {stats.map(({ icon: Icon, label, sub }) => (
+                <div key={label} className="flex flex-col gap-1">
+                  <Icon className="size-5 text-red" aria-hidden="true" />
+                  <p className="font-display text-sm font-bold text-ink">{label}</p>
+                  <p className="text-xs text-ink-muted leading-snug">{sub}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* CTAs */}
+            <div className="hero-fade mt-5 flex flex-wrap gap-3">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-lg bg-red px-6 py-3.5 font-sans text-sm font-bold text-white transition-opacity hover:opacity-90"
+              >
+                <ClipboardList className="size-4" aria-hidden="true" />
+                Book Inspection
+              </Link>
+              <Link
+                to="/services"
+                className="inline-flex items-center gap-2 rounded-lg border-2 border-ink px-6 py-3.5 font-sans text-sm font-bold text-ink transition-colors hover:border-red hover:text-red"
+              >
+                ▶ How It Works
+              </Link>
+            </div>
+          </div>
+
+          {/* Right — image fills right half */}
+          <div className="hero-fade relative hidden lg:flex lg:items-stretch">
+            <div className="relative w-full min-h-[88svh] overflow-hidden">
+              <img
+                src="/pic3.jpg"
+                alt="Drive Shine inspector examining a car"
+                fetchPriority="high"
+                width={900}
+                height={700}
+                className="absolute inset-0 h-full w-full object-cover object-center"
+              />
+              {/* Left fade blend */}
+              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent" />
+              {/* Trust card overlay */}
+              <div className="absolute bottom-8 right-6 rounded-xl bg-black/80 px-5 py-4 backdrop-blur-sm">
+                <ul className="flex flex-col gap-2.5">
+                  {trustItems.map(({ icon: Icon, text }) => (
+                    <li key={text} className="flex items-center gap-2.5">
+                      <Icon className="size-4 shrink-0 text-red" aria-hidden="true" />
+                      <span className="text-sm font-semibold text-white">{text}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className="hero-fade mono-label mt-10 border-t border-white/10 pt-6 text-white/50 md:mt-14">
-          Same-day slots available across Hyderabad
-        </p>
+      </div>
+
+      {/* Bottom bar */}
+      <div className="border-t border-black/[0.07] bg-white">
+        <div className="shell flex flex-wrap items-center gap-6 py-4 text-sm">
+          <div className="flex items-center gap-2 font-medium text-ink-soft">
+            <MapPin className="size-4 text-red shrink-0" aria-hidden="true" />
+            Serving customers across{" "}
+            <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span>
+          </div>
+          <div className="ml-auto flex flex-wrap gap-6">
+            <div className="flex items-center gap-2 text-ink-soft">
+              <Search className="size-4 text-red" aria-hidden="true" />
+              <div>
+                <p className="font-bold text-ink text-xs">All Major Cities</p>
+                <p className="text-xs text-ink-muted">Wide Coverage</p>
+              </div>
+            </div>
+            <div className="flex items-center gap-2 text-ink-soft">
+              <Building2 className="size-4 text-red" aria-hidden="true" />
+              <div>
+                <p className="font-bold text-ink text-xs">At Dealership</p>
+                <p className="text-xs text-ink-muted">Before You Accept</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

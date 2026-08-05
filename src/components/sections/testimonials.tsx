@@ -32,7 +32,7 @@ export function Testimonials() {
   );
 
   return (
-    <section className="noise-grid relative overflow-hidden bg-carbon-800">
+    <section className="noise-grid relative overflow-hidden bg-white">
       <div className="shell section-y">
         <div className="flex flex-wrap items-center justify-between gap-6">
           <Eyebrow>Owners</Eyebrow>

@@ -12,7 +12,7 @@ export function CtaBand({
 }) {
   const ref = useGsapReveal<HTMLElement>();
   return (
-    <section ref={ref} className="glow-band relative overflow-hidden bg-carbon-800">
+    <section ref={ref} className="glow-band relative overflow-hidden bg-white border-t border-black/[0.06]">
       <div className="shell section-y flex flex-col items-start gap-8 lg:flex-row lg:items-end lg:justify-between">
         <SectionHeading eyebrow="Next step" title={title} copy={copy} />
         <DsButtonLink to="/contact" className="reveal shrink-0">

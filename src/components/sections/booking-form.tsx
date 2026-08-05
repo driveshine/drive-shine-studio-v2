@@ -46,7 +46,7 @@ function Field({
 }
 
 const inputClass =
-  "h-[52px] w-full border-0 border-b border-black/15 bg-transparent px-0 text-base text-ink placeholder:text-ink-muted/60 transition-colors focus:border-red focus:outline-none";
+  "h-[52px] w-full border-0 border-b-2 border-black/20 bg-transparent px-0 text-base font-medium text-ink placeholder:text-gray-400 transition-colors focus:border-red focus:outline-none";
 
 export function BookingForm() {
   const uid = useId();
@@ -172,7 +172,7 @@ export function BookingForm() {
             <input
               id={`${uid}-date`}
               type="date"
-              className={cn(inputClass, "[color-scheme:dark]")}
+              className={cn(inputClass, "[color-scheme:light]")}
               {...register("date")}
             />
           </Field>
@@ -180,7 +180,7 @@ export function BookingForm() {
             <input
               id={`${uid}-time`}
               type="time"
-              className={cn(inputClass, "[color-scheme:dark]")}
+              className={cn(inputClass, "[color-scheme:light]")}
               {...register("time")}
             />
           </Field>

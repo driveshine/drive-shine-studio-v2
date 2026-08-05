@@ -3,7 +3,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 export function HowItWorks() {
   return (
-    <section className="bg-carbon-800">
+    <section className="bg-white">
       <div className="shell section-y">
         <SectionHeading
           eyebrow="Process"

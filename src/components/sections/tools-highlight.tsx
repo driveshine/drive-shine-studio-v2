@@ -75,7 +75,7 @@ export function ToolsHighlight() {
   }, []);
 
   return (
-    <section ref={root} className="bg-carbon">
+    <section ref={root} className="bg-white">
       <div className="shell section-y">
         <SectionHeading eyebrow="Professional Tools" title="We use instruments, not guesswork." />
         <div className="mt-10 space-y-10 md:mt-12 md:space-y-12">
@@ -103,7 +103,7 @@ export function ToolsHighlight() {
               </div>
               <div className="lg:col-span-5">
                 <p className="mono-label text-red">{tool.eyebrow}</p>
-                <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-bone">
+                <h3 className="mt-4 font-display text-[clamp(1.5rem,2.4vw,2.25rem)] font-extrabold text-ink">
                   {tool.title}
                 </h3>
                 <p className="mt-4 text-base leading-[1.7] text-muted-foreground">{tool.copy}</p>
