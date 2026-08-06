@@ -1,9 +1,7 @@
 import { Link } from "react-router-dom";
-import { Facebook, Instagram, Linkedin, Mail, Phone } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import logoUrl from "@/assets/logo.png";
 import { nav, site } from "@/data/site";
-
-const socialIcons = { Facebook, Instagram, LinkedIn: Linkedin } as const;
 
 const pdiServices = [
   "New Car PDI",
@@ -51,19 +49,6 @@ export function Footer() {
               </span>
             </div>
             <p className="max-w-sm text-base leading-relaxed text-gray-400">{site.tagline}</p>
-            <ul className="flex gap-3">
-              {site.socials.map((s) => {
-                const Icon = socialIcons[s.label as keyof typeof socialIcons];
-                return (
-                  <li key={s.label}>
-                    <a href={s.href} target="_blank" rel="noreferrer" aria-label={s.label}
-                      className="grid size-10 place-items-center rounded-full border border-white/10 text-gray-400 transition-colors hover:border-red hover:bg-red hover:text-white">
-                      <Icon className="size-4" aria-hidden="true" />
-                    </a>
-                  </li>
-                );
-              })}
-            </ul>
           </div>
 
           {/* Contact */}

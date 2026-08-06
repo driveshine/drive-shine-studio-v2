@@ -7,21 +7,21 @@ import { cn } from "@/lib/utils";
 
 const tools = [
   {
-    image: "/pic1.jpg",
+    image: "/pic3.jpg",
     alt: "Inspector using paint depth gauge on car panel",
     eyebrow: "Paint Depth Gauge",
     title: "Detects what the eye can't see.",
     copy: "Every panel is measured with a digital paint depth gauge. Repaints, touch-ups and accident repairs show up as numbers — not guesses.",
   },
   {
-    image: "/pic2.jpg",
+    image: "/pic1.jpg",
     alt: "Inspector measuring tyre tread depth",
     eyebrow: "Tyre Tread Depth Gauge",
     title: "Precise measurement, not a visual estimate.",
     copy: "We measure tread depth digitally on every tyre. You get an exact reading — not a thumb-press and a shrug.",
   },
   {
-    image: "/pic3.jpg",
+    image: "/pic2.jpg",
     alt: "Inspector checking AC temperature with meter",
     eyebrow: "AC Temperature Check",
     title: "Cooling performance verified before handover.",

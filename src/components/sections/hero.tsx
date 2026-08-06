@@ -37,7 +37,7 @@ export function Hero() {
         <div className="grid min-h-[88svh] items-center gap-8 lg:grid-cols-2 py-10 lg:py-0">
 
           {/* Left — text */}
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center order-2 lg:order-1">
             {/* Badge */}
             <div className="hero-fade inline-flex w-fit items-center gap-2 rounded-full bg-red px-4 py-2 mb-5">
               <Shield className="size-4 text-white" aria-hidden="true" />
@@ -48,7 +48,7 @@ export function Hero() {
             <p className="hero-fade mono-label text-ink-muted mb-3">Independent PDI</p>
 
             {/* Heading */}
-            <h1 className="hero-fade font-display font-black leading-[1.05] tracking-tight text-[clamp(2rem,4.5vw,3.8rem)]">
+            <h1 className="hero-fade font-display font-black leading-[1.05] tracking-tight text-[clamp(1.8rem,4.5vw,3.8rem)]">
               <span className="text-ink">Car</span><br />
               <span className="text-red">Pre-Delivery</span><br />
               <span className="text-ink">Inspection</span>
@@ -93,25 +93,25 @@ export function Hero() {
           </div>
 
           {/* Right — image fills right half */}
-          <div className="hero-fade relative hidden lg:flex lg:items-stretch">
-            <div className="relative w-full min-h-[88svh] overflow-hidden">
+          <div className="hero-fade relative lg:flex lg:items-stretch order-1 lg:order-2">
+            <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-none" style={{ minHeight: 300 }}>
               <img
-                src="/pic3.jpg"
+                src="/heroimage.jpg"
                 alt="Drive Shine inspector examining a car"
                 fetchPriority="high"
                 width={900}
                 height={700}
                 className="absolute inset-0 h-full w-full object-cover object-center"
               />
-              {/* Left fade blend */}
-              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent" />
+              {/* Left fade blend — desktop only */}
+              <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent hidden lg:block" />
               {/* Trust card overlay */}
-              <div className="absolute bottom-8 right-6 rounded-xl bg-black/80 px-5 py-4 backdrop-blur-sm">
-                <ul className="flex flex-col gap-2.5">
+              <div className="absolute bottom-4 right-4 rounded-xl bg-black/80 px-4 py-3 backdrop-blur-sm lg:bottom-8 lg:right-6">
+                <ul className="flex flex-col gap-2">
                   {trustItems.map(({ icon: Icon, text }) => (
-                    <li key={text} className="flex items-center gap-2.5">
-                      <Icon className="size-4 shrink-0 text-red" aria-hidden="true" />
-                      <span className="text-sm font-semibold text-white">{text}</span>
+                    <li key={text} className="flex items-center gap-2">
+                      <Icon className="size-3.5 shrink-0 text-red" aria-hidden="true" />
+                      <span className="text-xs font-semibold text-white">{text}</span>
                     </li>
                   ))}
                 </ul>

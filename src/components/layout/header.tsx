@@ -56,9 +56,8 @@ export function Header() {
             </div>
             <div className="flex flex-col leading-none">
               <span className="font-display text-[15px] font-black uppercase tracking-[0.18em] text-ink">
-                Drive Shine
+                Drive Shine™
               </span>
-              <span className="mono-label text-[9px] tracking-[0.2em] text-red/80">PDI · Hyderabad</span>
             </div>
           </Link>
 
@@ -127,8 +126,7 @@ export function Header() {
               <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
                 <img src={logoUrl} alt="Drive Shine" width={36} height={36} className="rounded-full ring-2 ring-red/30" />
                 <div className="flex flex-col leading-none">
-                  <span className="font-display text-[15px] font-black uppercase tracking-[0.18em] text-ink">Drive Shine</span>
-                  <span className="mono-label text-[9px] tracking-[0.2em] text-red/80">PDI · Hyderabad</span>
+                  <span className="font-display text-[15px] font-black uppercase tracking-[0.18em] text-ink">Drive Shine™</span>
                 </div>
               </Link>
               <button

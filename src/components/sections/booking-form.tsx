@@ -38,7 +38,7 @@ function Field({
 
   return (
     <div className={cn("relative", className)}>
-      <label className="mono-label mb-2 block">{label}</label>
+      <label className="mono-label mb-2 block text-black">{label}</label>
       {children}
       {error && <p className="mono-label mt-2 text-red">{error}</p>}
     </div>
@@ -46,7 +46,7 @@ function Field({
 }
 
 const inputClass =
-  "h-[52px] w-full border-0 border-b-2 border-black/20 bg-transparent px-0 text-base font-medium text-ink placeholder:text-gray-400 transition-colors focus:border-red focus:outline-none";
+  "h-[52px] w-full border-0 border-b-2 border-black/20 bg-transparent px-0 text-base font-bold text-black placeholder:text-gray-400 placeholder:font-normal transition-colors focus:border-red focus:outline-none";
 
 export function BookingForm() {
   const uid = useId();
