@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import { registerGsap } from "@/hooks/useLenis";
 
 const stats = [
-  { icon: Shield, label: "Independent", sub: "100% unbiased inspection" },
+  { icon: Shield, label: "Unbiased Inspection", sub: "100% independent service" },
   { icon: ClipboardList, label: "150+ Points", sub: "Covers every important detail" },
   { icon: Camera, label: "Detailed Report", sub: "With images & explanation" },
-  { icon: UserCheck, label: "Expert Support", sub: "Get guidance before you take delivery" },
+  { icon: UserCheck, label: "Delivery Guidance", sub: "Get guidance before you take delivery" },
 ];
 
 const trustItems = [
@@ -45,7 +45,7 @@ export function Hero() {
             </div>
 
             {/* Eyebrow */}
-            <p className="hero-fade mono-label text-ink-muted mb-3">Independent PDI</p>
+            <p className="hero-fade mono-label text-ink-muted mb-3">Professional PDI Service</p>
 
             {/* Heading */}
             <h1 className="hero-fade font-display font-black leading-[1.05] tracking-tight text-[clamp(1.8rem,4.5vw,3.8rem)]">
@@ -56,9 +56,9 @@ export function Hero() {
 
             {/* Body */}
             <p className="hero-fade mt-4 max-w-lg text-sm leading-[1.75] text-ink-soft">
-              Drive Shine independently inspects your new car at the dealership before delivery using a comprehensive{" "}
-              <span className="font-bold text-red">150+ point inspection.</span>{" "}
-              We explain every finding clearly, so you can drive home with complete confidence.
+              Drive Shine performs a comprehensive{" "}
+              <span className="font-bold text-red">150+ point inspection</span>{" "}
+              before your new car is delivered. We explain every finding clearly, helping you take delivery with complete confidence.
             </p>
 
             <div className="hero-fade mt-4 h-0.5 w-10 rounded-full bg-red" />
