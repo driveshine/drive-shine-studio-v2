@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { Check, Clock, Mail, MapPin, Phone } from "lucide-react";
-import { Link } from "react-router-dom";
 import { site } from "@/data/site";
 import { BookingForm } from "@/components/sections/booking-form";
 
@@ -106,15 +105,18 @@ export default function ContactPage() {
                 </ul>
 
                 {/* CTA */}
-                <Link
-                  to="#book"
-                  onClick={() => document.getElementById("book")?.scrollIntoView({ behavior: "smooth" })}
+                <button
+                  type="button"
+                  onClick={() => {
+                    const el = document.getElementById("book");
+                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }}
                   className={`mt-6 flex w-full items-center justify-center rounded-xl py-3.5 font-sans text-sm font-bold transition-opacity hover:opacity-90 ${
                     tier.featured ? "bg-red text-white" : "border-2 border-black/20 text-ink hover:border-red hover:text-red"
                   }`}
                 >
                   Book Now
-                </Link>
+                </button>
               </div>
             ))}
           </div>

@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone } from "lucide-react";
 import { site } from "@/data/site";
 
 export function MobileActionBar() {
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setShow(window.scrollY > window.innerHeight * 0.6);
@@ -13,6 +15,17 @@ export function MobileActionBar() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const handleBook = () => {
+    if (pathname === "/contact") {
+      document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" });
+    } else {
+      navigate("/contact");
+      setTimeout(() => {
+        document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 500);
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -32,12 +45,13 @@ export function MobileActionBar() {
             <Phone className="size-4" aria-hidden="true" />
             Call
           </a>
-          <Link
-            to="/contact"
+          <button
+            type="button"
+            onClick={handleBook}
             className="mono-label flex h-14 items-center justify-center bg-red text-white"
           >
             Book Inspection
-          </Link>
+          </button>
         </motion.div>
       )}
     </AnimatePresence>
