@@ -147,9 +147,9 @@ export const report = {
   body: "Every Drive Shine inspector arrives with professional tools — not just a phone camera and a checklist. Measurements are taken, not estimated.",
   stats: ["Paint depth gauge", "Tyre tread depth gauge", "AC temperature check", "300+ checkpoints"],
   tools: [
-    { image: "/pic1.jpg", label: "Paint Depth Gauge", desc: "Detects repaints and accident repairs on every panel." },
-    { image: "/pic2.jpg", label: "Tyre Tread Depth Gauge", desc: "Precise tread measurement — not a visual guess." },
-    { image: "/pic3.jpg", label: "AC Temperature Check", desc: "Verifies cooling performance before you accept delivery." },
+    { image: "/pic3.jpg", label: "Paint Depth Gauge", desc: "Detects repaints and accident repairs on every panel." },
+    { image: "/pic1.jpg", label: "Tyre Tread Depth Gauge", desc: "Precise tread measurement — not a visual guess." },
+    { image: "/pic2.jpg", label: "AC Temperature Check", desc: "Verifies cooling performance before you accept delivery." },
   ],
 };
 

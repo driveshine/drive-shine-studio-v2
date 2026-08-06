@@ -92,16 +92,16 @@ export function Hero() {
             </div>
           </div>
 
-          {/* Right — image fills right half */}
-          <div className="hero-fade relative lg:flex lg:items-stretch order-1 lg:order-2">
-            <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-none" style={{ minHeight: 300 }}>
+          {/* Right — image */}
+          <div className="hero-fade relative order-1 lg:order-2">
+            <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-none lg:h-full" style={{ aspectRatio: "4/3" }}>
               <img
-                src="/heroimage.jpg"
+                src="/heroimage1.jpeg"
                 alt="Drive Shine inspector examining a car"
                 fetchPriority="high"
                 width={900}
                 height={700}
-                className="absolute inset-0 h-full w-full object-cover object-center"
+                className="w-full h-full object-cover object-top"
               />
               {/* Left fade blend — desktop only */}
               <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent hidden lg:block" />

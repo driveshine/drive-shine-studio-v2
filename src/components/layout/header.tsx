@@ -91,7 +91,31 @@ export function Header() {
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {/* Social icons between Contact and Book Inspection */}
+            <div className="hidden lg:flex items-center gap-1.5 mr-1">
+              {site.socials.map((soc) => {
+                const Icon = socialIcons[soc.label as keyof typeof socialIcons];
+                const colors: Record<string, string> = {
+                  Facebook: "#1877F2",
+                  Instagram: "#E1306C",
+                  LinkedIn: "#0A66C2",
+                };
+                return (
+                  <a
+                    key={soc.label}
+                    href={soc.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={soc.label}
+                    className="grid size-8 place-items-center rounded-full text-white transition-transform duration-200 hover:scale-110"
+                    style={{ background: colors[soc.label] ?? "#333" }}
+                  >
+                    <Icon className="size-3.5" aria-hidden="true" />
+                  </a>
+                );
+              })}
+            </div>
             <DsButtonLink to="/contact" className="hidden lg:inline-flex">
               Book Inspection
             </DsButtonLink>
