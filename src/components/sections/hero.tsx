@@ -123,28 +123,33 @@ export function Hero() {
 
       {/* Bottom bar */}
       <div className="border-t border-black/[0.07] bg-white">
-        <div className="shell flex flex-wrap items-center justify-between gap-4 py-4 text-sm">
-          <div className="flex items-center gap-2 font-medium text-ink-soft">
-            <MapPin className="size-4 text-red shrink-0" aria-hidden="true" />
-            <span>Serving customers across{" "}
-            <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span></span>
-          </div>
-          <div className="flex flex-wrap gap-6">
-            <div className="flex items-center gap-2 text-ink-soft">
-              <Search className="size-4 text-red" aria-hidden="true" />
-              <div>
-                <p className="font-bold text-ink text-xs">All Major Cities</p>
-                <p className="text-xs text-ink-muted">Wide Coverage</p>
+        <div className="shell py-4">
+          <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
+            <div className="flex items-center gap-2 font-medium text-ink-soft">
+              <MapPin className="size-4 text-red shrink-0" aria-hidden="true" />
+              <span>Serving customers across{" "}
+              <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span></span>
+            </div>
+            <div className="flex flex-wrap gap-6">
+              <div className="flex items-center gap-2 text-ink-soft">
+                <Search className="size-4 text-red" aria-hidden="true" />
+                <div>
+                  <p className="font-bold text-ink text-xs">All Major Cities</p>
+                  <p className="text-xs text-ink-muted">Wide Coverage</p>
+                </div>
+              </div>
+              <div className="flex items-center gap-2 text-ink-soft">
+                <Building2 className="size-4 text-red" aria-hidden="true" />
+                <div>
+                  <p className="font-bold text-ink text-xs">At Dealership</p>
+                  <p className="text-xs text-ink-muted">Before You Accept</p>
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 text-ink-soft">
-              <Building2 className="size-4 text-red" aria-hidden="true" />
-              <div>
-                <p className="font-bold text-ink text-xs">At Dealership</p>
-                <p className="text-xs text-ink-muted">Before You Accept</p>
-              </div>
-            </div>
           </div>
+          <p className="mt-2 text-sm font-medium text-ink-soft">
+            Used for <span className="font-bold text-red">both new &amp; pre-owned</span> car inspections.
+          </p>
         </div>
       </div>
     </section>
