@@ -137,8 +137,11 @@ export function Footer() {
 
       <div className="border-t border-white/[0.07] relative z-10">
         <div className="shell flex flex-col items-center justify-between gap-4 py-8 sm:flex-row">
-          <p className="mono-label text-gray-500">© 2026 Drive Shine™. All rights reserved.</p>
-          <p className="mono-label text-gray-500">Hyderabad • Independent PDI</p>
+          <p className="mono-label text-gray-500">© 2026 Drive Shine™ · driveshine.co.in · All rights reserved.</p>
+          <p className="mono-label text-gray-500">
+            Made with ♥ by{" "}
+            <a href="https://www.staffarc.in/" target="_blank" rel="noreferrer" className="text-red hover:underline">StaffArc</a>
+          </p>
         </div>
       </div>
     </footer>
