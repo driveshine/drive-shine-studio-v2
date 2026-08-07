@@ -113,7 +113,7 @@ export function ToolsHighlight() {
         </div>
 
         <div className="mt-16 flex flex-col items-center justify-between gap-4 rounded-2xl border border-red/20 bg-red/5 px-8 py-6 sm:flex-row">
-          <p className="font-display text-lg font-bold text-bone">
+          <p className="font-display text-lg font-bold text-ink">
             Used for <span className="text-red">both new &amp; pre-owned</span> car inspections.
           </p>
           <Link

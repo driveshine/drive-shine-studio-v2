@@ -123,13 +123,13 @@ export function Hero() {
 
       {/* Bottom bar */}
       <div className="border-t border-black/[0.07] bg-white">
-        <div className="shell flex flex-wrap items-center gap-6 py-4 text-sm">
+        <div className="shell flex flex-wrap items-center justify-between gap-4 py-4 text-sm">
           <div className="flex items-center gap-2 font-medium text-ink-soft">
             <MapPin className="size-4 text-red shrink-0" aria-hidden="true" />
-            Serving customers across{" "}
-            <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span>
+            <span>Serving customers across{" "}
+            <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span></span>
           </div>
-          <div className="ml-auto flex flex-wrap gap-6">
+          <div className="flex flex-wrap gap-6">
             <div className="flex items-center gap-2 text-ink-soft">
               <Search className="size-4 text-red" aria-hidden="true" />
               <div>
