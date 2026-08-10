@@ -58,67 +58,50 @@ export default function ContactPage() {
     <div className="bg-white">
 
       {/* ── Pricing Section ─────────────────────────────────────────────── */}
-      <section className="pt-28 pb-12">
+      <section className="pt-28 pb-12 bg-white">
         <div className="shell">
-          <div className="text-center mb-10">
-            <p className="mono-label text-red mb-2">Transparent Pricing</p>
-            <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-black text-ink">Simple, honest pricing.</h1>
-            <p className="mt-2 text-gray-500">One flat fee based on vehicle type. No hidden charges.</p>
-          </div>
+          <p className="mono-label text-red mb-2">Transparent Pricing</p>
+          <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-black text-ink">Simple, honest pricing.</h1>
+          <p className="mt-2 text-gray-500 mb-10">One flat fee for all vehicles. No hidden charges.</p>
 
-          <div className="grid gap-6 sm:grid-cols-3">
-            {pricingTiers.map((tier) => (
-              <div
-                key={tier.name}
-                className={`relative flex flex-col rounded-2xl border p-8 ${
-                  tier.featured
-                    ? "border-red shadow-[0_0_0_2px_#D91E2C]"
-                    : "border-black/[0.1] shadow-sm"
-                }`}
-              >
-                {tier.featured && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2">
-                    <span className="mono-label rounded-full bg-red px-4 py-1.5 text-white shadow">Most Popular</span>
-                  </div>
-                )}
-
-                {/* Icon */}
-                <div className={`mb-5 inline-flex size-14 items-center justify-center rounded-xl ${tier.featured ? "bg-red text-white" : "bg-red/10 text-red"}`}>
-                  {tier.icon}
-                </div>
-
-                {/* Name */}
-                <h2 className="font-display text-xl font-black tracking-wide text-ink">{tier.name}</h2>
-
-                {/* Price */}
-                <p className="mt-2 font-display text-4xl font-black text-red">{tier.price}</p>
-                <p className="mt-1 text-xs text-red">Includes Complete Drive Shine PDI Inspection</p>
-
-                {/* Checklist */}
-                <ul className="mt-5 flex flex-col gap-2 flex-1">
-                  {included.map((item) => (
-                    <li key={item} className="flex items-center gap-2 text-sm text-gray-600">
-                      <Check className="size-3.5 shrink-0 text-red" aria-hidden="true" />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-
-                {/* CTA */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    const el = document.getElementById("book");
-                    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }}
-                  className={`mt-6 flex w-full items-center justify-center rounded-xl py-3.5 font-sans text-sm font-bold transition-opacity hover:opacity-90 ${
-                    tier.featured ? "bg-red text-white" : "border-2 border-black/20 text-ink hover:border-red hover:text-red"
-                  }`}
-                >
-                  Book Now
-                </button>
+          <div className="grid gap-8 lg:grid-cols-2 items-center">
+            {/* Left — price */}
+            <div className="rounded-2xl bg-red p-10 text-white flex flex-col gap-4">
+              <span className="mono-label text-white/70">All Vehicles · Flat Rate</span>
+              <div className="flex items-end gap-2">
+                <span className="font-display text-7xl font-black leading-none">₹1,999</span>
               </div>
-            ))}
+              <p className="text-white/80 text-sm">Includes the complete Drive Shine PDI Inspection — same thorough service for every car type.</p>
+              <div className="mt-2 h-px bg-white/20" />
+              <ul className="flex flex-col gap-2">
+                {["No surprise charges", "Same-day slots available", "At dealership or doorstep", "24 Hours · 7 Days a Week"].map((t) => (
+                  <li key={t} className="flex items-center gap-2 text-sm">
+                    <Check className="size-3.5 shrink-0 text-white" />
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <button
+                type="button"
+                onClick={() => document.getElementById("book")?.scrollIntoView({ behavior: "smooth", block: "start" })}
+                className="mt-4 w-full rounded-xl bg-white py-3.5 font-sans text-sm font-bold text-red transition-opacity hover:opacity-90"
+              >
+                Book Now
+              </button>
+            </div>
+
+            {/* Right — what's included */}
+            <div>
+              <p className="mono-label text-gray-400 mb-4">What’s Included</p>
+              <ul className="grid grid-cols-1 gap-3">
+                {included.map((item, i) => (
+                  <li key={item} className="flex items-center gap-3 rounded-xl border border-black/[0.07] bg-gray-50 px-4 py-3">
+                    <span className="mono-label text-red shrink-0">{String(i + 1).padStart(2, "0")}</span>
+                    <span className="text-sm font-medium text-gray-800">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
       </section>
