@@ -1,6 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { registerGsap } from "@/hooks/useLenis";
 import { cn } from "@/lib/utils";
@@ -112,17 +110,6 @@ export function ToolsHighlight() {
           ))}
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-4 rounded-2xl border border-red/20 bg-red/5 px-8 py-6 sm:flex-row">
-          <p className="font-display text-lg font-bold text-ink">
-            Used for <span className="text-red">both new &amp; pre-owned</span> car inspections.
-          </p>
-          <Link
-            to="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-red px-6 py-3 font-sans text-sm font-bold text-white transition-opacity hover:opacity-90"
-          >
-            Book an Inspection <ArrowRight className="size-4" aria-hidden="true" />
-          </Link>
-        </div>
       </div>
     </section>
   );

@@ -62,7 +62,9 @@ export default function ContactPage() {
         <div className="shell">
           <p className="mono-label text-red mb-2">Transparent Pricing</p>
           <h1 className="font-display text-[clamp(2rem,4vw,3rem)] font-black text-ink">Simple, honest pricing.</h1>
-          <p className="mt-2 text-gray-500 mb-10">One flat fee for all vehicles. No hidden charges.</p>
+          <p className="mt-1 text-gray-500 mb-2">One flat fee for all vehicles. No hidden charges.</p>
+          <p className="font-display text-xl font-bold text-ink">DRIVE SHINE PDI — ₹1,999</p>
+          <p className="text-gray-600 mb-10">Complete Pre-Delivery Inspection + Detailed Report</p>
 
           <div className="grid gap-8 lg:grid-cols-2 items-center">
             {/* Left — price */}
