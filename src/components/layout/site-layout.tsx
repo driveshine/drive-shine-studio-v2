@@ -8,6 +8,7 @@ import { MobileActionBar } from "./mobile-action-bar";
 import { Preloader } from "@/components/ui/Preloader";
 import { RouteProgressBar } from "@/components/ui/RouteProgressBar";
 import { FloatingButtons } from "@/components/ui/FloatingButtons";
+import { Toaster } from "@/components/ui/sonner";
 
 const SESSION_KEY = "ds_loaded";
 
@@ -59,6 +60,7 @@ export function SiteLayout({ children }: { children: React.ReactNode }) {
         <Footer />
         <MobileActionBar />
         <FloatingButtons />
+        <Toaster richColors position="top-center" />
       </div>
     </>
   );

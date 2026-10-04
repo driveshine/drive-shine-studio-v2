@@ -5,6 +5,7 @@ import ServicesPage from "@/pages/services";
 import ProductsPage from "@/pages/products";
 import AboutPage from "@/pages/about";
 import ContactPage from "@/pages/contact";
+import CityPage from "@/pages/city";
 import NotFoundPage from "@/pages/not-found";
 import PreloaderTestPage from "@/pages/preloader-test";
 
@@ -18,6 +19,8 @@ export default function App() {
           <Route path="/products" element={<ProductsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/city/:citySlug" element={<CityPage />} />
+          <Route path="/pdi/:citySlug" element={<CityPage />} />
           <Route path="/preloader-test" element={<PreloaderTestPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
