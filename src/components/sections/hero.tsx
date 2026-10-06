@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Shield, ClipboardList, Camera, UserCheck, MapPin, Search, Building2, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { registerGsap } from "@/hooks/useLenis";
+import { useCities } from "@/data/cities";
 
 const stats = [
   { icon: Shield, label: "150+ Point PDI", sub: "Structured checklist" },
@@ -18,6 +19,7 @@ const trustItems = [
 
 export function Hero() {
   const root = useRef<HTMLElement | null>(null);
+  const { cities } = useCities();
 
   useEffect(() => {
     const el = root.current;
@@ -128,7 +130,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom bar — Highlighting 8 Cities */}
+      {/* Bottom bar — Dynamically Highlighting Active Admin Cities */}
       <div className="border-t border-black/[0.07] bg-carbon-800">
         <div className="shell py-4">
           <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
@@ -137,14 +139,14 @@ export function Hero() {
               <span>
                 Our PDI network currently serves:{" "}
                 <span className="font-bold text-ink">
-                  Hyderabad | Visakhapatnam | Vijayawada | Rajahmundry | Kakinada | Karimnagar | Warangal | Guntur
+                  {cities.map((c) => c.name).join(" | ")}
                 </span>
               </span>
             </div>
             <div className="flex flex-wrap gap-4 items-center">
               <div className="flex items-center gap-2 text-ink-soft text-xs">
                 <Search className="size-4 text-red" aria-hidden="true" />
-                <span className="font-bold text-ink">8 Cities. One Standard.</span>
+                <span className="font-bold text-ink">{cities.length} Cities. One Standard.</span>
               </div>
               <div className="flex items-center gap-2 text-ink-soft text-xs">
                 <Building2 className="size-4 text-red" aria-hidden="true" />

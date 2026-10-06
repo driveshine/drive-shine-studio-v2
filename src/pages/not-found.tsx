@@ -1,6 +1,15 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import CityPage from "@/pages/city";
 
 export default function NotFoundPage() {
+  const { pathname } = useLocation();
+  if (pathname.startsWith("/pdi-")) {
+    const slug = pathname.slice(5).toLowerCase().trim();
+    if (slug) {
+      return <CityPage citySlugOverride={slug === "vizag" ? "visakhapatnam" : slug} />;
+    }
+  }
+
   return (
     <div className="flex min-h-[70svh] items-center justify-center bg-carbon px-6 py-32">
       <div className="max-w-lg">

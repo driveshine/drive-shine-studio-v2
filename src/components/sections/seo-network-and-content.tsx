@@ -16,7 +16,7 @@ import {
   Sparkles,
   Award,
 } from "lucide-react";
-import { AP_TELANGANA_CITIES } from "@/data/cities";
+import { useCities, getCityUrl } from "@/data/cities";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const inspectionCategories = [
@@ -95,10 +95,11 @@ const faqs = [
 
 export function SeoNetworkAndContent() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const { cities } = useCities();
 
   return (
     <div className="bg-white">
-      {/* ── 1. AP & TELANGANA 8 CITIES NETWORK ─────────────────────────────────── */}
+      {/* ── 1. AP & TELANGANA CITIES NETWORK (DYNAMIC FROM ADMIN) ─────────────────────────── */}
       <section className="py-16 md:py-24 bg-carbon-800 border-y border-hairline">
         <div className="shell">
           <div className="max-w-3xl mx-auto text-center mb-12">
@@ -109,25 +110,25 @@ export function SeoNetworkAndContent() {
               </span>
             </div>
             <h2 className="font-display font-black tracking-tight text-[clamp(1.9rem,3.8vw,3rem)] text-ink">
-              8 Cities. One Standard.
+              {cities.length} Cities. One Standard.
             </h2>
             <p className="text-ink-muted text-sm sm:text-base mt-3 max-w-2xl mx-auto leading-relaxed">
               Drive Shine is building a trusted car inspection and PDI network across Andhra Pradesh and Telangana, making professional vehicle inspection accessible to customers across multiple cities. Every Drive Shine PDI follows a standardized inspection process designed to provide customers with a clear and detailed understanding of the vehicle’s observable condition before delivery.
             </p>
           </div>
 
-          {/* 8 Cities Grid */}
+          {/* Dynamic Cities Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {AP_TELANGANA_CITIES.map((city) => (
+            {cities.map((city) => (
               <Link
                 key={city.slug}
-                to={`/pdi-${city.slug}`}
+                to={getCityUrl(city.slug)}
                 className="group card-surface p-5 rounded-2xl border border-hairline hover:border-red transition-all duration-200 flex flex-col justify-between shadow-xs hover:shadow-md hover:-translate-y-1"
               >
                 <div>
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[11px] font-mono font-bold text-red uppercase tracking-wider bg-red/10 px-2 py-0.5 rounded">
-                      {city.state}
+                      {city.state || "Network Hub"}
                     </span>
                     <span className="text-xs text-ink-muted font-mono">150+ Points</span>
                   </div>
@@ -137,16 +138,18 @@ export function SeoNetworkAndContent() {
                   <p className="text-xs text-ink-muted mt-2 leading-relaxed line-clamp-3">
                     {city.description}
                   </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {city.coverageAreas.slice(0, 3).map((area) => (
-                      <span
-                        key={area}
-                        className="text-[11px] bg-carbon-800 text-ink-soft px-2 py-0.5 rounded border border-hairline font-medium"
-                      >
-                        {area}
-                      </span>
-                    ))}
-                  </div>
+                  {city.coverageAreas && city.coverageAreas.length > 0 && (
+                    <div className="mt-3 flex flex-wrap gap-1.5">
+                      {city.coverageAreas.slice(0, 3).map((area) => (
+                        <span
+                          key={area}
+                          className="text-[11px] bg-carbon-800 text-ink-soft px-2 py-0.5 rounded border border-hairline font-medium"
+                        >
+                          {area}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-5 pt-3 border-t border-hairline flex items-center justify-between text-xs font-bold text-red">

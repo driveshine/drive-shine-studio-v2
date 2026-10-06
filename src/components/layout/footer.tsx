@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Mail, Phone } from "lucide-react";
 import logoUrl from "@/assets/logo.png";
 import { nav, site } from "@/data/site";
+import { useCities, getCityUrl } from "@/data/cities";
 
 const pdiServices = [
   "New Car PDI",
@@ -25,6 +26,8 @@ const autoProducts = [
 ];
 
 export function Footer() {
+  const { cities } = useCities();
+
   return (
     <footer className="relative overflow-hidden" style={{ background: "#111114" }}>
       <div className="h-1 w-full bg-red" />
@@ -123,46 +126,13 @@ export function Footer() {
               <span className="opacity-40">03</span> PDI Locations
             </h2>
             <ul className="flex flex-col gap-2.5">
-              <li>
-                <Link to="/pdi-hyderabad" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Hyderabad PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-visakhapatnam" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Visakhapatnam (Vizag) PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-vijayawada" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Vijayawada PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-guntur" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Guntur PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-rajahmundry" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Rajahmundry PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-kakinada" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Kakinada PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-warangal" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Warangal PDI
-                </Link>
-              </li>
-              <li>
-                <Link to="/pdi-karimnagar" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
-                  Karimnagar PDI
-                </Link>
-              </li>
+              {cities.map((city) => (
+                <li key={city.slug}>
+                  <Link to={getCityUrl(city.slug)} className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                    {city.name} PDI
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 

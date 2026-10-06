@@ -1,102 +1,57 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Search, Sparkles, X } from 'lucide-react';
-import { fetchCities, EXTENDED_CITIES, AP_TELANGANA_CITIES, type CityData } from '@/data/cities';
-
-interface PillItem {
-  name: string;
-  slug: string;
-  isDark?: boolean;
-  isOutline?: boolean;
-}
-
-const AP_TS_SLUGS = new Set([
-  'hyderabad',
-  'visakhapatnam',
-  'vizag',
-  'vijayawada',
-  'guntur',
-  'rajahmundry',
-  'kakinada',
-  'warangal',
-  'karimnagar',
-]);
-
-function getCityUrl(slug: string): string {
-  const normalized = slug.toLowerCase().trim();
-  if (AP_TS_SLUGS.has(normalized)) {
-    return `/pdi-${normalized === 'vizag' ? 'visakhapatnam' : normalized}`;
-  }
-  return `/city/${normalized}`;
-}
-
-// Row 1 Pills matching the client reference design
-const ROW_1_ITEMS: PillItem[] = [
-  { name: 'Gurgaon', slug: 'gurgaon', isDark: true },
-  { name: 'Delhi', slug: 'delhi', isDark: true },
-  { name: 'Noida', slug: 'noida', isDark: true },
-  { name: 'Bangalore', slug: 'bangalore', isDark: true },
-  { name: 'Mumbai', slug: 'mumbai', isDark: true },
-  { name: 'Pune', slug: 'pune', isDark: true },
-  { name: 'Hyderabad', slug: 'hyderabad', isDark: true },
-  { name: 'Visakhapatnam', slug: 'visakhapatnam', isDark: true },
-  { name: 'Chennai', slug: 'chennai', isDark: false },
-  { name: 'Kolkata', slug: 'kolkata', isDark: false },
-  { name: 'Ahmedabad', slug: 'ahmedabad', isDark: false },
-];
-
-// Row 2 Pills matching client reference with AP & Telangana network and regional hubs
-const ROW_2_ITEMS: PillItem[] = [
-  { name: 'Ghaziabad', slug: 'ghaziabad', isDark: false },
-  { name: 'Faridabad', slug: 'faridabad', isDark: false },
-  { name: 'Chandigarh', slug: 'chandigarh', isDark: false },
-  { name: 'Mohali', slug: 'mohali', isDark: false },
-  { name: 'Panchkula', slug: 'panchkula', isOutline: true },
-  { name: 'Jaipur', slug: 'jaipur', isDark: false },
-  { name: 'Lucknow', slug: 'lucknow', isDark: false },
-  { name: 'Kanpur', slug: 'kanpur', isDark: false },
-  { name: 'Vijayawada', slug: 'vijayawada', isDark: false },
-  { name: 'Guntur', slug: 'guntur', isDark: false },
-  { name: 'Warangal', slug: 'warangal', isDark: false },
-];
+import { useCities, getCityUrl, EXTENDED_CITIES } from '@/data/cities';
 
 export function CityPills() {
-  const [dbCities, setDbCities] = useState<CityData[]>([]);
+  const { cities: dbCities } = useCities();
   const [modalOpen, setModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  useEffect(() => {
-    void fetchCities().then((res) => {
-      if (res && res.length > 0) {
-        setDbCities(res);
-      }
-    });
-  }, []);
+  // Primary Row 1: Direct active cities managed in admin
+  const primaryPills = useMemo(() => {
+    return dbCities.map((c, i) => ({
+      name: c.name,
+      slug: c.slug,
+      isDark: c.slug === 'hyderabad' || c.slug === 'visakhapatnam' || i < 3,
+      isOutline: false,
+    }));
+  }, [dbCities]);
 
-  // Filtered list for the "+ 181 more cities" dialog
+  // Secondary Row 2: Complementary major hubs not already in primary
+  const secondaryPills = useMemo(() => {
+    const primarySlugs = new Set(primaryPills.map((p) => p.slug.toLowerCase()));
+    const additionalHubs = [
+      { name: 'Bangalore', slug: 'bangalore', isDark: false, isOutline: false },
+      { name: 'Chennai', slug: 'chennai', isDark: false, isOutline: false },
+      { name: 'Mumbai', slug: 'mumbai', isDark: false, isOutline: false },
+      { name: 'Pune', slug: 'pune', isDark: false, isOutline: false },
+      { name: 'Delhi', slug: 'delhi', isDark: false, isOutline: false },
+      { name: 'Gurgaon', slug: 'gurgaon', isDark: false, isOutline: false },
+      { name: 'Noida', slug: 'noida', isDark: false, isOutline: false },
+      { name: 'Kolkata', slug: 'kolkata', isDark: false, isOutline: false },
+    ].filter((h) => !primarySlugs.has(h.slug.toLowerCase()));
+
+    return additionalHubs;
+  }, [primaryPills]);
+
+  // Filtered list for the modal directory
   const allCityDirectory = useMemo(() => {
     const map = new Map<string, { name: string; slug: string }>();
 
-    // 1. Core AP & Telangana cities
-    AP_TELANGANA_CITIES.forEach((c) => {
-      map.set(c.slug, { name: c.name, slug: c.slug });
-    });
-
-    // 2. Row 1 and Row 2 pills
-    [...ROW_1_ITEMS, ...ROW_2_ITEMS].forEach((p) => {
-      if (!map.has(p.slug)) {
-        map.set(p.slug, { name: p.name, slug: p.slug });
-      }
-    });
-
-    // 3. Any newly added DB cities
+    // 1. All active DB cities first
     dbCities.forEach((c) => {
-      if (!map.has(c.slug)) {
-        map.set(c.slug, { name: c.name, slug: c.slug });
+      map.set(c.slug.toLowerCase(), { name: c.name, slug: c.slug });
+    });
+
+    // 2. Secondary pills
+    secondaryPills.forEach((p) => {
+      if (!map.has(p.slug.toLowerCase())) {
+        map.set(p.slug.toLowerCase(), { name: p.name, slug: p.slug });
       }
     });
 
-    // 4. Extended cities list
+    // 3. Extended cities list
     EXTENDED_CITIES.forEach((name) => {
       const slug = name.toLowerCase().replace(/\s+/g, '-');
       if (!map.has(slug)) {
@@ -105,7 +60,10 @@ export function CityPills() {
     });
 
     return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
-  }, [dbCities]);
+  }, [dbCities, secondaryPills]);
+
+  const displayedCount = primaryPills.length + secondaryPills.length;
+  const remainingCount = Math.max(0, allCityDirectory.length - displayedCount);
 
   const filteredDirectory = useMemo(() => {
     const q = searchQuery.toLowerCase().trim();
@@ -128,7 +86,7 @@ export function CityPills() {
 
         {/* Heading */}
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-neutral-900 mb-3">
-          PDI Experts in <span className="text-[#f59e0b]">175+ Cities</span>
+          PDI Experts in <span className="text-[#f59e0b]">{dbCities.length > 0 ? `${dbCities.length} Cities` : 'All Major Cities'}</span>
         </h2>
 
         {/* Subtitle */}
@@ -138,9 +96,9 @@ export function CityPills() {
 
         {/* Pills container */}
         <div className="flex flex-col items-center gap-3 md:gap-3.5 max-w-5xl mx-auto">
-          {/* Row 1 */}
+          {/* Row 1 - Active Admin Cities */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-2.5">
-            {ROW_1_ITEMS.map((item) => (
+            {primaryPills.map((item) => (
               <Link
                 key={item.slug}
                 to={getCityUrl(item.slug)}
@@ -155,35 +113,31 @@ export function CityPills() {
             ))}
           </div>
 
-          {/* Row 2 */}
+          {/* Row 2 - Secondary Regional Hubs + More button */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-2.5">
-            {ROW_2_ITEMS.map((item) => (
+            {secondaryPills.map((item) => (
               <Link
                 key={item.slug}
                 to={getCityUrl(item.slug)}
-                className={`inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
-                  item.isOutline
-                    ? 'bg-neutral-100 text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-200'
-                    : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40'
-                }`}
+                className="inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40"
               >
                 {item.name}
               </Link>
             ))}
 
-            {/* "+ 181 more cities" pill */}
+            {/* "+ X more cities" pill */}
             <button
               type="button"
               onClick={() => setModalOpen(true)}
               className="inline-flex items-center justify-center px-4 py-2 rounded-full text-sm font-medium text-neutral-600 border border-dashed border-neutral-300 bg-white hover:bg-neutral-50 hover:border-neutral-900 hover:text-neutral-900 transition-all cursor-pointer shadow-xs"
             >
-              + 181 more cities
+              + {remainingCount > 0 ? `${remainingCount} more cities` : 'View all cities'}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Directory Modal for "+ 181 more cities" */}
+      {/* Directory Modal */}
       {modalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4">
           <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-neutral-200 overflow-hidden animate-in fade-in zoom-in-95 duration-200">
@@ -195,7 +149,7 @@ export function CityPills() {
                   Select Your City for Car PDI
                 </h3>
                 <p className="text-xs md:text-sm text-neutral-500 mt-1">
-                  DriveShine certified inspectors cover 175+ cities across India.
+                  DriveShine certified inspectors cover {allCityDirectory.length}+ cities across our network.
                 </p>
               </div>
               <button

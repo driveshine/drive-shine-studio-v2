@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 export interface CityData {
   id: string;
   name: string;
@@ -8,7 +10,7 @@ export interface CityData {
   contactPhone: string;
   displayOrder?: number;
   highlightStyle?: 'dark' | 'light' | 'outline';
-  state?: 'Telangana' | 'Andhra Pradesh';
+  state?: 'Telangana' | 'Andhra Pradesh' | 'Network Hub';
 }
 
 export const API_BASE_URL =
@@ -274,35 +276,144 @@ export const EXTENDED_CITIES = [
   'Nizamabad', 'Khammam', 'Ramagundam',
 ];
 
-export async function fetchCities(): Promise<CityData[]> {
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/public/cities`, {
-      headers: { Accept: 'application/json' },
-    });
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const json = await res.json();
-    if (json.success && Array.isArray(json.data) && json.data.length > 0) {
-      return json.data.map((c: any) => ({
-        id: c.id,
-        name: c.name,
-        slug: c.slug,
-        headline: c.headline,
-        description: c.description,
-        coverageAreas: typeof c.coverageAreas === 'string'
-          ? c.coverageAreas.split(',').map((s: string) => s.trim()).filter(Boolean)
-          : Array.isArray(c.coverageAreas) ? c.coverageAreas : [],
-        contactPhone: c.contactPhone || '+919494642244',
-        displayOrder: c.displayOrder,
-        highlightStyle:
-          c.slug === 'hyderabad' || c.slug === 'visakhapatnam'
-            ? 'dark'
-            : 'light',
-      }));
-    }
-  } catch (err) {
-    console.warn('Using bundled fallback cities:', err);
+const TELANGANA_CITIES = new Set([
+  'hyderabad',
+  'warangal',
+  'karimnagar',
+  'nizamabad',
+  'khammam',
+  'ramagundam',
+  'nalgonda',
+  'mahbubnagar',
+  'siddipet',
+  'mancherial',
+  'adilabad',
+  'suryapet',
+  'miryalaguda',
+]);
+
+const ANDHRA_CITIES = new Set([
+  'visakhapatnam',
+  'vizag',
+  'vijayawada',
+  'guntur',
+  'rajahmundry',
+  'kakinada',
+  'srikakulam',
+  'nellore',
+  'kurnool',
+  'tirupati',
+  'anantapur',
+  'kadapa',
+  'eluru',
+  'ongole',
+  'vizianagaram',
+  'machilipatnam',
+  'tenali',
+  'chittoor',
+  'hindupur',
+  'bhimavaram',
+  'madanapalle',
+  'guntakal',
+  'dharmavaram',
+  'gudivada',
+  'narasaraopet',
+  'tadepalligudem',
+  'amaravati',
+]);
+
+export function inferState(cityName: string, slug?: string): 'Telangana' | 'Andhra Pradesh' | 'Network Hub' {
+  const norm = (slug || cityName).toLowerCase().replace(/[^a-z]/g, '');
+  for (const ts of TELANGANA_CITIES) {
+    if (norm.includes(ts)) return 'Telangana';
   }
-  return FALLBACK_CITIES;
+  for (const ap of ANDHRA_CITIES) {
+    if (norm.includes(ap)) return 'Andhra Pradesh';
+  }
+  return 'Network Hub';
+}
+
+export function getCityUrl(slug: string): string {
+  const normalized = slug.toLowerCase().trim();
+  const canonical = normalized === 'vizag' ? 'visakhapatnam' : normalized;
+  return `/pdi-${canonical}`;
+}
+
+let cachedCities: CityData[] | null = null;
+let fetchPromise: Promise<CityData[]> | null = null;
+
+export async function fetchCities(forceFresh = false): Promise<CityData[]> {
+  if (cachedCities && !forceFresh) return cachedCities;
+  if (fetchPromise && !forceFresh) return fetchPromise;
+
+  fetchPromise = (async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/api/public/cities`, {
+        headers: { Accept: 'application/json' },
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data) && json.data.length > 0) {
+        const mapped: CityData[] = json.data.map((c: any) => {
+          const rawAreas = typeof c.coverageAreas === 'string'
+            ? c.coverageAreas.split(',').map((s: string) => s.trim()).filter(Boolean)
+            : Array.isArray(c.coverageAreas) ? c.coverageAreas : [];
+          const coverageAreas = rawAreas.length > 0
+            ? rawAreas
+            : [`Central ${c.name}`, 'Dealership Corridor', 'Showroom Hub'];
+
+          const desc = typeof c.description === 'string' && c.description.trim().length > 10
+            ? c.description.trim()
+            : `Drive Shine provides professional Pre-Delivery Inspection (PDI) services for new and used cars across ${c.name}. 150+ point inspection with digital paint meter and OBD scanner.`;
+
+          return {
+            id: c.id,
+            name: c.name,
+            slug: c.slug,
+            state: inferState(c.name, c.slug),
+            headline: c.headline || `Car PDI in ${c.name} — 150+ Point Vehicle Inspection`,
+            description: desc,
+            coverageAreas,
+            contactPhone: c.contactPhone || '+919494642244',
+            displayOrder: c.displayOrder,
+            highlightStyle:
+              c.slug === 'hyderabad' || c.slug === 'visakhapatnam'
+                ? 'dark'
+                : 'light',
+          };
+        });
+        cachedCities = mapped;
+        return mapped;
+      }
+    } catch (err) {
+      console.warn('Using bundled fallback cities:', err);
+    }
+    return FALLBACK_CITIES;
+  })();
+
+  const result = await fetchPromise;
+  fetchPromise = null;
+  return result || FALLBACK_CITIES;
+}
+
+export function useCities() {
+  const [cities, setCities] = useState<CityData[]>(() => cachedCities || AP_TELANGANA_CITIES);
+  const [loading, setLoading] = useState<boolean>(!cachedCities);
+
+  useEffect(() => {
+    let mounted = true;
+    void fetchCities().then((res) => {
+      if (mounted && res && res.length > 0) {
+        setCities(res);
+        setLoading(false);
+      }
+    });
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  return { cities, loading, count: cities.length };
 }
 
 export async function fetchCityBySlug(slug: string): Promise<CityData | null> {
