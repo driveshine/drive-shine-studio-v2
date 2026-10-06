@@ -21,37 +21,94 @@ import { CityPills } from "@/components/sections/city-pills";
 import { SectionHeading } from "@/components/ui/section-heading";
 import { site } from "@/data/site";
 
-export default function CityPage() {
-  const { citySlug } = useParams<{ citySlug: string }>();
+interface CityPageProps {
+  citySlugOverride?: string;
+}
+
+export default function CityPage({ citySlugOverride }: CityPageProps = {}) {
+  const { citySlug: paramSlug } = useParams<{ citySlug: string }>();
+  const activeSlug = (citySlugOverride || paramSlug || "").toLowerCase().trim();
+
   const [city, setCity] = useState<CityData | null>(() => {
-    const slug = (citySlug || "").toLowerCase().trim();
-    return FALLBACK_CITIES.find((c) => c.slug === slug) || null;
+    return FALLBACK_CITIES.find((c) => c.slug === activeSlug) || null;
   });
   const [loading, setLoading] = useState(!city);
 
   useEffect(() => {
-    if (!citySlug) return;
-    void fetchCityBySlug(citySlug).then((data) => {
+    if (!activeSlug) return;
+    void fetchCityBySlug(activeSlug).then((data) => {
       setCity(data);
       setLoading(false);
       if (data) {
-        document.title = `${data.headline} | DriveShine™`;
+        document.title = `Car PDI in ${data.name} — 150+ Point Inspection | Drive Shine`;
+
+        // Update meta description dynamically for SPA
+        let metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement('meta');
+          metaDesc.setAttribute('name', 'description');
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.setAttribute(
+          'content',
+          `Professional car PDI in ${data.name}. 150+ point pre-delivery inspection with digital paint gauge, OBD-II scanner & instant WhatsApp report. Call 94946 42244.`
+        );
+
+        // Inject / update dynamic city JSON-LD
+        let scriptTag = document.getElementById('city-schema-jsonld') as HTMLScriptElement | null;
+        if (!scriptTag) {
+          scriptTag = document.createElement('script');
+          scriptTag.id = 'city-schema-jsonld';
+          scriptTag.type = 'application/ld+json';
+          document.head.appendChild(scriptTag);
+        }
+        scriptTag.text = JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "AutoRepair",
+          "name": `Drive Shine Car PDI - ${data.name}`,
+          "url": `https://www.driveshine.co.in/pdi-${data.slug}`,
+          "telephone": "+919494642244",
+          "priceRange": "₹₹",
+          "description": data.description,
+          "address": {
+            "@type": "PostalAddress",
+            "addressLocality": data.name,
+            "addressCountry": "IN"
+          },
+          "areaServed": data.coverageAreas,
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": `Pre-Delivery Inspection in ${data.name}`,
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": `150+ Point Car PDI in ${data.name}`,
+                  "description": `Comprehensive showroom & stockyard pre-delivery vehicle inspection in ${data.name}.`
+                },
+                "price": "1999",
+                "priceCurrency": "INR"
+              }
+            ]
+          }
+        });
       }
     });
-  }, [citySlug]);
+  }, [activeSlug]);
 
   if (loading) {
     return (
       <div className="min-h-[60vh] flex items-center justify-center bg-white">
         <div className="animate-pulse text-ink-muted mono-label text-sm flex items-center gap-3">
           <span className="w-2 h-2 rounded-full bg-red animate-ping" />
-          Loading {citySlug} inspection center…
+          Loading {activeSlug} inspection center…
         </div>
       </div>
     );
   }
 
-  const cityName = city?.name || (citySlug ? citySlug.charAt(0).toUpperCase() + citySlug.slice(1) : "Your City");
+  const cityName = city?.name || (activeSlug ? activeSlug.charAt(0).toUpperCase() + activeSlug.slice(1) : "Your City");
   const headline = city?.headline || `Car PDI in ${cityName} — 150+ Point Vehicle Inspection`;
   const description =
     city?.description ||
@@ -495,7 +552,7 @@ export default function CityPage() {
             <BookingForm
               defaultCity={cityName}
               defaultLocation={`${cityName} (Dealership / Stockyard)`}
-              sourceUrl={`/city/${citySlug || "city"}`}
+              sourceUrl={`/pdi-${activeSlug || "city"}`}
               title={`Book Inspection — ${cityName}`}
             />
           </div>

@@ -82,8 +82,8 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom row: Quick Links + PDI Services + Products */}
-        <div className="mt-14 grid gap-10 border-t border-white/[0.06] pt-14 sm:grid-cols-3">
+        {/* Bottom row: Quick Links + PDI Services + AP/TS Cities + Products */}
+        <div className="mt-14 grid gap-10 border-t border-white/[0.06] pt-14 sm:grid-cols-2 lg:grid-cols-4">
 
           {/* Quick Links */}
           <nav aria-label="Quick links">
@@ -117,10 +117,59 @@ export function Footer() {
             </ul>
           </div>
 
+          {/* AP & Telangana PDI Locations (SEO Hub Links) */}
+          <div>
+            <h2 className="mono-label mb-6 flex items-center gap-2 text-red">
+              <span className="opacity-40">03</span> PDI Locations
+            </h2>
+            <ul className="flex flex-col gap-2.5">
+              <li>
+                <Link to="/pdi-hyderabad" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Hyderabad PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-visakhapatnam" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Visakhapatnam (Vizag) PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-vijayawada" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Vijayawada PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-guntur" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Guntur PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-rajahmundry" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Rajahmundry PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-kakinada" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Kakinada PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-warangal" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Warangal PDI
+                </Link>
+              </li>
+              <li>
+                <Link to="/pdi-karimnagar" className="text-sm font-medium text-gray-400 transition-colors hover:text-white">
+                  Karimnagar PDI
+                </Link>
+              </li>
+            </ul>
+          </div>
+
           {/* Auto Care Products */}
           <div>
             <h2 className="mono-label mb-6 flex items-center gap-2 text-red">
-              <span className="opacity-40">03</span> Auto Care Products
+              <span className="opacity-40">04</span> Auto Products
             </h2>
             <ul className="flex flex-col gap-3">
               {autoProducts.map((p) => (

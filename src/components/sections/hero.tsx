@@ -1,19 +1,19 @@
 import { useEffect, useRef } from "react";
-import { Shield, ClipboardList, Camera, UserCheck, MapPin, Search, Building2 } from "lucide-react";
+import { Shield, ClipboardList, Camera, UserCheck, MapPin, Search, Building2, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { registerGsap } from "@/hooks/useLenis";
 
 const stats = [
-  { icon: Shield, label: "Unbiased Inspection", sub: "100% independent service" },
-  { icon: ClipboardList, label: "150+ Points", sub: "Covers every important detail" },
-  { icon: Camera, label: "Detailed Report", sub: "With images & explanation" },
-  { icon: UserCheck, label: "Delivery Guidance", sub: "Get guidance before you take delivery" },
+  { icon: Shield, label: "150+ Point PDI", sub: "Structured checklist" },
+  { icon: Camera, label: "Digital Report", sub: "Photos & explanations via WhatsApp" },
+  { icon: UserCheck, label: "100% Unbiased", sub: "Zero dealership affiliation" },
+  { icon: ClipboardList, label: "From ₹1,999", sub: "Transparent flat pricing" },
 ];
 
 const trustItems = [
-  { icon: Shield, text: "Unbiased Inspection" },
-  { icon: Search, text: "No Compromise" },
-  { icon: UserCheck, text: "Your Confidence Our Priority" },
+  { icon: Shield, text: "Independent & Unbiased" },
+  { icon: Search, text: "Digital Paint Depth Scan" },
+  { icon: UserCheck, text: "Inspect Before Registration" },
 ];
 
 export function Hero() {
@@ -39,26 +39,32 @@ export function Hero() {
           {/* Left — text */}
           <div className="flex flex-col justify-center order-2 lg:order-1">
             {/* Badge */}
-            <div className="hero-fade inline-flex w-fit items-center gap-2 rounded-full bg-red px-4 py-2 mb-5">
+            <div className="hero-fade inline-flex w-fit items-center gap-2 rounded-full bg-red px-4 py-2 mb-4">
               <Shield className="size-4 text-white" aria-hidden="true" />
-              <span className="font-sans text-sm font-bold uppercase tracking-wider text-white">150+ Point Inspection</span>
+              <span className="font-sans text-xs sm:text-sm font-bold uppercase tracking-wider text-white">
+                150+ Point Professional PDI
+              </span>
             </div>
 
             {/* Eyebrow */}
-            <p className="hero-fade mono-label text-ink-muted mb-3">Professional PDI Service</p>
+            <p className="hero-fade mono-label text-ink-muted mb-2">
+              Andhra Pradesh &amp; Telangana’s Growing PDI Network
+            </p>
 
-            {/* Heading */}
-            <h1 className="hero-fade font-display font-black leading-[1.05] tracking-tight text-[clamp(1.8rem,4.5vw,3.8rem)]">
-              <span className="text-ink">Car</span><br />
-              <span className="text-red">Pre-Delivery</span><br />
-              <span className="text-ink">Inspection</span>
+            {/* Heading (SEO Target H1) */}
+            <h1 className="hero-fade font-display font-black leading-[1.08] tracking-tight text-[clamp(1.9rem,4vw,3.4rem)] text-ink">
+              Professional Car PDI Service Across{" "}
+              <span className="text-red">Andhra Pradesh &amp; Telangana</span>
             </h1>
 
+            {/* Sub-hook */}
+            <p className="hero-fade mt-3 text-base sm:text-lg font-bold text-ink">
+              Buying a new car? Inspect it before you accept it.
+            </p>
+
             {/* Body */}
-            <p className="hero-fade mt-4 max-w-lg text-sm leading-[1.75] text-ink-soft">
-              Drive Shine performs a comprehensive{" "}
-              <span className="font-bold text-red">150+ point inspection</span>{" "}
-              before your new car is delivered. We explain every finding clearly, helping you take delivery with complete confidence.
+            <p className="hero-fade mt-2 max-w-xl text-sm leading-[1.75] text-ink-soft">
+              Drive Shine provides professional Pre-Delivery Inspection (PDI) services for new and used cars across major cities in Andhra Pradesh and Telangana. With a growing multi-city network of authorized Drive Shine PDI inspectors, we help car buyers identify visible defects, paint and body issues, tyre condition, documentation concerns, and other inspection findings before vehicle delivery.
             </p>
 
             <div className="hero-fade mt-4 h-0.5 w-10 rounded-full bg-red" />
@@ -66,29 +72,30 @@ export function Hero() {
             {/* Stats row */}
             <div className="hero-fade mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {stats.map(({ icon: Icon, label, sub }) => (
-                <div key={label} className="flex flex-col gap-1">
-                  <Icon className="size-5 text-red" aria-hidden="true" />
-                  <p className="font-display text-sm font-bold text-ink">{label}</p>
-                  <p className="text-xs text-ink-muted leading-snug">{sub}</p>
+                <div key={label} className="flex flex-col gap-1 p-2 rounded-lg bg-carbon-800/60 border border-hairline">
+                  <Icon className="size-4 text-red" aria-hidden="true" />
+                  <p className="font-display text-xs sm:text-sm font-bold text-ink">{label}</p>
+                  <p className="text-[11px] text-ink-muted leading-tight">{sub}</p>
                 </div>
               ))}
             </div>
 
             {/* CTAs */}
-            <div className="hero-fade mt-5 flex flex-wrap gap-3">
+            <div className="hero-fade mt-6 flex flex-wrap items-center gap-3">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-red px-6 py-3.5 font-sans text-sm font-bold text-white transition-opacity hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-lg bg-red px-6 py-3.5 font-sans text-sm font-bold text-white transition-opacity hover:opacity-90 shadow-md"
               >
                 <ClipboardList className="size-4" aria-hidden="true" />
-                Book Inspection
+                BOOK YOUR PDI
               </Link>
-              <Link
-                to="/services"
+              <a
+                href="tel:+919494642244"
                 className="inline-flex items-center gap-2 rounded-lg border-2 border-ink px-6 py-3.5 font-sans text-sm font-bold text-ink transition-colors hover:border-red hover:text-red"
               >
-                ▶ How It Works
-              </Link>
+                <Phone className="size-4 text-red" aria-hidden="true" />
+                94946 42244
+              </a>
             </div>
           </div>
 
@@ -97,7 +104,7 @@ export function Hero() {
             <div className="relative w-full overflow-hidden rounded-2xl lg:rounded-none lg:h-full" style={{ aspectRatio: "4/3" }}>
               <img
                 src="/heroimage1.jpeg"
-                alt="Drive Shine inspector examining a car"
+                alt="Drive Shine certified inspector performing car PDI inspection"
                 fetchPriority="high"
                 width={900}
                 height={700}
@@ -106,7 +113,7 @@ export function Hero() {
               {/* Left fade blend — desktop only */}
               <div className="absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-white to-transparent hidden lg:block" />
               {/* Trust card overlay */}
-              <div className="absolute bottom-4 right-4 rounded-xl bg-black/80 px-4 py-3 backdrop-blur-sm lg:bottom-8 lg:right-6">
+              <div className="absolute bottom-4 right-4 rounded-xl bg-black/85 px-4 py-3 backdrop-blur-sm lg:bottom-8 lg:right-6 border border-white/10">
                 <ul className="flex flex-col gap-2">
                   {trustItems.map(({ icon: Icon, text }) => (
                     <li key={text} className="flex items-center gap-2">
@@ -121,35 +128,30 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Bottom bar */}
-      <div className="border-t border-black/[0.07] bg-white">
+      {/* Bottom bar — Highlighting 8 Cities */}
+      <div className="border-t border-black/[0.07] bg-carbon-800">
         <div className="shell py-4">
           <div className="flex flex-wrap items-center justify-between gap-4 text-sm">
             <div className="flex items-center gap-2 font-medium text-ink-soft">
               <MapPin className="size-4 text-red shrink-0" aria-hidden="true" />
-              <span>Serving customers across{" "}
-              <span className="font-bold text-red">Andhra Pradesh &amp; Telangana</span></span>
+              <span>
+                Our PDI network currently serves:{" "}
+                <span className="font-bold text-ink">
+                  Hyderabad | Visakhapatnam | Vijayawada | Rajahmundry | Kakinada | Karimnagar | Warangal | Guntur
+                </span>
+              </span>
             </div>
-            <div className="flex flex-wrap gap-6">
-              <div className="flex items-center gap-2 text-ink-soft">
+            <div className="flex flex-wrap gap-4 items-center">
+              <div className="flex items-center gap-2 text-ink-soft text-xs">
                 <Search className="size-4 text-red" aria-hidden="true" />
-                <div>
-                  <p className="font-bold text-ink text-xs">All Major Cities</p>
-                  <p className="text-xs text-ink-muted">Wide Coverage</p>
-                </div>
+                <span className="font-bold text-ink">8 Cities. One Standard.</span>
               </div>
-              <div className="flex items-center gap-2 text-ink-soft">
+              <div className="flex items-center gap-2 text-ink-soft text-xs">
                 <Building2 className="size-4 text-red" aria-hidden="true" />
-                <div>
-                  <p className="font-bold text-ink text-xs">At Dealership</p>
-                  <p className="text-xs text-ink-muted">Before You Accept</p>
-                </div>
+                <span>Showroom &amp; Stockyard Inspection</span>
               </div>
             </div>
           </div>
-          <p className="mt-2 text-sm font-medium text-ink-soft">
-            Used for <span className="font-bold text-red">both new &amp; pre-owned</span> car inspections.
-          </p>
         </div>
       </div>
     </section>
