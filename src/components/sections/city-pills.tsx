@@ -1,39 +1,119 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { MapPin, Search, Sparkles, X } from 'lucide-react';
-import { fetchCities, EXTENDED_CITIES, type CityData, FALLBACK_CITIES } from '@/data/cities';
+import { fetchCities, EXTENDED_CITIES, AP_TELANGANA_CITIES, type CityData } from '@/data/cities';
+
+interface PillItem {
+  name: string;
+  slug: string;
+  isDark?: boolean;
+  isOutline?: boolean;
+}
+
+const AP_TS_SLUGS = new Set([
+  'hyderabad',
+  'visakhapatnam',
+  'vizag',
+  'vijayawada',
+  'guntur',
+  'rajahmundry',
+  'kakinada',
+  'warangal',
+  'karimnagar',
+]);
+
+function getCityUrl(slug: string): string {
+  const normalized = slug.toLowerCase().trim();
+  if (AP_TS_SLUGS.has(normalized)) {
+    return `/pdi-${normalized === 'vizag' ? 'visakhapatnam' : normalized}`;
+  }
+  return `/city/${normalized}`;
+}
+
+// Row 1 Pills matching the client reference design
+const ROW_1_ITEMS: PillItem[] = [
+  { name: 'Gurgaon', slug: 'gurgaon', isDark: true },
+  { name: 'Delhi', slug: 'delhi', isDark: true },
+  { name: 'Noida', slug: 'noida', isDark: true },
+  { name: 'Bangalore', slug: 'bangalore', isDark: true },
+  { name: 'Mumbai', slug: 'mumbai', isDark: true },
+  { name: 'Pune', slug: 'pune', isDark: true },
+  { name: 'Hyderabad', slug: 'hyderabad', isDark: true },
+  { name: 'Visakhapatnam', slug: 'visakhapatnam', isDark: true },
+  { name: 'Chennai', slug: 'chennai', isDark: false },
+  { name: 'Kolkata', slug: 'kolkata', isDark: false },
+  { name: 'Ahmedabad', slug: 'ahmedabad', isDark: false },
+];
+
+// Row 2 Pills matching client reference with AP & Telangana network and regional hubs
+const ROW_2_ITEMS: PillItem[] = [
+  { name: 'Ghaziabad', slug: 'ghaziabad', isDark: false },
+  { name: 'Faridabad', slug: 'faridabad', isDark: false },
+  { name: 'Chandigarh', slug: 'chandigarh', isDark: false },
+  { name: 'Mohali', slug: 'mohali', isDark: false },
+  { name: 'Panchkula', slug: 'panchkula', isOutline: true },
+  { name: 'Jaipur', slug: 'jaipur', isDark: false },
+  { name: 'Lucknow', slug: 'lucknow', isDark: false },
+  { name: 'Kanpur', slug: 'kanpur', isDark: false },
+  { name: 'Vijayawada', slug: 'vijayawada', isDark: false },
+  { name: 'Guntur', slug: 'guntur', isDark: false },
+  { name: 'Warangal', slug: 'warangal', isDark: false },
+];
 
 export function CityPills() {
-  const [cities, setCities] = useState<CityData[]>(FALLBACK_CITIES);
+  const [dbCities, setDbCities] = useState<CityData[]>([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     void fetchCities().then((res) => {
-      if (res && res.length > 0) setCities(res);
+      if (res && res.length > 0) {
+        setDbCities(res);
+      }
     });
   }, []);
 
-  // Split cities into Row 1 and Row 2 matching the client's screenshot
-  const row1Slugs = ['gurgaon', 'delhi', 'noida', 'bangalore', 'mumbai', 'pune', 'hyderabad', 'chennai', 'kolkata', 'ahmedabad'];
-  const row2Slugs = ['ghaziabad', 'faridabad', 'chandigarh', 'mohali', 'panchkula', 'jaipur', 'lucknow', 'kanpur'];
-
-  const row1Cities = row1Slugs
-    .map((slug) => cities.find((c) => c.slug === slug))
-    .filter(Boolean) as CityData[];
-
-  const row2Cities = row2Slugs
-    .map((slug) => cities.find((c) => c.slug === slug))
-    .filter(Boolean) as CityData[];
-
   // Filtered list for the "+ 181 more cities" dialog
-  const allCityNames = Array.from(
-    new Set([...cities.map((c) => c.name), ...EXTENDED_CITIES])
-  ).sort((a, b) => a.localeCompare(b));
+  const allCityDirectory = useMemo(() => {
+    const map = new Map<string, { name: string; slug: string }>();
 
-  const filteredDirectory = allCityNames.filter((name) =>
-    name.toLowerCase().includes(searchQuery.toLowerCase().trim())
-  );
+    // 1. Core AP & Telangana cities
+    AP_TELANGANA_CITIES.forEach((c) => {
+      map.set(c.slug, { name: c.name, slug: c.slug });
+    });
+
+    // 2. Row 1 and Row 2 pills
+    [...ROW_1_ITEMS, ...ROW_2_ITEMS].forEach((p) => {
+      if (!map.has(p.slug)) {
+        map.set(p.slug, { name: p.name, slug: p.slug });
+      }
+    });
+
+    // 3. Any newly added DB cities
+    dbCities.forEach((c) => {
+      if (!map.has(c.slug)) {
+        map.set(c.slug, { name: c.name, slug: c.slug });
+      }
+    });
+
+    // 4. Extended cities list
+    EXTENDED_CITIES.forEach((name) => {
+      const slug = name.toLowerCase().replace(/\s+/g, '-');
+      if (!map.has(slug)) {
+        map.set(slug, { name, slug });
+      }
+    });
+
+    return Array.from(map.values()).sort((a, b) => a.name.localeCompare(b.name));
+  }, [dbCities]);
+
+  const filteredDirectory = useMemo(() => {
+    const q = searchQuery.toLowerCase().trim();
+    if (!q) return allCityDirectory;
+    return allCityDirectory.filter((item) =>
+      item.name.toLowerCase().includes(q) || item.slug.toLowerCase().includes(q)
+    );
+  }, [allCityDirectory, searchQuery]);
 
   return (
     <section className="relative py-16 md:py-24 bg-white overflow-hidden border-b border-neutral-100">
@@ -60,42 +140,36 @@ export function CityPills() {
         <div className="flex flex-col items-center gap-3 md:gap-3.5 max-w-5xl mx-auto">
           {/* Row 1 */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-2.5">
-            {row1Cities.map((city) => {
-              const isDark = ['gurgaon', 'delhi', 'noida', 'bangalore', 'mumbai', 'pune'].includes(city.slug);
-              return (
-                <Link
-                  key={city.slug}
-                  to={`/city/${city.slug}`}
-                  className={`inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
-                    isDark
-                      ? 'bg-neutral-900 text-white hover:bg-neutral-800 hover:shadow-md'
-                      : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40'
-                  }`}
-                >
-                  {city.name}
-                </Link>
-              );
-            })}
+            {ROW_1_ITEMS.map((item) => (
+              <Link
+                key={item.slug}
+                to={getCityUrl(item.slug)}
+                className={`inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
+                  item.isDark
+                    ? 'bg-neutral-900 text-white hover:bg-neutral-800 hover:shadow-md'
+                    : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
           </div>
 
           {/* Row 2 */}
           <div className="flex flex-wrap items-center justify-center gap-2 md:gap-2.5">
-            {row2Cities.map((city) => {
-              const isPanchkula = city.slug === 'panchkula';
-              return (
-                <Link
-                  key={city.slug}
-                  to={`/city/${city.slug}`}
-                  className={`inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
-                    isPanchkula
-                      ? 'bg-neutral-100 text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-200'
-                      : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40'
-                  }`}
-                >
-                  {city.name}
-                </Link>
-              );
-            })}
+            {ROW_2_ITEMS.map((item) => (
+              <Link
+                key={item.slug}
+                to={getCityUrl(item.slug)}
+                className={`inline-flex items-center justify-center px-5 py-2 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
+                  item.isOutline
+                    ? 'bg-neutral-100 text-neutral-900 border-2 border-neutral-900 hover:bg-neutral-200'
+                    : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/40'
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
 
             {/* "+ 181 more cities" pill */}
             <button
@@ -127,7 +201,8 @@ export function CityPills() {
               <button
                 type="button"
                 onClick={() => setModalOpen(false)}
-                className="w-8 h-8 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors"
+                className="w-8 h-8 rounded-full flex items-center justify-center text-neutral-400 hover:text-neutral-800 hover:bg-neutral-100 transition-colors cursor-pointer"
+                aria-label="Close dialog"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -151,17 +226,17 @@ export function CityPills() {
             {/* City Grid */}
             <div className="p-5 overflow-y-auto flex-1">
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-                {filteredDirectory.map((cityName) => {
-                  const slug = cityName.toLowerCase().replace(/\s+/g, '-');
+                {filteredDirectory.map((item) => {
+                  const url = getCityUrl(item.slug);
                   return (
                     <Link
-                      key={slug}
-                      to={`/city/${slug}`}
+                      key={item.slug}
+                      to={url}
                       onClick={() => setModalOpen(false)}
-                      className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 hover:text-black hover:bg-neutral-100 transition-colors truncate"
+                      className="flex items-center px-3 py-2 rounded-lg text-sm font-medium text-neutral-700 hover:text-black hover:bg-neutral-100 transition-colors truncate group"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 mr-2 shrink-0 group-hover:bg-red-500" />
-                      <span className="truncate">{cityName}</span>
+                      <span className="w-1.5 h-1.5 rounded-full bg-neutral-300 mr-2 shrink-0 group-hover:bg-red-500 transition-colors" />
+                      <span className="truncate">{item.name}</span>
                     </Link>
                   );
                 })}
