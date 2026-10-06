@@ -204,36 +204,52 @@ export function SeoNetworkAndContent() {
       </section>
 
       {/* ── 3. CRITICAL ADVISORY: INSPECT BEFORE REGISTRATION ─────────────────── */}
-      <section className="py-16 md:py-20 bg-carbon-900 text-white relative overflow-hidden">
+      <section
+        className="py-16 md:py-24 text-white relative overflow-hidden bg-carbon-900"
+        style={{ background: "#111114" }}
+      >
+        {/* Ambient red glow behind section */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 flex items-center justify-center opacity-25"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 60% at 50% 50%, rgba(217, 30, 44, 0.35) 0%, transparent 70%)",
+          }}
+        />
+
         <div className="shell relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/20 border border-amber-500/40 px-3.5 py-1.5 mb-5 text-amber-300 text-xs font-bold uppercase tracking-wider">
-              <AlertTriangle className="size-4 shrink-0" />
+            <div className="inline-flex items-center gap-2 rounded-full bg-amber-500/15 border border-amber-500/30 px-4 py-1.5 mb-5 text-amber-400 text-xs font-bold uppercase tracking-wider shadow-xs">
+              <AlertTriangle className="size-4 shrink-0 text-amber-400" />
               CRITICAL BUYER ADVISORY
             </div>
-            <h2 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight leading-tight">
+
+            <h2 className="font-display font-black text-2xl sm:text-4xl text-white tracking-tight leading-tight mb-4">
               Car PDI Before New Car Delivery:
               <br />
               <span className="text-red">Inspect Before You Sign &amp; Register</span>
             </h2>
-            <p className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed">
+
+            <p className="mt-4 text-sm sm:text-base text-gray-300 leading-relaxed max-w-2xl mx-auto">
               Buying a new car is a major investment. Before accepting delivery, customers should verify the vehicle’s visible condition, manufacturing information, tyres, paint, body panels, electrical systems, documents, and other accessible inspection points.
             </p>
-            <p className="mt-3 text-sm sm:text-base text-amber-200 font-semibold leading-relaxed">
-              Don’t rely only on a quick delivery-day walkaround. Once RTO registration is complete, the car is legally yours—dealers cannot swap or replace a damaged car. Get your vehicle professionally inspected before you accept delivery.
-            </p>
 
-            <div className="mt-8 flex flex-wrap justify-center gap-4">
+            <div className="mt-5 p-4 rounded-xl bg-amber-500/10 border border-amber-500/25 text-amber-200 text-xs sm:text-sm font-semibold leading-relaxed max-w-2xl mx-auto text-left sm:text-center">
+              ⚠️ Don’t rely only on a quick delivery-day walkaround. Once RTO registration is complete, the car is legally yours—dealers cannot swap or replace a damaged car. Get your vehicle professionally inspected before you accept delivery.
+            </div>
+
+            <div className="mt-8 flex flex-wrap justify-center items-center gap-4">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 rounded-lg bg-red px-6 py-3.5 font-sans text-sm font-bold text-white transition-opacity hover:opacity-90 shadow-md"
+                className="inline-flex items-center gap-2 rounded-lg bg-red px-6 py-3.5 font-sans text-sm font-bold text-white transition-all hover:bg-red-deep shadow-md hover:-translate-y-0.5"
               >
                 <ShieldCheck className="size-4" />
                 BOOK PDI BEFORE REGISTRATION
               </Link>
               <a
                 href="tel:+919494642244"
-                className="inline-flex items-center gap-2 rounded-lg border border-white/20 px-6 py-3.5 font-sans text-sm font-bold text-white hover:bg-white/10 transition-colors"
+                className="inline-flex items-center gap-2 rounded-lg border border-white/20 bg-white/5 px-6 py-3.5 font-sans text-sm font-bold text-white hover:bg-white/10 hover:border-white/40 transition-all hover:-translate-y-0.5"
               >
                 <Phone className="size-4 text-red" />
                 Call 94946 42244

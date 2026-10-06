@@ -43,6 +43,7 @@
   --color-carbon: var(--carbon);
   --color-carbon-800: var(--carbon-800);
   --color-carbon-700: var(--carbon-700);
+  --color-carbon-900: var(--carbon-900);
   --color-red: var(--red);
   --color-red-deep: var(--red-deep);
   --color-chrome-100: var(--chrome-100);
@@ -67,6 +68,7 @@
   --carbon:     #FFFFFF;   /* page background */
   --carbon-800: #F5F6F8;   /* cards / raised surfaces */
   --carbon-700: #E4E4E8;   /* borders */
+  --carbon-900: #111114;   /* dark advisory / footer bg */
 
   /* Accent */
   --red:      #D91E2C;
