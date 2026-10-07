@@ -8,12 +8,11 @@ export function CityPills() {
   const [modalOpen, setModalOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
 
-  // Active pills on the homepage: ONLY cities added by the admin
+  // Active pills on the homepage: ONLY cities added by the admin (All Black Highlighted)
   const activePills = useMemo(() => {
-    return dbCities.map((c, i) => ({
+    return dbCities.map((c) => ({
       name: c.name,
       slug: c.slug,
-      isDark: c.slug === 'hyderabad' || c.slug === 'visakhapatnam' || i < 3,
     }));
   }, [dbCities]);
 
@@ -85,17 +84,13 @@ export function CityPills() {
           Book a certified inspector near your dealership.
         </p>
 
-        {/* Pills container — ONLY active admin-added cities */}
+        {/* Pills container — ONLY active admin-added cities (All Black Highlighted) */}
         <div className="flex flex-wrap items-center justify-center gap-2.5 max-w-5xl mx-auto">
           {activePills.map((item) => (
             <Link
               key={item.slug}
               to={getCityUrl(item.slug)}
-              className={`inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs ${
-                item.isDark
-                  ? 'bg-neutral-900 text-white hover:bg-neutral-800 hover:shadow-md'
-                  : 'bg-neutral-100 text-neutral-800 hover:bg-neutral-200/90 hover:text-black border border-neutral-200/60'
-              }`}
+              className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-sm font-bold bg-neutral-900 text-white hover:bg-neutral-800 hover:shadow-md border border-neutral-900 transition-all duration-200 transform hover:-translate-y-0.5 shadow-xs"
             >
               {item.name}
             </Link>
@@ -171,10 +166,10 @@ export function CityPills() {
                         key={item.slug}
                         to={getCityUrl(item.slug)}
                         onClick={() => setModalOpen(false)}
-                        className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-semibold text-neutral-900 bg-neutral-50 hover:bg-emerald-50 hover:text-emerald-900 border border-neutral-200/60 hover:border-emerald-300 transition-all group"
+                        className="flex items-center justify-between px-3.5 py-2.5 rounded-xl text-sm font-bold text-white bg-neutral-900 hover:bg-neutral-800 border border-neutral-900 transition-all group shadow-xs"
                       >
                         <span className="truncate">{item.name}</span>
-                        <span className="text-[10px] uppercase font-bold text-emerald-600 bg-emerald-100/80 px-1.5 py-0.5 rounded">
+                        <span className="text-[10px] uppercase font-bold text-emerald-400 bg-white/10 px-2 py-0.5 rounded-full">
                           Book →
                         </span>
                       </Link>
