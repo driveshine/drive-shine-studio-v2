@@ -53,7 +53,7 @@ export const AP_TELANGANA_CITIES: CityData[] = [
     state: 'Andhra Pradesh',
     headline: 'Car PDI in Visakhapatnam & Vizag — Independent Inspection',
     description:
-      'Professional on-site pre-delivery vehicle inspection across Vizag. Marine and coastal transit checks, digital paint thickness gauge tests, OBD-II diagnostic scans, and paperwork audits before vehicle handover.',
+      'Professional on-site pre-delivery vehicle inspection across Vizag. Marine and coastal transit checks, digital paint thickness gauge tests, comprehensive electrical tests, and paperwork audits before vehicle handover.',
     coverageAreas: [
       'Madhurawada',
       'Gajuwaka',
@@ -226,7 +226,7 @@ export const FALLBACK_CITIES: CityData[] = [
     slug: 'bangalore',
     headline: 'Car PDI in Bangalore — Professional Pre-Delivery Car Inspection',
     description:
-      'Bengaluru’s leading independent vehicle inspection service with industrial-grade paint thickness gauges and OBD-II diagnostics.',
+      'Bengaluru’s leading independent vehicle inspection service with industrial-grade paint thickness gauges and comprehensive electrical audits.',
     coverageAreas: ['Whitefield', 'Koramangala', 'Indiranagar', 'Electronic City', 'HSR Layout', 'Hebbal'],
     contactPhone: '+919494642244',
     highlightStyle: 'dark',
@@ -364,7 +364,7 @@ export async function fetchCities(forceFresh = false): Promise<CityData[]> {
 
           const desc = typeof c.description === 'string' && c.description.trim().length > 10
             ? c.description.trim()
-            : `Drive Shine provides professional Pre-Delivery Inspection (PDI) services for new and used cars across ${c.name}. 150+ point inspection with digital paint meter and OBD scanner.`;
+            : `Drive Shine provides professional Pre-Delivery Inspection (PDI) services for new and used cars across ${c.name}. 150+ point inspection with digital paint meter and electrical audits.`;
 
           return {
             id: c.id,

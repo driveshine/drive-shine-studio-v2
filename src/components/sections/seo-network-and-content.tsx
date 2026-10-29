@@ -57,10 +57,6 @@ const inspectionCategories = [
     points: "Ground scraping marks, floorboard rust, exhaust line mounts, catalytic converter",
   },
   {
-    title: "OBD-II Diagnostic Scan",
-    points: "ECU error code scan, electronic module status, odometer rollback verification",
-  },
-  {
     title: "VIN & Documentation Check",
     points: "Form 22, engine & chassis number match, manufacturing month/year decoder",
   },
@@ -308,7 +304,7 @@ export function SeoNetworkAndContent() {
               </div>
               <h3 className="font-display font-bold text-lg text-ink mb-2">Professional Inspection Tools</h3>
               <p className="text-xs sm:text-sm text-ink-muted leading-relaxed">
-                Our inspection process includes precision tools such as digital paint thickness gauges (Elcometers) and OBD scanners.
+                Our inspection process includes precision tools such as digital paint thickness gauges (Elcometers).
               </p>
             </div>
 

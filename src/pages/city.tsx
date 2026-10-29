@@ -51,7 +51,7 @@ export default function CityPage({ citySlugOverride }: CityPageProps = {}) {
         }
         metaDesc.setAttribute(
           'content',
-          `Professional car PDI in ${data.name}. 150+ point pre-delivery inspection with digital paint gauge, OBD-II scanner & instant WhatsApp report. Call 94946 42244.`
+          `Professional car PDI in ${data.name}. 150+ point pre-delivery inspection with digital paint gauge, full electrical check & instant WhatsApp report. Call 94946 42244.`
         );
 
         // Inject / update dynamic city JSON-LD
@@ -184,7 +184,7 @@ export default function CityPage({ citySlugOverride }: CityPageProps = {}) {
                 </div>
                 <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-carbon-800 border border-hairline text-ink">
                   <Cpu className="w-4 h-4 text-red shrink-0" />
-                  <span className="text-xs sm:text-sm font-semibold">OBD-II Diagnostics</span>
+                  <span className="text-xs sm:text-sm font-semibold">12V Electricals</span>
                 </div>
                 <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-carbon-800 border border-hairline text-ink">
                   <ShieldCheck className="w-4 h-4 text-red shrink-0" />
@@ -317,13 +317,13 @@ export default function CityPage({ citySlugOverride }: CityPageProps = {}) {
                 <Cpu className="w-5 h-5" />
               </div>
               <h3 className="font-display font-extrabold text-lg text-ink mb-2">
-                ECU Error Codes &amp; Battery Drain
+                Battery Drain &amp; Electrical Health
               </h3>
               <p className="text-ink-muted text-sm leading-relaxed mb-4 flex-1">
-                Modern cars house 40+ onboard microprocessors. Vehicles sitting in regional dealer stockyards for months suffer from drained 12V batteries and latent diagnostic trouble codes (DTCs) that our OBD-II diagnostic tool immediately detects.
+                Modern cars house dozens of onboard microprocessors and electronic modules. Vehicles sitting in regional dealer stockyards for months often suffer from drained 12V batteries and electrical anomalies that our tests identify.
               </p>
               <div className="pt-3 border-t border-hairline flex items-center gap-2 text-xs font-bold text-red">
-                <Check className="w-4 h-4" /> Full Electronic DTC Scan
+                <Check className="w-4 h-4" /> Comprehensive Electrical Health Audit
               </div>
             </div>
 
@@ -420,25 +420,25 @@ export default function CityPage({ citySlugOverride }: CityPageProps = {}) {
               <div className="flex items-center gap-3 mb-4">
                 <span className="w-8 h-8 rounded-lg bg-red text-white text-xs flex items-center justify-center font-bold">3</span>
                 <h3 className="font-display font-extrabold text-base text-ink">
-                  OBD-II Diagnostic Scan
+                  12V Battery &amp; Electricals
                 </h3>
               </div>
               <ul className="space-y-2.5 text-xs sm:text-sm text-ink-soft">
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                  <span>ECU diagnostic scan for active and historical error codes</span>
+                  <span>12V auxiliary battery resting voltage &amp; load health</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                  <span>Digital odometer tamper check &amp; transit distance match</span>
+                  <span>Digital odometer verification &amp; transit distance match</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                  <span>Transmission module, steering angle sensor readiness</span>
+                  <span>Headlights, DRLs, fog lamps, indicators &amp; tail clusters</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600 mt-0.5 shrink-0" />
-                  <span>Airbag deployment sensors and ABS module sanity</span>
+                  <span>Infotainment, power windows, central locking &amp; sensors</span>
                 </li>
               </ul>
             </div>
