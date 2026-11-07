@@ -63,10 +63,53 @@ export function BookingForm({
   const uid = useId();
   const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
   const [showModal, setShowModal] = useState(false);
+  const [detectingLocation, setDetectingLocation] = useState(false);
+
+  const handleDetectLocation = () => {
+    if (typeof window === "undefined" || !navigator.geolocation) {
+      toast.error("Geolocation is not supported by your browser");
+      return;
+    }
+    setDetectingLocation(true);
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const { latitude, longitude } = pos.coords;
+        try {
+          const res = await fetch(
+            `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+          );
+          const data = await res.json();
+          const a = data.address || {};
+          const area = a.suburb || a.neighbourhood || a.commercial || a.residential || a.road || a.quarter;
+          const city = a.city || a.town || a.county || defaultCity;
+          const place = [area, city].filter(Boolean).join(", ");
+          const finalLocation = place || data.display_name?.split(",").slice(0, 3).join(",") || `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+          setValue("location", finalLocation, { shouldValidate: true, shouldDirty: true });
+          toast.success(`📍 Location detected: ${finalLocation}`);
+        } catch {
+          const coords = `${latitude.toFixed(4)}, ${longitude.toFixed(4)}`;
+          setValue("location", coords, { shouldValidate: true, shouldDirty: true });
+          toast.success(`📍 GPS coordinates captured: ${coords}`);
+        } finally {
+          setDetectingLocation(false);
+        }
+      },
+      (err) => {
+        setDetectingLocation(false);
+        if (err.code === err.PERMISSION_DENIED) {
+          toast.error("Location permission denied. Please enter showroom address manually.");
+        } else {
+          toast.error("Could not capture GPS location. Please enter manually.");
+        }
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 60000 }
+    );
+  };
   const {
     register,
     handleSubmit,
     reset,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
