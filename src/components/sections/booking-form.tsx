@@ -27,17 +27,22 @@ type FormValues = z.infer<typeof schema>;
 function Field({
   label,
   error,
+  action,
   children,
   className,
 }: {
   label: string;
   error?: string | undefined;
+  action?: React.ReactNode;
   children: React.ReactNode;
   className?: string | undefined;
 }) {
   return (
     <div className={cn("relative", className)}>
-      <label className="mono-label mb-2 block text-black">{label}</label>
+      <div className="flex items-center justify-between mb-2">
+        <label className="mono-label block text-black">{label}</label>
+        {action}
+      </div>
       {children}
       {error && <p className="mono-label mt-2 text-red">{error}</p>}
     </div>
@@ -311,13 +316,48 @@ export function BookingForm({
               {...register("email")}
             />
           </Field>
-          <Field label="Inspection Location *" error={errors.location?.message}>
-            <input
-              id={`${uid}-location`}
-              className={inputClass}
-              placeholder="Showroom name, address or area (e.g. Kondapur, Hyderabad)"
-              {...register("location")}
-            />
+          <Field
+            label="Inspection Location *"
+            error={errors.location?.message}
+            action={
+              <button
+                type="button"
+                onClick={handleDetectLocation}
+                disabled={detectingLocation}
+                className="inline-flex items-center gap-1.5 px-3 py-1 text-xs font-bold text-white bg-red hover:bg-red/90 active:scale-95 transition-all rounded-full shadow-sm cursor-pointer"
+                title="Capture Current GPS Location (Rapido style)"
+              >
+                {detectingLocation ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <span>Detecting…</span>
+                  </>
+                ) : (
+                  <>
+                    <MapPin className="w-3.5 h-3.5" />
+                    <span>📍 Use Current Location</span>
+                  </>
+                )}
+              </button>
+            }
+          >
+            <div className="relative">
+              <input
+                id={`${uid}-location`}
+                className={cn(inputClass, "pr-10")}
+                placeholder="Showroom name, address or area (e.g. Kondapur, Hyderabad)"
+                {...register("location")}
+              />
+              <button
+                type="button"
+                onClick={handleDetectLocation}
+                disabled={detectingLocation}
+                className="absolute right-0 top-1/2 -translate-y-1/2 p-2 text-red hover:opacity-75 active:scale-90 transition-all cursor-pointer"
+                title="Tap to capture current location"
+              >
+                {detectingLocation ? <Loader2 className="w-5 h-5 animate-spin" /> : <MapPin className="w-5 h-5" />}
+              </button>
+            </div>
           </Field>
         </div>
       </fieldset>
