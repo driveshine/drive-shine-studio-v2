@@ -2,7 +2,7 @@ import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Calendar, Car, CheckCircle2, Loader2, MapPin, PhoneCall, RotateCcw } from "lucide-react";
+import { Calendar, Car, CheckCircle2, Loader2, MapPin, MessageCircle, PhoneCall, RotateCcw, X } from "lucide-react";
 import { toast } from "sonner";
 import { DsButton } from "@/components/ui/ds-button";
 import { cn } from "@/lib/utils";
@@ -62,6 +62,7 @@ export function BookingForm({
 }: BookingFormProps = {}) {
   const uid = useId();
   const [submittedData, setSubmittedData] = useState<FormValues | null>(null);
+  const [showModal, setShowModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -91,7 +92,7 @@ export function BookingForm({
         notes: values.notes,
         sourceUrl: sourceUrl || (typeof window !== "undefined" ? window.location.pathname : "/"),
       });
-      toast.success("Booking request received! Our executive will call you shortly.");
+      toast.success("Booking request received! Our team will contact you shortly.");
     } catch {
       // Continue gracefully even if network issue occurs
     }
